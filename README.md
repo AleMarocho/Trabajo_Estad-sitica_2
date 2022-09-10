@@ -35,7 +35,7 @@ Escogimos esta base de datos, puesto que se trata de índice denominado como Gen
 ### **Variable independiente 3:**
 ### Porcentaje de mujeres parlamentarias a nivel mundial
 - La variable será extraída de OECD DATA (archivo DP_LIVE_10092022095631507.csv)
-- La participación de mujeres en el campo de la política es otro ámbito en. A mi parecer, la representatividad de la mujer 
+- Finalmente, la participación de mujeres en el campo de la política es otro ámbito donde existe una notable desigualdad de género. A pesar de que, a lo largo de la historia, hay existido reconocidas mujeres que se han desenvuelto en el campo de la política, la representatividad de las mujeres en general no deja de ser escasa. Esta variable aporta de gran manera a la dependiente, puesto que permite 
 
 # **Melany Rodriguez**
 
