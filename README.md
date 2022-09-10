@@ -24,13 +24,24 @@ Escogimos esta base de datos, puesto que se trata de índice denominado como Gen
 
 
 # **Alessandra Marocho**
+### **Variable independiente 1:**
+### Proporción de tiempo dedicado a trabajo no remunerado entre mujeres y hombres
 
-Variable independiente 1a: justificación
-Variable independiente 2a: justificación
-Variable independiente 3a: justificación
+- La variable será extraída de OECD Gender, Institutions and Development Database (archivo female-to-male-ratio-of-time.csv)
+- Se seleccionó esta variable porque aborda uno de las situaciones en las que se hace más notoria la desigualdad de género. El desarrollo de las mujeres en el ámbito laboral se suele ver frenado por el tiempo que también deben invertir en actividades no remuneradas, tales como el cuidado de los hijos y tareas domésticas. Esta variable puede reflejar, a su vez, la mayor desproporción en algunos países sobre otros. Por ejemplo, la influencia de una tradición patriarcal o desenvolvimiento de la mujer únicamente en un ambiente doméstico pueden ser algunas de las explicaciones para el incremento de esta brecha en algunos territorios.
 
+### **Variable independiente 2:**
+### Porcentaje de jóvenes en edad de asistir a la escuela secundaria que no lo hacen.
 
--     Melany Rodriguez
+- La variable será extraída de UNESCO World Inequality Database on Education (archivo WIDE_2021-01-28_v1.xlsx)
+- La educación es otro ámbito en el que se manifiesta una fuerte desigualdad de género. Ciertamente, en muchas sociedades el acceso a esta sin una diferencia hecha por una cuestión de género se ha incrementado. No obstante, la reducción de esta disparidad no es una realidad evidente en todas las regiones del mundo. Los motivos por las que una persona en edad para estudiar no asiste a una escuela secundaria son diversos, pero, en cuestiones de género, pueden ser a consecuencia de embarazos adolescentes, el privilegio hacia los hijos varones en este aspecto, entre otros. Por ello, creo que esta puede ser una variable clave cuando se habla sobre desigualdad de género. 
+
+### **Variable independiente 3:**
+### Porcentaje de mujeres parlamentarias a nivel mundial
+- La variable será extraída de OECD DATA (archivo DP_LIVE_10092022095631507.csv)
+- La participación de mujeres en el campo de la política es otro ámbito en. A mi parecer, la representatividad de la mujer 
+
+# **Melany Rodriguez**
 
 -     Variable independiente 1c: índice de fertilidad
 JUSTIFICACIÓN:
@@ -49,7 +60,7 @@ JUSTIFICACIÓN
 Países con un menor crecimiento demográfico, serían más propensos a tener menor desigualdad de género. En este sentido, considero que si un país está pasando por una caída demográfica, por distintas razones, significa que las mujeres están priorizando externalidades antes que tener hijos, entre ellos, continuar una carrera, concentración en el trabajo, y en general, menos tiempo para pensar en formar una familia. Y, por lo tanto, una mujer enfocada en metas personas, compite en diversos ámbitos, entre ellos el género opuesto, y con el tiempo que tienen tratan de disminuir esas brechas.
 
 
-Mayeli Charra
+# **Mayeli Charra**
 
 Variable independiente 1b: gender inequality in education 
 Variable independiente 2b: motherhood
