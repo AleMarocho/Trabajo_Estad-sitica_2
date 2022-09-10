@@ -1,4 +1,4 @@
-# $ Trabajo_Estadistica_2 $ 
+#  Trabajo_Estadistica_2
 
 # **Integrantes:**
 - Alessandra Marocho Pacheco (20201319)
@@ -54,13 +54,25 @@ Países con un menor crecimiento demográfico, serían más propensos a tener me
 
 # **Mayeli Charra**
 
-### **Variable independiente 1b: Índice de paridad de género. Matriculación de primaria y secundaria.**
-- La presente data de esta variable se extraerá de The World Bank. (API_SE.ENR.PRSC.FM.ZS_DS2_en_csv_v2_4354155.csv)
+### **Variable independiente 1b:**
+### Índice de paridad de género. Matriculación de primaria y secundaria.
+- La presente data de esta variable se extraerá de The World Bank. (API_SE.ENR.PRSC.FM.ZS_DS2_en_csv_v2_4354155.csv).
 JUSTIFICACION: 
 - 
+
+
+### **Variable independiente 2b:**
+### Índice de militarización global. 
+- Para esta variable se extraen los datos del Bonn International Centre for Conflict Studies (GMI-2021-all-years.xlsx).
+JUSTIFICACION: 
 - 
 
-Variable independiente 2b: 
-Variable independiente 3b: women economic rights
+### **Variable independiente 3b:**
+### Measure of a country’s economic rights for women. 
+- Por último para esta variable se obtuvo los datos de The CIRI Human Rights Dataset (CIRI Data 1981_2011 2014.04.14.csv).
+JUSTIFICACION: 
+- 
+
+
 
 
