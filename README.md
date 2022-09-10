@@ -23,7 +23,7 @@ Variable independiente 2a: justificación
 Variable independiente 3a: justificación
 
 
-Melany Rodriguez
+-  Melany Rodriguez
 
 Variable independiente 1c: índice de fertilidad
 JUSTIFICACIÓN:
