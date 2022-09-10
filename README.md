@@ -1,4 +1,4 @@
-# Trabajo_Estad-sitica_2
+# Trabajo_Estadistica_2
 
 Integrantes: 
 - Alessandra Marocho Pacheco (20201319)
