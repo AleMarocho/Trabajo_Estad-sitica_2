@@ -23,7 +23,7 @@ Escogimos esta base de datos, puesto que se trata de índice denominado como Gen
 -       Variables independientes:
 
 
-*Alessandra Marocho*
+# **Alessandra Marocho**
 
 Variable independiente 1a: justificación
 Variable independiente 2a: justificación
