@@ -57,21 +57,23 @@ Países con un menor crecimiento demográfico, serían más propensos a tener me
 ### **Variable independiente 1b:**
 ### Índice de paridad de género. Matriculación de primaria y secundaria.
 - La presente data de esta variable se extraerá de The World Bank. (API_SE.ENR.PRSC.FM.ZS_DS2_en_csv_v2_4354155.csv).
-JUSTIFICACION: 
-- Considero que es importante conocer qué tan significativo puede ser la dimensión educativa para explicar la desigualdad de género. Además la desigualdad de género puede ser abordada desde diferentes dimensiones siendo la oportunidad de acceder a educación uno de estos. De manera que el índice de paridad de género en la matriculación de primaria y secundaria puede contribuir a comprender como su disminución puede lograr  una mejora en el status y capacidades de las mujeres. Por ello que tomar en cuenta especialmente los primeros años de educativos parece crucial para comprender la desigualdad de género que luego se prolonga en toda la vida de las mujeres, siendo estas últimas las menos favorecidas al acceso a la educación especialmente las que pertenecen a los estratos económicos más bajos, quienes presentan mayor vulnerabilidad. 
 
+JUSTIFICACION: 
+- Considero que es importante conocer qué tan significativo puede ser la dimensión educativa para explicar la desigualdad de género. Además la desigualdad de género puede ser abordada desde diferentes dimensiones siendo la oportunidad de acceder a educación uno de estos. De manera que el índice de paridad de género en la matriculación de primaria y secundaria puede contribuir a comprender cómo la paridad de género puede lograr probablemente una mejora en el status y capacidades de las mujeres. Por ello que tomar en cuenta especialmente los primeros años de educativos parece crucial para comprender la desigualdad de género que luego se prolonga en toda la vida de las mujeres, siendo estas últimas las menos favorecidas especialmente las que pertenecen a los estratos económicos más bajos, quienes presentan mayor vulnerabilidad en cuanto al acceso a la educación. 
 
 
 ### **Variable independiente 2b:**
 ### Índice de militarización global. 
 - Para esta variable se extraen los datos del Bonn International Centre for Conflict Studies (GMI-2021-all-years.xlsx).
+
 JUSTIFICACION: 
-- La presente variable es un índice preparado con tres elementos relacionados a la militarización: entre estos se encuentran el gasto militar con respecto a todo el PBI y el gasto en salud. Además considera el personal militar y las armas potentes en relación a la población total. Trás la revisión de literatura que sugiere una relación positiva entre la militarización y la desigualdad de género considero que el índice militar puede influir en la variable independiente porque la militarización suele ser una institución dominada por los hombres a la que se le asignan más presupuesto frente a otras  relacionadas con beneficiar a las mujeres haciendo evidente cómo este ámbito hace evidente el incremento en la brecha de género. 
+- La presente variable es un índice preparado con tres elementos relacionados a la militarización: entre estos se encuentran el gasto militar con respecto a todo el PBI y el gasto en salud. Además considera el personal militar y las armas potentes en relación a la población total. Trás la revisión de literatura que sugiere una relación positiva entre la militarización y la desigualdad de género considero que el índice militar puede influir en la variable independiente porque la militarización suele ser una institución dominada por los hombres a la que se le asignan más presupuesto frente a otras  relacionadas con beneficiar a las mujeres poniendo en evidencia cómo este ámbito puede incurrir posiblemente en el incremento en la brecha de género. 
 
 
 ### **Variable independiente 3b:**
 ### Measure of a country’s economic rights for women. 
 - Por último para esta variable se obtuvo los datos de The CIRI Human Rights Dataset (CIRI Data 1981_2011 2014.04.14.csv).
+
 JUSTIFICACION: 
 - Por último  esta variable cuenta con datos respecto a un número de acceso a ciertos derechos en el ámbito económico en los diferentes países del mundo. De manera que considero que este puede impactar significativamente en la variable dependiente, debido a que en otros estudios por lo general el ámbito económico resulta crucial para explicar la desigualdad de género ya que este aspecto suele relacionarse con mayor independencia de las mujeres y por tanto menos dependencia en otros lo que le permite mejorar la brecha de género. Además la variable resulta importante porque la garantía de estos derechos económicos internacionales en ciertos países en comparación con los que no, permitiría posiblemente comprender el impacto del acceso a estos derechos económicos en mayor medida y cómo impacta en la desigualdad de género.
 
