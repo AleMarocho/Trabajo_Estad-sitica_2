@@ -8,8 +8,9 @@
 # **Selección del tema:**
 
 El tema está referido a los posibles factores que influyen en la desigualdad de género a nivel global. 
-Como grupo, escogimos este tema, puesto que, a pesar de encontrarnos en el siglo XXI y haber sido testigos de muchos movimientos sociales en favor, las barreras con respecto a esta problemática aún son notorias dentro de distintos ámbitos, tales como el laboral, político, económico, etc. La igualdad de género se encuentra catalogada entre los objetivos de desarrollo sostenible 
-Además, el desarrollo de la perspectiva feminista en las Relaciones Internacionales, provee una aporte a entender género como categoría de análisis de un constructo social en su análisis de diferentes temáticas como en política exterior, política económica internacional, y seguridad internacional. De forma que este acercamiento de la teoría a la problemática despierta nuestro interés por conocer las distintas variables que probablemente puedan explicar la desigualdad de género a nivel global. Resaltamos por ello la importancia de las contribuciones de la perspectiva feminista en las Relaciones Internacionales, a la disciplina y en la práctica de la política internacional.
+
+Como grupo, escogimos este tema, puesto que, a pesar de encontrarnos en el siglo XXI, las barreras con respecto a esta problemática aún son notorias dentro de distintos ámbitos en nuestra sociedad, tales como el laboral, político, económico, etc. La igualdad de género se encuentra catalogada entre los objetivos de desarrollo sostenible para la agenda 2030, demostrando lo clave que es enfrentar las situaciones que perpetúan un brecha entre hombres y mujeres con el fin de asegurar una mejor calidad de vida para miles de mujeres. Asimismo, conocer cuál es el estado de distintos factores que repercuten en la desigualdad de género es clave para conocer el estado y el avance que se ha realizdo con respecto a este tema durante los últimos años.
+Además, el desarrollo de la perspectiva feminista en las Relaciones Internacionales provee un aporte para entender el género como categoría de análisis de un constructo social en su análisis de diferentes temáticas como en política exterior, política económica internacional, y seguridad internacional. De forma que este acercamiento de la teoría a la problemática despierta nuestro interés por conocer las distintas variables que probablemente puedan explicar la desigualdad de género a nivel global. Resaltamos por ello la importancia de las contribuciones de la perspectiva feminista en las Relaciones Internacionales, a la disciplina y en la práctica de la política internacional.
 
 # **La variable dependiente:**
 ### LA DESIGUALDAD DE GÉNERO
@@ -57,23 +58,21 @@ Países con un menor crecimiento demográfico, serían más propensos a tener me
 ### **Variable independiente 1b:**
 ### Índice de paridad de género. Matriculación de primaria y secundaria.
 - La presente data de esta variable se extraerá de The World Bank. (API_SE.ENR.PRSC.FM.ZS_DS2_en_csv_v2_4354155.csv).
-
 JUSTIFICACION: 
-- Considero que es importante conocer qué tan significativo puede ser la dimensión educativa para explicar la desigualdad de género. Además la desigualdad de género puede ser abordada desde diferentes dimensiones siendo la oportunidad de acceder a educación uno de estos. De manera que el índice de paridad de género en la matriculación de primaria y secundaria puede contribuir a comprender cómo la paridad de género puede lograr probablemente una mejora en el status y capacidades de las mujeres. Por ello que tomar en cuenta especialmente los primeros años de educativos parece crucial para comprender la desigualdad de género que luego se prolonga en toda la vida de las mujeres, siendo estas últimas las menos favorecidas especialmente las que pertenecen a los estratos económicos más bajos, quienes presentan mayor vulnerabilidad en cuanto al acceso a la educación. 
+- Considero que es importante conocer qué tan significativo puede ser la dimensión educativa para explicar la desigualdad de género. Además la desigualdad de género puede ser abordada desde diferentes dimensiones siendo la oportunidad de acceder a educación uno de estos. De manera que el índice de paridad de género en la matriculación de primaria y secundaria puede contribuir a comprender como su disminución puede lograr  una mejora en el status y capacidades de las mujeres. Por ello que tomar en cuenta especialmente los primeros años de educativos parece crucial para comprender la desigualdad de género que luego se prolonga en toda la vida de las mujeres, siendo estas últimas las menos favorecidas al acceso a la educación especialmente las que pertenecen a los estratos económicos más bajos, quienes presentan mayor vulnerabilidad. 
+
 
 
 ### **Variable independiente 2b:**
 ### Índice de militarización global. 
 - Para esta variable se extraen los datos del Bonn International Centre for Conflict Studies (GMI-2021-all-years.xlsx).
-
 JUSTIFICACION: 
-- La presente variable es un índice preparado con tres elementos relacionados a la militarización: entre estos se encuentran el gasto militar con respecto a todo el PBI y el gasto en salud. Además considera el personal militar y las armas potentes en relación a la población total. Trás la revisión de literatura que sugiere una relación positiva entre la militarización y la desigualdad de género considero que el índice militar puede influir en la variable independiente porque la militarización suele ser una institución dominada por los hombres a la que se le asignan más presupuesto frente a otras  relacionadas con beneficiar a las mujeres poniendo en evidencia cómo este ámbito puede incurrir posiblemente en el incremento en la brecha de género. 
+- La presente variable es un índice preparado con tres elementos relacionados a la militarización: entre estos se encuentran el gasto militar con respecto a todo el PBI y el gasto en salud. Además considera el personal militar y las armas potentes en relación a la población total. Trás la revisión de literatura que sugiere una relación positiva entre la militarización y la desigualdad de género considero que el índice militar puede influir en la variable independiente porque la militarización suele ser una institución dominada por los hombres a la que se le asignan más presupuesto frente a otras  relacionadas con beneficiar a las mujeres haciendo evidente cómo este ámbito hace evidente el incremento en la brecha de género. 
 
 
 ### **Variable independiente 3b:**
 ### Measure of a country’s economic rights for women. 
 - Por último para esta variable se obtuvo los datos de The CIRI Human Rights Dataset (CIRI Data 1981_2011 2014.04.14.csv).
-
 JUSTIFICACION: 
 - Por último  esta variable cuenta con datos respecto a un número de acceso a ciertos derechos en el ámbito económico en los diferentes países del mundo. De manera que considero que este puede impactar significativamente en la variable dependiente, debido a que en otros estudios por lo general el ámbito económico resulta crucial para explicar la desigualdad de género ya que este aspecto suele relacionarse con mayor independencia de las mujeres y por tanto menos dependencia en otros lo que le permite mejorar la brecha de género. Además la variable resulta importante porque la garantía de estos derechos económicos internacionales en ciertos países en comparación con los que no, permitiría posiblemente comprender el impacto del acceso a estos derechos económicos en mayor medida y cómo impacta en la desigualdad de género.
 
