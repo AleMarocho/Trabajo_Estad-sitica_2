@@ -1,4 +1,4 @@
-# Trabajo_Estadistica_2
+# $ Trabajo_Estadistica_2 $ 
 
 # **Integrantes:**
 - Alessandra Marocho Pacheco (20201319)
@@ -54,8 +54,13 @@ Países con un menor crecimiento demográfico, serían más propensos a tener me
 
 # **Mayeli Charra**
 
-Variable independiente 1b: gender inequality in education 
-Variable independiente 2b: motherhood
+### **Variable independiente 1b: Índice de paridad de género. Matriculación de primaria y secundaria.**
+- La presente data de esta variable se extraerá de The World Bank. (API_SE.ENR.PRSC.FM.ZS_DS2_en_csv_v2_4354155.csv)
+JUSTIFICACION: 
+- 
+- 
+
+Variable independiente 2b: 
 Variable independiente 3b: women economic rights
 
 
