@@ -5,9 +5,11 @@ Integrantes:
 - Melany Victoria Rodriguez Vargas (20202245)
 - Mayeli Gladys Charra Huaman (20200275)
 
-Selección de tema:
+Selección del tema: 
+El tema está referido a los posibles factores que influyen en la desigualdad de género a nivel global. 
+Como grupo, escogimos este tema, puesto que, a pesar de encontrarnos en el siglo XXI y haber sido testigos de muchos movimientos sociales en favor, las barreras con respecto a esta problemática aún son notorias dentro de distintos ámbitos, tales como el laboral, político, económico, etc. La igualdad de género se encuentra catalogada entre los objetivos de desarrollo sostenible 
+Además, el desarrollo de la perspectiva feminista en las Relaciones Internacionales, provee una aporte a entender género como categoría de análisis de un constructo social en su análisis de diferentes temáticas como en política exterior, política económica internacional, y seguridad internacional. De forma que este acercamiento de la teoría a la problemática despierta nuestro interés por conocer las distintas variables que probablemente puedan explicar la desigualdad de género a nivel global. Resaltamos por ello la importancia de las contribuciones de la perspectiva feminista en las Relaciones Internacionales, a la disciplina y en la práctica de la política internacional.
 
-El tema elegido es
 
 La variable dependiente es:
 
