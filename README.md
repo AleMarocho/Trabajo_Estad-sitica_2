@@ -5,15 +5,22 @@ Integrantes:
 - Melany Victoria Rodriguez Vargas (20202245)
 - Mayeli Gladys Charra Huaman (20200275)
 
-Selección de tema:
+-       Selección del tema: 
 
-El tema elegido es
+El tema está referido a los posibles factores que influyen en la desigualdad de género a nivel global. 
+Como grupo, escogimos este tema, puesto que, a pesar de encontrarnos en el siglo XXI y haber sido testigos de muchos movimientos sociales en favor, las barreras con respecto a esta problemática aún son notorias dentro de distintos ámbitos, tales como el laboral, político, económico, etc. La igualdad de género se encuentra catalogada entre los objetivos de desarrollo sostenible 
+Además, el desarrollo de la perspectiva feminista en las Relaciones Internacionales, provee una aporte a entender género como categoría de análisis de un constructo social en su análisis de diferentes temáticas como en política exterior, política económica internacional, y seguridad internacional. De forma que este acercamiento de la teoría a la problemática despierta nuestro interés por conocer las distintas variables que probablemente puedan explicar la desigualdad de género a nivel global. Resaltamos por ello la importancia de las contribuciones de la perspectiva feminista en las Relaciones Internacionales, a la disciplina y en la práctica de la política internacional.
 
-La variable dependiente es:
 
-- La variable será extraida de . Se seleccionó la variable debido a
+-       La variable dependiente es:
 
-Variables independientes:
+-       La desigualdad de género
+
+La variable será extraída del Internacional Monetary Fund (archivo imf-dm-export-20220910.xls)
+Escogimos esta base de datos, puesto que se trata de índice denominado como Gender Inequality Index (GII) Time Consistent. Es un índice con gran representatividad, ya que considera la salud reproductiva en la que influyen valores como la mortalidad materna y fertilidad adolescente. Se considera también el empoderamiento femenino y el mercado laboral. Abarca principalmente las oportunidades y resultados. Se considera la data más completa, por lo que el análisis posterior contará con más información y representatividad para explicar modelos eventuales. Este índice varía de 0 a 1 y mientras más cercano a 1 sea, significa mayor desigualdad de género.
+
+
+-       Variables independientes:
 
 
 Alessandra Marocho
