@@ -32,7 +32,7 @@ Escogimos esta base de datos, puesto que se trata de índice denominado como Gen
 ### **Variable independiente 2:**
 ### Porcentaje de jóvenes en edad de asistir a la escuela secundaria que no lo hacen.
 
-- La variable será extraída de UNESCO World Inequality Database on Education (archivo WIDE_2021-01-28_v1.xlsx)
+- La variable será extraída de UNESCO World Inequality Database on Education (archivo WIDE_2021-01-28_v1.csv)
 - La educación es otro ámbito en el que se manifiesta una fuerte desigualdad de género. Ciertamente, en muchas sociedades el acceso a esta sin una diferencia hecha por una cuestión de género se ha incrementado. No obstante, la reducción de esta disparidad no es una realidad evidente en todas las regiones del mundo. Los motivos por las que una persona en edad para estudiar no asiste a una escuela secundaria son diversos, pero, en cuestiones de género, pueden ser a consecuencia de embarazos adolescentes, el privilegio hacia los hijos varones en este aspecto, entre otros. Por ello, creo que esta puede ser una variable clave cuando se habla sobre desigualdad de género. 
 
 ### **Variable independiente 3:**
