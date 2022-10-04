@@ -22,12 +22,12 @@ Escogimos esta base de datos, puesto que se trata de índice denominado como Gen
 
 # **Variables independientes:**
 
-# **Alessandra Marocho**
-### **Variable independiente 1:**
-### Proporción de tiempo dedicado a trabajo no remunerado entre mujeres y hombres
+### **Variable independiente 1: (modificada)**
+### Índice de derechos civiles
 
-- La variable será extraída de OECD Gender, Institutions and Development Database (archivo female-to-male-ratio-of-time.csv)
-- Se seleccionó esta variable porque aborda uno de las situaciones en las que se hace más notoria la desigualdad de género. El desarrollo de las mujeres en el ámbito laboral se suele ver frenado por el tiempo que también deben invertir en actividades no remuneradas, tales como el cuidado de los hijos y tareas domésticas. Esta variable puede reflejar, a su vez, la mayor desproporción en algunos países sobre otros. Por ejemplo, la influencia de una tradición patriarcal o desenvolvimiento de la mujer únicamente en un ambiente doméstico pueden ser algunas de las explicaciones para el incremento de esta brecha en algunos territorios.
+- La variable será extraída de Our World in Data (archivo civil-rights-bti.csv)
+- Se seleccionó esta base de datos porque el principal aspecto que la compone es el nivel en el que los derechos civiles se encuentran reflejados en la ley de cada país. Frente a ello, esta variable puede ser relacionada con la desigualdad de género, puesto que la escasa prevención ante un caso de discriminación puede ser explicada por cuestiones de sexo. De igual manera, la se puede argumentar lo mismo ante la ausencia de respuesta por una violación a los derechos civiles. La importancia del género en la codificación de las leyes de cada país representa la comprensión y el compromiso de cada sociedad por construir un ambiente de igualdad ante la ley. 
+
 
 ### **Variable independiente 2:**
 ### Porcentaje de jóvenes en edad de asistir a la escuela secundaria que no lo hacen.
