@@ -64,8 +64,7 @@ JUSTIFICACIÓN
 ### Índice de paridad de género. Matriculación de primaria y secundaria.
 - La presente data de esta variable se extraerá de The World Bank. (API_SE.ENR.PRSC.FM.ZS_DS2_en_csv_v2_4354155.csv).
 JUSTIFICACION: 
-- Considero que es importante conocer qué tan significativo puede ser la dimensión educativa para explicar la desigualdad de género. Además la desigualdad de género puede ser abordada desde diferentes dimensiones siendo la oportunidad de acceder a educación uno de estos. De manera que el índice de paridad de género en la matriculación de primaria y secundaria puede contribuir a comprender como su disminución puede lograr  una mejora en el status y capacidades de las mujeres. Por ello que tomar en cuenta especialmente los primeros años de educativos parece crucial para comprender la desigualdad de género que luego se prolonga en toda la vida de las mujeres, siendo estas últimas las menos favorecidas al acceso a la educación especialmente las que pertenecen a los estratos económicos más bajos, quienes presentan mayor vulnerabilidad. 
-
+- Considero que es importante conocer qué tan significativo puede ser la dimensión educativa para explicar la desigualdad de género. Además la desigualdad de género puede ser abordada desde diferentes dimensiones siendo la oportunidad de acceder a educación uno de estos. De manera que el índice de paridad de género en la matriculación de primaria y secundaria puede contribuir a comprender como su disminución (de la disparidad de genero) puede lograr  una mejora en el status y capacidades de las mujeres. Por ello que tomar en cuenta especialmente los primeros años de educativos parece crucial para comprender la desigualdad de género que luego se prolonga en toda la vida de las mujeres, siendo estas últimas las menos favorecidas al acceso a la educación especialmente las que pertenecen a los estratos económicos más bajos, quienes presentan mayor vulnerabilidad. A diferencia de ver cómo se mantiene en el tiempo, conocer la matrícula nos puede decir cuánta es la intención por cerrar la brecha de género, omitiendo que por otros motivos es posible que no se mantenga en el tiempo.  
 
 
 ### **Variable independiente 2b:**
@@ -77,10 +76,12 @@ JUSTIFICACION:
 
 
 ### **Variable independiente 3b:**
-### Measure of a country’s economic rights for women. 
-- Por último para esta variable se obtuvo los datos de The CIRI Human Rights Dataset (CIRI Data 1981_2011 2014.04.14.csv).
+
+### Tipo de Régimen
+- Para esta variable se extraen los datos de POLITY IV Project (p5v2018.csv)
+
 JUSTIFICACION: 
-- Por último  esta variable cuenta con datos respecto a un número de acceso a ciertos derechos en el ámbito económico en los diferentes países del mundo. De manera que considero que este puede impactar significativamente en la variable dependiente, debido a que en otros estudios por lo general el ámbito económico resulta crucial para explicar la desigualdad de género ya que este aspecto suele relacionarse con mayor independencia de las mujeres y por tanto menos dependencia en otros lo que le permite mejorar la brecha de género. Además la variable resulta importante porque la garantía de estos derechos económicos internacionales en ciertos países en comparación con los que no, permitiría posiblemente comprender el impacto del acceso a estos derechos económicos en mayor medida y cómo impacta en la desigualdad de género.
+- La teoría sugiere que los países democráticos promueven la igualdad de género. En otras palabras, un tipo de règimen con mayor nivel de democracia está correlacionado negativamente con la variable dependiente desigualdad de género. Asimismo, en regímenes democráticos hay mayores oportunidades para las mujeres en la toma de decisiones políticas ya que hay más espacios para que se discutan sus problemáticas, mientras en regímenes más autocráticos la agenda política se encuentra más limitada y fuera del alcance de los grupos con menos poder en la contienda política. De manera que es importante considerar el tipo de régimen. A partir de la data, el tipo de régimen se encuentra en un rango. Donde  -10 se refiere a un régimen más autocrático, mientras +10 a un régimen más democratico. 
 
 
 
