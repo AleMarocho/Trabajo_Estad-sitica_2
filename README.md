@@ -17,7 +17,7 @@ Además, el desarrollo de la perspectiva feminista en las Relaciones Internacion
 # **La variable dependiente:**
 ### LA DESIGUALDAD DE GÉNERO
 
-La variable será extraída del Internacional Monetary Fund (archivo imf-dm-export-20220910.xls)
+La variable será extraída del Internacional Monetary Fund (archivo var_dependiente.xls)
 Escogimos esta base de datos, puesto que se trata de índice denominado como Gender Inequality Index (GII) Time Consistent. Es un índice con gran representatividad, ya que considera la salud reproductiva en la que influyen valores como la mortalidad materna y fertilidad adolescente. Se considera también el empoderamiento femenino y el mercado laboral. Abarca principalmente las oportunidades y resultados. Se considera la data más completa, por lo que el análisis posterior contará con más información y representatividad para explicar modelos eventuales. Este índice varía de 0 a 1 y mientras más cercano a 1 sea, significa mayor desigualdad de género.
 
 # **Variables independientes:**
