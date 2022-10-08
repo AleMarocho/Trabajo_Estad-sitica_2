@@ -1,0 +1,969 @@
+---
+title: "E2"
+author: "Alessandra, Mayeli y Melany "
+date: "2022-10-06"
+output: html_document
+---
+#Alessandra Marcela Marocho Pacheco (20201319)
+
+**VARIABLE DEPENDIENTE:**
+
+```{r}
+library(rio)
+genero = "https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/var_dependiente.xls?raw=true"
+data = import(genero)
+```
+**VARIABLES INDEPENDIENTES:**
+
+```{r setup, include=FALSE}
+edu = "https://raw.githubusercontent.com/AleMarocho/Trabajo_Estadistica_2/main/Data/Data_Alessandra/education1.csv"
+data1 = import(edu)
+```
+
+```{r}
+civil="https://raw.githubusercontent.com/AleMarocho/Trabajo_Estadistica_2/main/Data/Data_Alessandra/civil-rights-bti.csv"
+data2=import(civil)
+```
+
+```{r}
+parla="https://raw.githubusercontent.com/AleMarocho/Trabajo_Estadistica_2/main/Data/Data_Alessandra/DP_LIVE_10092022095631507.csv"
+data3=import(parla)
+```
+
+## **Limpieza de datos**
+
+**VARIABLE DEPENDIENTE**
+
+```{r}
+names(data)
+```
+```{r}
+colnames(data)[1] = "code"
+colnames(data)[2] = "Country"
+colnames(data)[26] = "genero"
+```
+
+```{r}
+head (data)
+```
+
+```{r}
+library(dplyr)
+data = select(data,code,Country,genero)
+```
+
+```{r}
+data$genero = as.numeric(data$genero)
+```
+
+```{r}
+data = na.omit(data)
+data$Country = toupper(data$Country)
+```
+
+```{r}
+library(stringr)
+data$Country = str_split(data$Country,',',simplify = T)[,1]
+```
+
+**VARIABLE INDEPENDIENTE 1**
+
+```{r}
+str(data1)
+```
+
+```{r}
+colnames(data1) = c("code", "country", "year","grade","sex","edu")
+```
+
+```{r}
+data1 = data1[complete.cases(data1$edu), ]
+data1 = data1 %>% filter(year>2010) %>% group_by(country) %>%
+        do(head( . , 1))
+```
+
+```{r}
+data1 = select (data1, -grade, -sex)
+data1$edu = data1$edu*100
+data1$country = toupper(data1$country)
+```
+
+**VARIABLE INDEPENDIENTE 2**
+
+```{r}
+names(data2)
+```
+```{r}
+colnames(data2)[1] = "Country"
+colnames(data2)[2] = "code"
+colnames(data2)[3] = "year"
+colnames(data2)[4] = "civil"
+```
+
+```{r}
+data2$civil = data2$civil
+summary(data2$civil)
+```
+
+```{r}
+data2 = filter(data2, year == 2013)
+```
+
+```{r}
+data2 = select (data2,-year)
+data2$Country = toupper(data2$Country)
+```
+
+```{r}
+data2 = na.omit(data2)
+```
+
+**VARIABLE INDEPENDIENTE 3**
+
+```{r}
+str(data3)
+```
+
+```{r}
+data3 = select(data3, LOCATION, TIME, Value)
+```
+
+```{r}
+colnames(data3)[1] = "code"
+colnames(data3)[2] = "year"
+colnames(data3)[3] = "parla"
+```
+
+```{r}
+data3 = filter(data3, year == 2019)
+data3$parla = data3$parla
+data3 = select(data3, -year)
+```
+
+```{r}
+data3 = na.omit(data3)
+```
+
+**Combinar bases de datos**
+
+```{r}
+indep=merge(data2,data3)
+str(indep)
+```
+
+```{r}
+indep1 = merge (data1, indep)
+str(indep1)
+```
+
+```{r}
+indep1 = select(indep1,-country)
+colnames(indep1)[4] = "country"
+```
+
+```{r}
+data4 = merge(data,indep1)
+str(data4)
+```
+
+```{r}
+data4 = select(data4, -year,-Country)
+data4 = select(data4, code, country, genero, edu, civil, parla)
+```
+
+**Regresión lineal múltiple**
+
+```{r}
+modelo1 = lm(genero~parla+edu++civil,data4)
+summary(modelo1)
+```
+**Interpretación:**
+
+En primer lugar, el p-value del modelo elaborado es menor a 0.05, por lo tanto, es posible afirmar que el modelo es válido. De acuerdo con el R2 ajustado, la predictibilidad del modelo es de 32%, siendo este un porcentaje bastante reducido. 
+
+Con respecto a las variables, el p-value de las variables relacionadas con educación y parlamentarias mujeres es menor a 0.05. En consecuencia, podemos afirmar que ambas aportan a nuestro modelo. No obstante, la variable relacionada con los derechos civiles es mayor, por lo que esta sería no tendría capacidad predictiva. 
+
+Es decir, el porcentaje de jóvenes con edad para asistir a la secundaria que no lo hacen es una variables que puede explicar la desigualdad de género a nivel mundial. De igual manera, el porcentaje de parlamentarias mujeres en cada país tiene la misma capacidad explicativa. 
+
+
+**SUPUESTOS:**
+
+**Linealidad**
+
+```{r}
+plot(modelo1, 1,caption = '');title(main="Linealidad")
+```
+
+```{r}
+mean (modelo1$residuals)
+```
+Con respecto a la linealidad del modelo, se observa que la línea roja se encuentra relativamente cerca del cero, aunque no completamente horizontal. Sin embargo, la diferencia no resulta ser grande. 
+Por su parte, el promedio de residuos es igual a -1.664367e-18, siendo no muy cercano 0. 
+
+**Normalidad:**
+
+```{r}
+plot(modelo1, 2, caption = '');title(main="Normalidad")
+```
+
+```{r}
+shapiro.test(modelo1$residuals)
+```
+Con respecto a la normalidad, la mayoría de los datos se concentran cerca de la recta del gráfico de cuantiles teóricos de residuos, siendo este un resultado satisfactorio. Por medio del gráfico podemos afirmar que aparentemente los residuos tienen una distribución normal. 
+
+No obstante, el p-value de la prueba Shapro-Wilk es igual a 0.0473, siendo no mayor a 0.05, que era el resultado esperado.
+
+**Homeocedasticidad:**
+```{r}
+plot(modelo1, 3, caption = '');title(main="Homocedasticidad")
+```
+
+
+```{r}
+library(lmtest)
+bptest(modelo1)
+```
+
+Con respecto a la homocedasticidad, la línea de nuestro modelo no es completamente horizontal y obsevamos que los residuos se encuentran dispersos, por lo que no podemos afirmar completamente que se cumpla el supuesto de homocedasticidad. 
+No obstante, al emplear la prueba de Breusch-Pagan el resultado obtenido si es mayor a 0.05. Por ello, podemos afirmar que se cumple con este supuesto. 
+
+**Valores influyentes:**
+
+```{r}
+plot(modelo1, 5, caption = '');title(main="Influyentes")
+```
+
+Por medio del gráfico, podemos notar que son reducidos el número de casos que se encuentran por encima de 1.LA mayoría de los casos si siguen el patrón general.
+
+**Multicolinealidad:**
+
+```{r}
+library(DescTools)
+VIF(modelo1)
+```
+
+Por medio de la prueba VIF, podemos observar que no hay correlación entre las variables independientes, puesto que todos los valores son menores a 5.
+
+-----------------------------------
+#MAYELI CHARRA
+
+### Variable Dependiente: 
+
+1. Base
+
+```{r}
+library("rio")
+desigualdad =import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/var_dependiente.xls?raw=true")
+```
+
+
+2. Renombrar indice
+
+```{r}
+colnames(desigualdad) [1] = "code"
+colnames(desigualdad) [2] = "country"
+names(desigualdad)
+```
+
+3. Eliminar columnas innecesarias (solo con 2013)
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+desigualdad = select(desigualdad, contains ("code"), contains ("2013"))
+head(desigualdad)
+```
+
+```{r}
+colnames(desigualdad) [2] = "gii"
+```
+
+
+```{r}
+desigualdad = desigualdad [-c(1, 143:157),]
+```
+
+```{r}
+tail(desigualdad)
+```
+
+
+```{r}
+desigualdad$gii =as.numeric(desigualdad$gii)
+```
+
+
+```{r}
+desigualdad <- filter(desigualdad, !is.na(desigualdad$gii))
+```
+
+
+
+### Variables independientes: 
+
+1. matricula
+
+
+```{r}
+enrollment = import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Data_Mayeli/API_SE.ENR.PRSC.FM.ZS_DS2_en_excel_v2_4522875.xls?raw=true")
+```
+
+
+```{r}
+colnames(enrollment) [1] = "country"
+colnames(enrollment) [2] = "code"
+colnames(enrollment) [4] = "indicator"
+colnames(enrollment) [8] = "gpi"
+names(enrollment)
+```
+
+
+```{r}
+enrollment = select(enrollment, contains ("code"), contains ("gpi"))
+head(enrollment)
+```
+
+
+
+```{r}
+enrollment <- filter(enrollment, !is.na(enrollment$gpi))
+```
+
+
+2. Militarizacion
+
+```{r}
+militar = import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Data_Mayeli/GMI-2021-all-years.xlsx?raw=true")
+```
+
+
+```{r}
+militar = filter(militar, year == 2013 )
+```
+
+
+```{r}
+colnames(militar) [1] = "code"
+names(militar)
+```
+
+```{r}
+militar = select(militar, contains ("code"), contains ("gmi"))
+head(militar)
+```
+
+
+
+3. Regimen 
+
+```{r}
+regimen = import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Data_Mayeli/p5v2018d.xls?raw=true")
+```
+
+```{r}
+regimen = select(regimen, contains ("scode"), contains ("byear"), contains ("polity"))
+head(regimen)
+```
+
+
+```{r}
+colnames(regimen) [2] = "year"
+colnames(regimen) [1] = "code"
+names(regimen)
+```
+
+
+
+```{r}
+regimen= regimen %>% group_by(code) %>% do(head(.,1))
+```
+
+
+
+### Base de datos: 
+
+```{r}
+base=merge(desigualdad,enrollment)
+str(base)
+```
+
+```{r}
+base1 = merge(base, militar)
+base2 = merge (base1, regimen)
+str(base2)
+```
+
+```{r}
+base_r2= merge (desigualdad, militar)
+str(base_r2)
+```
+
+```{r}
+base_r3= merge (desigualdad, regimen)
+str(base_r3)
+```
+
+
+
+## REGRESIÓN 1: 
+
+Hipótesis
+- A mayor Indice de Paridad en la Matricula (gpi) , menor sera el índice de desigualdad de género. 
+
+```{r}
+regresion1 <- lm(gii ~ gpi, data = base)
+summary(regresion1)
+```
+
+
+```{r}
+library(knitr)
+library(modelsummary)
+model1=list('GII x GPI'=regresion1)
+modelsummary(model1, title = "Regresion Lineal 1",
+             stars = TRUE,
+             output = "kableExtra")
+```
+  - Interpretación:
+  Esta regresión comprueba la hipotesis de que a cada unidad que aumente la desigualdad de género, disminuye la paridad de género (la pendiente: −1.532)en la matricula en -1.5%, ademas el modelo presenta un p.value menor a 0.05 por lo que el modelo es significativo. Tambien, lo confirman los asterisco (menos de 0.001% )que no tenga efecto. El modelo explica un 17.42% la desigualdad de género. 
+
+  
+## Regresion 2: Indice de Militarización Global (GMI)
+
+Hipótesis
+- A mayor Indice de Militarización Global (gmi) , menor será el índice de desigualdad de género (gii). 
+
+```{r}
+regresion2 <- lm(gii ~ gmi, data= base_r2)
+summary(regresion2)
+```
+
+
+```{r}
+model2=list('GII x GMI'=regresion2)
+modelsummary(model2, title = "Regresion Lineal 2",
+             stars = TRUE,
+             output = "kableExtra")
+```
+
+
+## Regresion 3:
+
+Hipótesis
+- A mayor puntuación de polity (la resta entre democracia y autocracia), menor será el índice de desigualdad de género (gii). 
+
+
+```{r}
+regresion3 <- lm(gii ~ polity, data= base2)
+summary(regresion3)
+```
+
+
+```{r}
+model3 =list('GII x polity'=regresion3)
+modelsummary(model3, title = "Regresion Lineal 3",
+             stars = TRUE,
+             output = "kableExtra")
+```
+
+
+## Regresión (todas las variables): 
+
+```{r}
+regresion_m = lm(gii ~ gpi + gmi+ polity, data= base2)
+summary(regresion_m)
+```
+
+
+```{r}
+model4 =list('GII x GPI+ GMI+ polity'=regresion_m)
+modelsummary(model4, title = "Regresion Lineal 4",
+             stars = TRUE,
+             output = "kableExtra")
+```
+
+- Interpretación: 
+
+A partir del R^ajustado se sabe que este modelo explica un 18.76% de la desigualdad de género, además el p-value es menor a 0.05 por lo que se acepta que el modelo es válido. Ahora, en cuánto a los p-value de cada variable, se sabe que el Indice de Paridad en la matricula  (gpi) es la que mas aporta, además ello se refleja con los asteriscos que quiere decir  es muy poco probable (menos de 0.05% )que no tenga efecto). Por otro lado la militarizacion(gmi) y el tipo de regimen (polity)tienen un p-value mayor a 0.05 por lo que no aportan significtivamente al modelo. Por último tenemos la siguiente ecuación: 
+
+VD = 1.62 + (−1.258* gpi) +(0* gmi)+(-0.001*polity)
+
+
+#### - Supuestos: 
+
+```{r}
+par(mfrow = c(2, 2))  
+plot(regresion_m, 1,caption = '');title(main="Linealidad")
+plot(regresion_m, 2, caption = '');title(main="Normalidad")
+plot(regresion_m, 3, caption = '');title(main="Homocedasticidad")
+plot(regresion_m, 5, caption = '');title(main="Influyentes")
+```
+
+- Interpretación: 
+
+    - Linealidad: De el último modelo con las tres variables,  se asumen una relación lineal, en el caso del modelo la linea roja tiende a ser horizontal y se encuentr cercano a 0. Solo en dos ocasiones la linea se aleja de 0, pero en general se puede asumir linealidad. 
+    
+    - Homocedasticidad: Se presenta una linea no del todo horizontal, lo que parece ligeramente que las varianzas de los errores de estimación no son constantes en el modelo de regresión. Sin embargo, al realizar la prueba nos da un p-value mayor a 0.05 lo que indica que hay homocedasticidad contradiciendo lo anterior. De manera que si presenta homocedasticidad. 
+    
+```{r}
+library(lmtest)
+bptest(regresion_m)
+```
+
+
+    - Normalidad de residuos: Los puntos de se acercan lo mas posible a la línea del gráfico, además el p-value obtenido de la prueba es mayor a 0.05. Lo que nos indica que la distancia entre el valor esperado y el observado se distribuye de manera normal. 
+    
+```{r}
+shapiro.test(regresion_m$residuals)
+```
+
+    
+    - No Multicolinealidad: Se esperan no tener una fuerte correlación entre las variables independientes. Lo cual cumple el modelo, ya que la prueba VIF no arrojó valores menores a 5.  
+
+```{r}
+library (DescTools)
+VIF(regresion_m)
+```
+
+
+## Regresion 5: 
+  
+
+```{r}
+regresion_m1 = lm(gii ~ gpi + gmi , data= base2)
+summary(regresion_m1)
+```
+
+
+
+MELANY RODRIGUEZ
+
+### Variable Dependiente: 
+
+1. Base
+
+```{r}
+library("rio")
+desi=import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/var_dependiente.xls?raw=true")
+```
+
+2. Renombrar indice
+
+```{r}
+colnames(desi) [2] = "Country"
+colnames(desi) [26] = "GI"
+names(desi)
+```
+
+3. Eliminar columnas innecesarias (solo con 2013)
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+DI = select(desi, contains ("Country"), contains ("GI"))
+head(DI)
+```
+```{r}
+DI<- filter(DI, !is.na(DI$GI))
+```
+
+```{r}
+DI = DI[-c(142:154),]
+```
+
+```{r}
+head(DI)
+```
+
+### Variables independientes: 
+
+#VARIABLE INDEPENDIENTE 1 -- ÍNDICE DE DEMOCRACIA 
+
+```{r}
+library("rio")
+demo=import("https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/Data/DATA_MELANY/democracy_index.csv")
+```
+
+```{r}
+colnames(demo) [1] = "Country"
+names(demo)
+```
+```{r}
+colnames(demo) [2] = "ID"
+```
+
+```{r}
+library(dplyr)
+demo = select(demo, contains ("Country"), contains ("ID"))
+```
+
+```{r}
+demo<- filter(demo, !is.na(demo$ID))
+```
+
+```{r}
+head(demo)
+```
+
+```{r}
+demgi=merge(DI,demo)
+str(demgi)
+```
+```{r}
+demgi$GI=as.numeric(demgi$GI)
+demgi$ID=as.numeric(demgi$ID)
+```
+
+GI=GENDER INEQUALITY
+ID=INDEX DEMOCRACY
+
+##REGRESIÓN 1
+
+Hipótesis
+- A mayor índice de democracia, menor sera el índice de desigualdad de género
+
+```{r}
+regresion1 <- lm(GI ~ ID, data = demgi)
+summary(regresion1)
+```
+
+```{r}
+library(stargazer)
+stargazer(regresion1, type="text")
+```
+
+```{r}
+library(knitr)
+library(modelsummary)
+model1=list('OLS asegurados (I)'=regresion1)
+modelsummary(model1, title = "Regresion Lineal 1",
+             stars = TRUE,
+             output = "kableExtra")
+```
+
+
+#INTERPRETACION 1-REGRESION INDEX DEMOCRACY
+La variable ID tiene efecto, es significatico, evidenciado por los asteriscos. El efecto es indirecto ya que el coeficiente es negativo, por lo que a mayor indice de democracia, menor sera el indice de desigualdad de genero. La magnitud del efecto es 
+0.057, es decir la desigualdad de genero aumenta en 0.057 en promedio cuando el indice de democracia aumenta en una unidad. 
+En cuanto al modelo el porcentaje de explicacion es de 36.2%, medido a traves del R2 ajustado. El p-valor de la variable index democracy es 1.43e-13, lo cual es menor a 0.05 y evidencia que el modelo es valido. La hipotesis se ve corroborada
+
+La relacion se ve representada en el siguiente grafico:
+- Los datos estan, en su mayoría dispersos, pero con una mayor cantidad en torno a valores entre 5.6 y 8, valores relativamente mayores de indice de democracia suelen tener una tendencia a valores menores de índice de desigualdad de genéro.
+
+- En otras palabras, mientras mayor sea el índice de democracia, menor seran las probabilidades de que se evidencie desigualdad de genero en el pais respectivo. Por lo que decirmos que esta variable impacta significativamente con un 36.2%.
+
+
+```{r}
+library(ggplot2)
+ggplot(demgi, aes(x=ID, y=GI)) + 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+
+#VARIABLE INDEPENDIENTE 2 -- ÍNDICE DE CRECIMIENTO ECONÓMICO 
+
+```{r}
+library("rio")
+creci=import("https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/Data/DATA_MELANY/crecimiento_economico.csv")
+```
+
+```{r}
+colnames(creci) [1] = "Country"
+colnames(creci) [35] = "Growth"
+names(creci)
+```
+
+```{r}
+library(dplyr)
+creci= select(creci, contains ("Country"), contains ("Growth"))
+```
+
+```{r}
+creci = creci[-c(1:2, 199:232),]
+```
+
+```{r}
+creci<- filter(creci, !is.na(creci$Growth))
+```
+
+```{r}
+head(creci)
+```
+```{r}
+cregi=merge(DI,creci)
+str(cregi)
+```
+
+```{r}
+cregi$GI=as.numeric(cregi$GI)
+cregi$Growth=as.numeric(cregi$Growth)
+```
+
+##REGRESION 2
+Hipótesis
+- A mayor índice de crecimiento economico, mayor sera el índice de desigualdad de género
+
+```{r}
+regresion2 <- lm(GI ~ Growth, data = cregi)
+summary(regresion2)
+```
+
+```{r}
+stargazer(regresion2, type="text")
+```
+
+```{r}
+model2=list('OLS asegurados (I)'=regresion2)
+modelsummary(model2, title = "Regresion Lineal 2",
+             stars = TRUE,
+             output = "kableExtra")
+```
+
+#INTERPRETACION 2-REGRESION ECONOMIC GROWTH
+La variable crecimiento economico tiene efecto, es decir, es significatico, ello evidenciado por los asteriscos (***). El efecto es directo debido a que el coeficiente es positivo. Con ello, la hipotesis se ve corroborada, a mayor indice de crecimiento economico, mayor sera el indice de desigualdad de genero. La magnitud del efecto es 0.016, es decir la desigualdad de genero aumenta en 0.016 en promedio cuando el indice de crecimiento economico aumenta en una unidad. 
+En cuanto al modelo el porcentaje de explicacion es de 15.4%, medido a traves del R2 ajustado. El p-valor de la independiente es 2.47e-08, lo cual es menor a 0.05 y evidencia que el modelo es valido. 
+
+Grafico de explicacion de la relacion:
+- Los datos estan concentrados en un lugar especifico, con una mayor cantidad en torno a valores entre 0 y 10, Se evidencia una tendencia ascendente, de relación directa, es decir, valores relativamente mayores de índice de crecimiento económico suelen tener una tendencia a valores mayores de índice de desigualdad de genéro.
+
+- En otras palabras, mientras mayor sea el índice de crecimiento económico, mayores será la indice de desigualdad social en el pais respectivo. Por lo que decirmos que esta variable impacta significativamente, sin embargo con un 15,4% de significancia.
+
+```{r}
+ggplot(cregi, aes(x=Growth, y=GI)) + 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+VARIABLE INDEPENDIENTE 3 -- PORCENTAJE DE NO AFILIADOS A RELIGIÓN ALGUNA
+
+```{r}
+library("rio")
+afi=import("https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/Data/DATA_MELANY/porcentaje_de_no_afiliados.csv")
+```
+
+```{r}
+library(dplyr)
+afi = select(afi, contains ("Country"), contains ("Unaffiliated"))
+```
+
+```{r}
+afi$Unaffiliated=str_extract_all(afi$Unaffiliated,
+"(\\-*\\d+\\.*\\d*)(?=\\%)",
+simplify = T)
+```
+
+```{r}
+afi$Unaffiliated=as.numeric(afi$Unaffiliated)
+```
+
+```{r}
+afi$Unaffiliated=afi$Unaffiliated/100
+```
+
+```{r}
+afigi=merge(DI,afi)
+str(afigi)
+```
+
+```{r}
+afigi$GI=as.numeric(afigi$GI)
+```
+
+##REGRESION 3
+Hipótesis
+- A mayor porcentaje de inafiliados, menor sera el índice de desigualdad de género
+
+```{r}
+regresion3 <- lm(GI ~ Unaffiliated, data = afigi)
+summary(regresion3)
+```
+
+```{r}
+library(stargazer)
+stargazer(regresion3, type="text")
+```
+
+```{r}
+model3=list('OLS asegurados (I)'=regresion3)
+modelsummary(model3, title = "Regresion Lineal 3",
+             stars = TRUE,
+             output = "kableExtra")
+```
+
+#INTERPRETACION 3-REGRESION UNAFFILIATED
+
+La variable no afiliados tiene efecto, es decir, es significatico, ello evidenciado por los asteriscos (***). El efecto es inverso debido a que el coeficiente es negativo. Con ello, la hipotesis se ve corroborada, a mayor porcentaje de no afiliados, menor sera el indice de desigualdad de genero. La magnitud del efecto es 0.674, es decir la desigualdad de genero aumenta en 0.674 en promedio cuando el indice de crecimiento economico aumenta en una unidad. 
+En cuanto al modelo el porcentaje de explicacion es de 21.5%, medido a traves del R2 ajustado. El p-valor de la variable independiente es 2.47e-08, lo cual es menor a 0.05 y evidencia que el modelo es valido. 
+
+Gráfico de la relación:
+- En el gráfico se evidencia de mejor manera la relacion inversa de las variables. Los datos estan concentrados en un lugar especifico, con una mayor cantidad en torno a valores entre 0 y 0.1 de no afiliados, Se evidencia una tendencia descendente, de relación indirecta, es decir, valores menores de no afiliados evidencia mayor de índice de desigualdad de genéro.
+
+- En otras palabras, mientras mayor sea el porcentaje de personas no afiliadas a religion alguna, menor seran las probabilidades de que el se evidencie desigualdad de genero en el pais respectivo. Por lo que decirmos que esta variable impacta significativamente con un 21.5%.
+
+
+```{r}
+ggplot(afigi, aes(x=Unaffiliated, y=GI)) + 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+
+```{r}
+DI$GI=as.numeric(DI$GI)
+```
+
+```{r}
+junto=merge(demgi,cregi)
+juntos=merge(junto,afigi)
+str(juntos)
+```
+
+##MODELO 4
+DEMOCRACIA Y CRECIMIENTO
+
+```{r}
+regresion4 <- lm(GI ~ ID + Growth, data = juntos)
+summary(regresion4)
+stargazer(regresion4, type="text")
+model4=list('OLS asegurados (I)'=regresion4)
+modelsummary(model4, title = "Regresion Lineal 4",
+             stars = TRUE,
+             output = "kableExtra")
+```
+
+```{r}
+library(scatterplot3d)
+G1 <- scatterplot3d(juntos[,c('ID','Growth','GI')])
+G1$plane3d(regresion4, draw_polygon = TRUE, draw_lines = FALSE)
+```
+
+#INTERPRETACION 4-REGRESION DEMOCRACY + CRECIMIENTO
+
+El modelo 4 tiene un porcentaje de explicacion es de 46.5%, medido a traves del R2 ajustado. Ambos p-valores son menores a 0.05 y se evidencia que el modelo es válido.
+
+##MODELO 5
+DEMOCRACIA Y NO AFILIADOS
+
+```{r}
+regresion5 <- lm(GI ~ ID + Unaffiliated, data = juntos)
+summary(regresion5)
+stargazer(regresion5, type="text")
+```
+
+```{r}
+library(scatterplot3d)
+G2 <- scatterplot3d(juntos[,c('ID','Unaffiliated','GI')])
+G2$plane3d(regresion5, draw_polygon = TRUE, draw_lines = FALSE)
+```
+
+#INTERPRETACION 5-REGRESION DEMOCRACY + UNAFFILIATED
+
+El modelo 5 tiene un porcentaje de explicacion es de 41.4%, medido a traves del R2 ajustado. Ambos p-valores son menores a 0.05 y se evidencia que el modelo es válido. En comparacion con el modelo 4, este modelo tiene un porcentaje de significancia ligeramente menor.
+
+##MODELO 6
+CRECIMIENTO Y NO AFILIADOS
+
+```{r}
+regresion6 <- lm(GI ~ Growth+ Unaffiliated, data = juntos)
+summary(regresion6)
+stargazer(regresion6, type="text")
+```
+
+```{r}
+G3 <- scatterplot3d(juntos[,c('Growth','Unaffiliated','GI')])
+G3$plane3d(regresion6, draw_polygon = TRUE, draw_lines = FALSE)
+```
+
+#INTERPRETACION 6-GROWTH + UNAFFILIATED
+
+El modelo 6 tiene un porcentaje de explicacion es de 34.5%, medido a traves del R2 ajustado. Ambos p-valores son menores a 0.05 y se evidencia que el modelo es válido. En comparacion con el modelo 4 y 5, este modelo tiene un porcentaje de significancia menor. 
+
+##MODELO 7
+DEMOCRACIA, CRECIMIENTO Y NO AFILIADOS
+
+```{r}
+regresion7 <- lm(GI ~ ID + Growth + Unaffiliated, data = juntos)
+summary(regresion7)
+stargazer(regresion7, type="text")
+```
+
+```{r}
+model7=list('OLS asegurados (I)'=regresion7)
+modelsummary(model7, title = "Regresion Lineal 7",
+             stars = TRUE,
+             output = "kableExtra")
+```
+
+#INTERPRETACION 7-REGRESION DEMOCRACY + GROWTH + UNAFFILIATED
+El modelo 7 tiene un porcentaje de explicacion es de 50.4%, medido a traves del R2 ajustado. Los p-valores de las variables son menores a 0.05 y se evidencia que el modelo es válido. En comparacion con los modelos anteriores, este modelo tiene un porcentaje de significancia mucho mayor. Por lo que la adicion de las variables tiene impacto.
+
+
+```{r}
+anova(regresion7, test = "Chisq") %>%
+kable(caption = "Tabla ANOVA ")%>%kableExtra::kable_styling(full_width = FALSE)
+```
+
+```{r}
+par(mfrow = c(2, 2))  
+plot(regresion7, 1,caption = '');title(main="Linealidad")
+plot(regresion7, 2, caption = '');title(main="Normalidad")
+plot(regresion7, 3, caption = '');title(main="Homocedasticidad")
+plot(regresion7, 5, caption = '');title(main="Influyentes")
+```
+##INTERPRETACION DE SUPUESTOS
+
+#LINEALIDAD
+- Hay linelidad, se espera que esten cercanos a 0 y con una linea horizontal.La linea cuenta con una tendencia horizontal, los datos estan concentrados entre valores de 0.1 y 0.6 cercanos a 0
+
+#HOMOCEDASTICIDAD
+```{r}
+library(lmtest)
+bptest(regresion7)
+```
+
+- La linea es horizontal, pero el p-valor es menor a 0.05 y se requiere mayor. No se cumple el supuesto.
+
+
+#NORMALIDAD DE RESIDUOS
+```{r}
+shapiro.test(regresion7$residuals)
+```
+- Los puntos se acercan mas a la línea del gráfico y el p-valor de la prueba ShapiroWilk es mayor a 0.05 por lo que hay normalidad de residuos.
+
+
+#NO MULTICOLINEALIDAD
+```{r}
+library(DescTools)
+VIF(regresion7)
+```
+- Los valores son menores a 5 por lo que cumple es supuesto.
+
+------------------------------
+#COMPARACIÓN DE REGRESIONES
+
+
+```{r}
+stargazer(modelo1, regresion_m, regresion7, type = "text",intercept.bottom = FALSE,style="all2")
+```
+
+#INTERPRETACION
+
+Entre los tres modelos trabajados, el modelo tres tiene mayor porcentaje de explicación. Explica un 50.4% al índice de desigualdad de género (variable dependiente). Las variables independientes consideradas son significativas, ya que al tener tres asteriscos quiere decir que es muy poco probable (menos del 0.01%) que las variables no tengan efecto en la variable dependiente. Y es el modelo es más válido. 
+
+Por otro lado, el segundo mejor modelo que explica mejor la variable dependiente es el que incluye las variables independientes (parla, edu, civil) con un 32.5% de significancia. En cuanto a las variables, dos de ellas (parla, edu) son significativas.  
+
+Y finalmente, el segundo modelo es el que menor porcentaje de explicación tiene para la variable dependiente con un 25.1% de significancia. Una de las variables independientes tienen un impacto significativo es el indice de paridad en la matricula educativa (gpi). 
+
+```{r}
+library(ggplot2)
+library(sjPlot)
+
+plot_models(modelo1,regresion_m, regresion7,vline.color = "grey",m.labels=c("Modelo 1","Modelo 2","Modelo 3"))
+```
+
+
