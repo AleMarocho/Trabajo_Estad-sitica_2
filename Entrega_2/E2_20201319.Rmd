@@ -1,0 +1,244 @@
+---
+title: "ENTREGA 2"
+output: html_document
+date: "2022-10-06"
+---
+Nombre: Alessandra Marcela Marocho Pacheco (20201319)
+
+**VARIABLE DEPENDIENTE:**
+
+```{r}
+library(rio)
+genero = "https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/var_dependiente.xls?raw=true"
+data = import(genero)
+```
+**VARIABLES INDEPENDIENTES:**
+
+```{r setup, include=FALSE}
+edu = "https://raw.githubusercontent.com/AleMarocho/Trabajo_Estadistica_2/main/Data/Data_Alessandra/education1.csv"
+data1 = import(edu)
+```
+
+```{r}
+civil="https://raw.githubusercontent.com/AleMarocho/Trabajo_Estadistica_2/main/Data/Data_Alessandra/civil-rights-bti.csv"
+data2=import(civil)
+```
+
+```{r}
+parla="https://raw.githubusercontent.com/AleMarocho/Trabajo_Estadistica_2/main/Data/Data_Alessandra/DP_LIVE_10092022095631507.csv"
+data3=import(parla)
+```
+
+## **Limpieza de datos**
+
+**VARIABLE DEPENDIENTE**
+
+```{r}
+names(data)
+```
+```{r}
+colnames(data)[1] = "code"
+colnames(data)[2] = "Country"
+colnames(data)[26] = "genero"
+```
+
+```{r}
+head (data)
+```
+
+```{r}
+library(dplyr)
+data = select(data,code,Country,genero)
+```
+
+```{r}
+data$genero = as.numeric(data$genero)
+```
+
+```{r}
+data = na.omit(data)
+data$Country = toupper(data$Country)
+```
+
+```{r}
+library(stringr)
+data$Country = str_split(data$Country,',',simplify = T)[,1]
+```
+
+**VARIABLE INDEPENDIENTE 1**
+
+```{r}
+str(data1)
+```
+
+```{r}
+colnames(data1) = c("code", "country", "year","grade","sex","edu")
+```
+
+```{r}
+data1 = data1[complete.cases(data1$edu), ]
+data1 = data1 %>% filter(year>2010) %>% group_by(country) %>%
+        do(head( . , 1))
+```
+
+```{r}
+data1 = select (data1, -grade, -sex)
+data1$edu = data1$edu*100
+data1$country = toupper(data1$country)
+```
+
+**VARIABLE INDEPENDIENTE 2**
+
+```{r}
+names(data2)
+```
+```{r}
+colnames(data2)[1] = "Country"
+colnames(data2)[2] = "code"
+colnames(data2)[3] = "year"
+colnames(data2)[4] = "civil"
+```
+
+```{r}
+data2$civil = data2$civil
+summary(data2$civil)
+```
+
+```{r}
+data2 = filter(data2, year == 2013)
+```
+
+```{r}
+data2 = select (data2,-year)
+data2$Country = toupper(data2$Country)
+```
+
+```{r}
+data2 = na.omit(data2)
+```
+
+**VARIABLE INDEPENDIENTE 3**
+
+```{r}
+str(data3)
+```
+
+```{r}
+data3 = select(data3, LOCATION, TIME, Value)
+```
+
+```{r}
+colnames(data3)[1] = "code"
+colnames(data3)[2] = "year"
+colnames(data3)[3] = "parla"
+```
+
+```{r}
+data3 = filter(data3, year == 2019)
+data3$parla = data3$parla
+data3 = select(data3, -year)
+```
+
+```{r}
+data3 = na.omit(data3)
+```
+
+**Combinar bases de datos**
+
+```{r}
+indep=merge(data2,data3)
+str(indep)
+```
+
+```{r}
+indep1 = merge (data1, indep)
+str(indep1)
+```
+
+```{r}
+indep1 = select(indep1,-country)
+colnames(indep1)[4] = "country"
+```
+
+```{r}
+data4 = merge(data,indep1)
+str(data4)
+```
+
+```{r}
+data4 = select(data4, -year,-Country)
+data4 = select(data4, code, country, genero, edu, civil, parla)
+```
+
+**Regresión lineal múltiple**
+
+```{r}
+modelo1 = lm(genero~parla+edu++civil,data4)
+summary(modelo1)
+```
+**Interpretación:**
+
+En primer lugar, el p-value del modelo elaborado es menor a 0.05, por lo tanto, es posible afirmar que el modelo es válido. De acuerdo con el R2 ajustado, la predictibilidad del modelo es de 32%, siendo este un porcentaje bastante reducido. 
+
+Con respecto a las variables, el p-value de las variables relacionadas con educación y parlamentarias mujeres es menor a 0.05. En consecuencia, podemos afirmar que ambas aportan a nuestro modelo. No obstante, la variable relacionada con los derechos civiles es mayor, por lo que esta sería no tendría capacidad predictiva. 
+
+Es decir, el porcentaje de jóvenes con edad para asistir a la secundaria que no lo hacen es una variables que puede explicar la desigualdad de género a nivel mundial. De igual manera, el porcentaje de parlamentarias mujeres en cada país tiene la misma capacidad explicativa. 
+
+
+**SUPUESTOS:**
+
+**Linealidad**
+
+```{r}
+plot(modelo1, 1,caption = '');title(main="Linealidad")
+```
+
+```{r}
+mean (modelo1$residuals)
+```
+Con respecto a la linealidad del modelo, se observa que la línea roja se encuentra relativamente cerca del cero, aunque no completamente horizontal. Sin embargo, la diferencia no resulta ser grande. 
+Por su parte, el promedio de residuos es igual a -1.664367e-18, siendo no muy cercano 0. 
+
+**Normalidad:**
+
+```{r}
+plot(modelo1, 2, caption = '');title(main="Normalidad")
+```
+
+```{r}
+shapiro.test(modelo1$residuals)
+```
+Con respecto a la normalidad, la mayoría de los datos se concentran cerca de la recta del gráfico de cuantiles teóricos de residuos, siendo este un resultado satisfactorio. Por medio del gráfico podemos afirmar que aparentemente los residuos tienen una distribución normal. 
+
+No obstante, el p-value de la prueba Shapro-Wilk es igual a 0.0473, siendo no mayor a 0.05, que era el resultado esperado.
+
+**Homeocedasticidad:**
+```{r}
+plot(modelo1, 3, caption = '');title(main="Homocedasticidad")
+```
+
+
+```{r}
+library(lmtest)
+bptest(modelo1)
+```
+
+Con respecto a la homocedasticidad, la línea de nuestro modelo no es completamente horizontal y obsevamos que los residuos se encuentran dispersos, por lo que no podemos afirmar completamente que se cumpla el supuesto de homocedasticidad. 
+No obstante, al emplear la prueba de Breusch-Pagan el resultado obtenido si es mayor a 0.05. Por ello, podemos afirmar que se cumple con este supuesto. 
+
+**Valores influyentes:**
+
+```{r}
+plot(modelo1, 5, caption = '');title(main="Influyentes")
+```
+
+
+
+**Multicolinealidad:**
+
+```{r}
+library(DescTools)
+VIF(modelo1)
+```
+
+
