@@ -22,6 +22,8 @@ Escogimos esta base de datos, puesto que se trata de índice denominado como Gen
 
 # **Variables independientes:**
 
+# **Alessandra Marocho**
+
 ### **Variable independiente 1: (modificada)**
 ### Índice de derechos civiles
 
