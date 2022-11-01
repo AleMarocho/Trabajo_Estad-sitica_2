@@ -80,11 +80,10 @@ JUSTIFICACION:
 ### **Variable independiente 3b:**
 
 ### Perceocion de la corrupcion 
-- Para esta variable se extraen los datos de transparency international (p5v2018.csv)
+- Para esta variable se extraen los datos de transparency international (CPI2020_GlobalTablesTS_210125.xlsx)
 
 JUSTIFICACION: 
-- La teoría sugiere que con menor percepcion de corrupcion promueven la igualdad de género. En otras palabras, con mayor nivel de percepcion de la corrupcion stá correlacionado positivamente con la variable dependiente desigualdad de género. Asimismo, se supone que ello se debe a que a menor percepcionde corrupcion hay una mayor percepcion de politicas publicas en favorde las mujeres, por tanto de oportunidades para ellas en la toma de decisiones políticas ya que hay más accion que no se retrasa o se vuelve inoperativa por la corrupciòn. 
-
+- La teoría sugiere que con menor percepcion de corrupcion promueven la igualdad de género. En otras palabras, con mayor nivel de percepcion de la corrupcion está correlacionado positivamente con la variable dependiente desigualdad de género. Asimismo, se supone que ello se debe a que a menor percepcionde corrupcion hay una mayor percepcion de politicas publicas en favorde las mujeres, por tanto de oportunidades para ellas en la toma de decisiones políticas ya que hay más accion que no se retrasa o se vuelve inoperativa por la corrupciòn. Los impactos de la corripcion son diferenciados, hay sectores de la ciudadania como las mujeres quese ven mas afectadas ante mayor perecpecion de corrupcion, 
 
 
 
