@@ -79,11 +79,11 @@ JUSTIFICACION:
 
 ### **Variable independiente 3b:**
 
-### Tipo de Régimen
-- Para esta variable se extraen los datos de POLITY IV Project (p5v2018.csv)
+### Perceocion de la corrupcion 
+- Para esta variable se extraen los datos de transparency international (p5v2018.csv)
 
 JUSTIFICACION: 
-- La teoría sugiere que los países democráticos promueven la igualdad de género. En otras palabras, un tipo de règimen con mayor nivel de democracia está correlacionado negativamente con la variable dependiente desigualdad de género. Asimismo, en regímenes democráticos hay mayores oportunidades para las mujeres en la toma de decisiones políticas ya que hay más espacios para que se discutan sus problemáticas, mientras en regímenes más autocráticos la agenda política se encuentra más limitada y fuera del alcance de los grupos con menos poder en la contienda política. De manera que es importante considerar el tipo de régimen. A partir de la data, el tipo de régimen se encuentra en un rango. Donde  -10 se refiere a un régimen más autocrático, mientras +10 a un régimen más democratico. 
+- La teoría sugiere que con menor percepcion de corrupcion promueven la igualdad de género. En otras palabras, con mayor nivel de percepcion de la corrupcion stá correlacionado positivamente con la variable dependiente desigualdad de género. Asimismo, se supone que ello se debe a que a menor percepcionde corrupcion hay una mayor percepcion de politicas publicas en favorde las mujeres, por tanto de oportunidades para ellas en la toma de decisiones políticas ya que hay más accion que no se retrasa o se vuelve inoperativa por la corrupciòn. 
 
 
 
