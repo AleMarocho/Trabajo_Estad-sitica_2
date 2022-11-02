@@ -80,10 +80,11 @@ JUSTIFICACION:
 ### **Variable independiente 3b:**
 
 ### Perceocion de la corrupcion 
-- Para esta variable se extraen los datos de transparency international (CPI2020_GlobalTablesTS_210125.xlsx)
+- Para esta variable se extraen los datos de transparency international (CPI2013_GLOBAL_WithDataSourceScores.xls)
 
 JUSTIFICACION: 
-- La teoría sugiere que con menor percepcion de corrupcion promueven la igualdad de género. En otras palabras, con mayor nivel de percepcion de la corrupcion está correlacionado positivamente con la variable dependiente desigualdad de género. Asimismo, se supone que ello se debe a que a menor percepcionde corrupcion hay una mayor percepcion de politicas publicas en favorde las mujeres, por tanto de oportunidades para ellas en la toma de decisiones políticas ya que hay más accion que no se retrasa o se vuelve inoperativa por la corrupciòn. Los impactos de la corripcion son diferenciados, hay sectores de la ciudadania como las mujeres quese ven mas afectadas ante mayor perecpecion de corrupcion, 
+- La teoría sugiere que con una mayor percepción de corrupción hay una mayor consecuencia en las mujeres puesto que están expuestas a llevarse la peor parte de la impunidad que ocasiona la corrupción en las distintas instancias institucionales. En otras palabras, a un mayor nivel de percepción de la corrupción está correlacionado directamente con mayor desigualdad de género, la variable dependiente. También, debido a que la corrupción insertada en la administración de justicia no protege a las mujeres y muchas veces deja desatendidas sus denuncias incrementando la desigualdad de género como la violencia. Asimismo, ello se debe a que cuando hay menor percepción de corrupción hay una mejora en la percepción de políticas públicas en favor de las mujeres, por tanto de oportunidades para ellas ya que hay más acción que no se retrasa o se vuelve inoperativa por la corrupción tanto como en su involucración en la política a menor percepción de corrupción hay mayor disposición a participar de diversos espacios políticos. De modo que, los impactos de la corrupción son diferenciados, hay sectores de la ciudadanía como las mujeres que se ven más afectadas ante mayor percepción de corrupción.
+
 
 
 
