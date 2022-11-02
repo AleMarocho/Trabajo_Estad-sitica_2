@@ -79,7 +79,7 @@ JUSTIFICACION:
 
 ### **Variable independiente 3b:**
 
-### Perceocion de la corrupcion 
+### Percepción de Corrupción (nueva variable)
 - Para esta variable se extraen los datos de transparency international (CPI2013_GLOBAL_WithDataSourceScores.xls)
 
 JUSTIFICACION: 
