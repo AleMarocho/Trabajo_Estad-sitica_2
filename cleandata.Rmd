@@ -8,7 +8,7 @@ date: "2022-11-05"
 
 ```{r}
 library(rio)
-depe = "https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/Statistical_Annex_GII_Table.xlsx"
+depe = "https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Statistical_Annex_GII_Table.xlsx?raw=true"
 depe=import(depe)
 ```
 
@@ -298,6 +298,8 @@ creci = creci[-c(1:2, 199:232),]
 ```
 
 ```{r}
+#Volver a numérico 
+creci$Growth = as.numeric(creci$Growth)
 #Eliminamos NA's
 row.names(creci)= NULL
 creci= creci[complete.cases(creci$Growth),]
@@ -390,7 +392,7 @@ str(base1)
 
 ```{r}
 base2 = merge(base1, militar, by= "code")
-mayeli = merge (base1, base2, by= "code")
+mayeli = merge (corrupcion, base2, by= "code")
 str(mayeli)
 ```
 
@@ -420,5 +422,4 @@ ale = merge (a, civil)
 fin = merge(mayeli, melany)
 final = merge (fin, ale)
 ```
-
 
