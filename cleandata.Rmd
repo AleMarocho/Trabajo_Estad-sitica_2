@@ -4,6 +4,10 @@ output: html_document
 date: "2022-11-05"
 ---
 
+Entrega 3: 
+
+1. Apertura de la base de datos
+
 **Variable dependiente**
 
 ```{r}
@@ -54,18 +58,17 @@ Mayeli Charra
 urb = import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Data_Mayeli/API_SP.URB.TOTL.IN.ZS_DS2_en_excel_v2_4697354.xls?raw=true")
 ```
 
-
 ```{r militar}
 militar = import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Data_Mayeli/GMI-2021-all-years.xlsx?raw=true")
 ```
-
 
 ```{r corrupcion}
 corrupcion = import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Data_Mayeli/CPI2021_GlobalResults&Trends.xlsx?raw=true")
 ```
 
-**Limpieza de datos**
-**Limpieza - variable dependiente**
+2. Limpieza de la base de datos
+
+**Variable dependiente**
 
 ```{r}
 #Mantenemos las columnas necesarias
@@ -97,6 +100,7 @@ depe = na.omit(depe)
 #reordenamos la tabla
 row.names(depe)= NULL
 ```
+
 
 **Variables independientes**
 Alessandra Marocho 
@@ -196,7 +200,7 @@ gini = na.omit(gini)
 
 Mayeli Charra
 
-- Urbanización 
+- Población urbana 
 
 ```{r VI:Mayeli}
 #Mantenemos las columnas que nos interesa
@@ -206,11 +210,16 @@ names(urb)=c("country","code","urban")
 ```
 
 ```{r}
+str(urb)
+```
+
+```{r}
+#Convertimos en numérico 
+urb$urban = as.numeric(urb$urban)
 #Omitimmos NA's y reordenamos la tabla
 urb = na.omit(urb)
 row.names(urb)= NULL
 ```
-
 
 - Militarizacion
 
@@ -235,8 +244,7 @@ row.names(militar)= NULL
 str(militar)
 ```
 
-
-- Percepcion de la corrupcion: 
+- Percepción de la corrupción: 
 
 ```{r}
 #Mantenemos columnas y las renombramos
@@ -251,10 +259,9 @@ corrupcion= corrupcion[-c(1,2),]
 row.names(corrupcion)= NULL
 ```
 
-
 Melany Rodriguez
 
-#VARIABLE INDEPENDIENTE 1c -- ÍNDICE DE DEMOCRACIA 
+- ÍNDICE DE DEMOCRACIA 
 ```{r}
 #Mantenemos columnas 
 demo= demo[,c(1,2)]
@@ -277,7 +284,7 @@ demo= demo[complete.cases(demo$demo),]
 str(demo)
 ```
 
-#VARIABLE INDEPENDIENTE 2c -- ÍNDICE DE CRECIMIENTO ECONÓMICO 
+- ÍNDICE DE CRECIMIENTO ECONÓMICO 
 
 ```{r}
 #Renombramos columnas
@@ -298,18 +305,18 @@ creci = creci[-c(1:2, 199:232),]
 ```
 
 ```{r}
-#Volver a numérico 
-creci$Growth = as.numeric(creci$Growth)
+#Convertimos en numérico 
+creci$Growth = as.numeric (creci$Growth)
 #Eliminamos NA's
-row.names(creci)= NULL
 creci= creci[complete.cases(creci$Growth),]
+row.names(creci)= NULL
 ```
 
 ```{r}
 str(creci)
 ```
 
-#VARIABLE INDEPENDIENTE 3c -- PORCENTAJE DE NO AFILIADOS A RELIGIÓN ALGUNA
+- PORCENTAJE DE NO AFILIADOS A RELIGIÓN ALGUNA
 
 ```{r}
 #Seleccionar columnas
@@ -333,6 +340,8 @@ simplify = T)
 ```{r}
 #Convertir a numérico
 afi$Unaffiliated=as.numeric(afi$Unaffiliated)
+#Eliminamos NA's
+afi = na.omit(afi)
 ```
 
 ```{r}
@@ -344,7 +353,7 @@ afi$Unaffiliated=afi$Unaffiliated/100
 str(afi)
 ```
 
-MERGE
+3. Integración de datos
 
 ```{r}
 #Cambiamos el nombre de los países
@@ -382,7 +391,7 @@ afi[afi$country=='Democratic Republic of the Congo','country']='Congo Dem'
 
 ```
 
-### 2. Integracion de datos:**
+- Merge
 
 ```{r}
 #Juntamos las variables dependiente e independientes
@@ -421,5 +430,17 @@ ale = merge (a, civil)
 #Juntamos todas las variables
 fin = merge(mayeli, melany)
 final = merge (fin, ale)
+```
+
+```{r}
+
+```
+
+
+
+```{r}
+#Eliminamos columnas innecesarias
+final = final [,-c(,2,3)]
+#Reordenamos columnas 
 ```
 
