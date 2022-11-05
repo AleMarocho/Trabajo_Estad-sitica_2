@@ -1,0 +1,424 @@
+---
+title: "Diosito porfavor"
+output: html_document
+date: "2022-11-05"
+---
+
+**Variable dependiente**
+
+```{r}
+library(rio)
+depe = "https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/Statistical_Annex_GII_Table.xlsx"
+depe=import(depe)
+```
+
+**Variables independientes**
+
+Alessandra Marocho 
+
+```{r IDH}
+hum = "https://raw.githubusercontent.com/AleMarocho/Trabajo_Estadistica_2/main/Data/Data_Alessandra/human-development-index.csv"
+hum = import(hum)
+```
+
+```{r gini}
+gini = "https://raw.githubusercontent.com/AleMarocho/Trabajo_Estadistica_2/main/Data/Data_Alessandra/economic-inequality-gini-index.csv"
+gini = import (gini)
+```
+
+```{r civil}
+civil="https://raw.githubusercontent.com/AleMarocho/Trabajo_Estadistica_2/main/Data/Data_Alessandra/civil-rights-bti.csv"
+civil=import(civil)
+```
+
+Melany Rodriguez
+
+```{r demo}
+library("rio")
+demo=import("https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/Data/DATA_MELANY/democracy_index.csv")
+```
+
+```{r crecimiento economico}
+library("rio")
+creci=import("https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/Data/DATA_MELANY/crecimiento_economico.csv")
+```
+
+```{r afiliacion}
+library("rio")
+afi=import("https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/Data/DATA_MELANY/porcentaje_de_no_afiliados.csv")
+```
+
+Mayeli Charra
+
+```{r urb}
+urb = import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Data_Mayeli/API_SP.URB.TOTL.IN.ZS_DS2_en_excel_v2_4697354.xls?raw=true")
+```
+
+
+```{r militar}
+militar = import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Data_Mayeli/GMI-2021-all-years.xlsx?raw=true")
+```
+
+
+```{r corrupcion}
+corrupcion = import("https://github.com/AleMarocho/Trabajo_Estadistica_2/blob/main/Data/Data_Mayeli/CPI2021_GlobalResults&Trends.xlsx?raw=true")
+```
+
+**Limpieza de datos**
+**Limpieza - variable dependiente**
+
+```{r}
+#Mantenemos las columnas necesarias
+depe = depe [,c(1,2,3)]
+```
+
+```{r}
+str(depe)
+```
+
+```{r}
+#Cambiamos el nombre de las columnas
+colnames(depe) = c("code", "country", "genero")
+#Convertimos a numérico los valores del índice
+depe$genero = as.numeric(depe$genero)
+```
+
+```{r}
+#eliminamos columnas innecesarias
+depe = depe [-c(1,2, 199:261),]
+```
+
+```{r}
+#omitimos NA's
+depe = na.omit(depe)
+```
+
+```{r}
+#reordenamos la tabla
+row.names(depe)= NULL
+```
+
+**Variables independientes**
+Alessandra Marocho 
+
+- Índice de desarrollo humano
+
+```{r}
+str(hum)
+```
+
+```{r}
+#cambiamos el nombre a las columnas
+colnames(hum) = c("country", "code", "year", "IDH")
+```
+
+```{r}
+#Mantenemos los casos de 2017
+library(dplyr)
+hum = filter (hum, year == 2017)
+```
+
+```{r}
+#eliminamos la columna de años
+hum = hum[-c(3)]
+```
+
+```{r}
+#omitir NA's
+hum = na.omit(hum)
+```
+ 
+- Índice de derechos civiles
+
+```{r}
+str(civil)
+```
+
+```{r}
+#Cambiamos el nombre de las columnas
+colnames(civil) = c("country", "code", "year","civil")
+```
+
+```{r}
+#Mantenemos los casos de 2021
+civil = filter(civil, year == 2021)
+```
+
+```{r}
+#Eliminamos la columna de años
+civil=civil[-c(3)]
+```
+
+```{r}
+#omitimos NA's
+civil = na.omit(civil)
+``` 
+ 
+- Desigualdad de ingresos 
+
+```{r}
+str(gini)
+```
+
+```{r}
+#cambiamos el nombre a las columnas
+colnames(gini) = c("country", "code", "year", "gini")
+```
+
+```{r}
+#Nos quedamos con años mayores a 2017
+gini = filter(gini, year < 2017)
+#Corregimos el nombre y código de algunos casos
+gini[49,1] ="Argentina"
+gini[49,2] ="ARG"
+
+gini[1824,1] ="Suriname"
+gini[1824,2] ="SUR"
+```
+
+```{r}
+#Agrupamos la data por países y mantenemos el mayor año de cada grupo 
+gini = gini %>% 
+  group_by(country)%>% 
+  filter (year == max(year))
+```
+
+```{r}
+#Eliminamos la columna de años
+gini = gini[-c(3)]
+```
+
+```{r}
+#Omitimos NA's
+gini = na.omit(gini)
+```
+
+
+Mayeli Charra
+
+- Urbanización 
+
+```{r VI:Mayeli}
+#Mantenemos las columnas que nos interesa
+urb = urb[,c(1,2,65)]
+#Renombramos
+names(urb)=c("country","code","urban")
+```
+
+```{r}
+#Omitimmos NA's y reordenamos la tabla
+urb = na.omit(urb)
+row.names(urb)= NULL
+```
+
+
+- Militarizacion
+
+```{r}
+#Mantenemos columnas y las renombramos
+militar= militar[,c(1,2,4,17)]
+names(militar)= c("code","country","year", "scoremilitar")
+```
+
+```{r}
+#Mantenemos el año 2020
+militar = militar[c(3079:3231), ]
+```
+
+```{r}
+#Eliminamos la columna de año
+militar = militar[,-c(3)]
+row.names(militar)= NULL
+```
+
+```{r}
+str(militar)
+```
+
+
+- Percepcion de la corrupcion: 
+
+```{r}
+#Mantenemos columnas y las renombramos
+corrupcion=corrupcion[,c(1, 2, 4)]
+names(corrupcion)= c("country","code", "corru")
+```
+
+```{r}
+#Vemos que hay varias filas innecesarias
+corrupcion= corrupcion[-c(1,2),]
+#Reiniciamos el índice
+row.names(corrupcion)= NULL
+```
+
+
+Melany Rodriguez
+
+#VARIABLE INDEPENDIENTE 1c -- ÍNDICE DE DEMOCRACIA 
+```{r}
+#Mantenemos columnas 
+demo= demo[,c(1,2)]
+names(demo)= c("country","demo")
+```
+
+```{r}
+head(demo)
+#Vemos que se debe eliminar la primera fila
+demo=demo[-c(1),]
+```
+
+```{r}
+#Eliminamos NA's y reordenamos la tabla
+row.names(demo)= NULL
+demo= demo[complete.cases(demo$demo),]
+```
+
+```{r}
+str(demo)
+```
+
+#VARIABLE INDEPENDIENTE 2c -- ÍNDICE DE CRECIMIENTO ECONÓMICO 
+
+```{r}
+#Renombramos columnas
+colnames(creci) [1] = "country"
+colnames(creci) [43] = "Growth"
+names(creci)
+```
+
+```{r}
+#Seleccionamos las columnas deseadas
+library(dplyr)
+creci= select(creci, contains ("country"), contains ("Growth"))
+```
+
+```{r}
+#Eliminamos filas
+creci = creci[-c(1:2, 199:232),]
+```
+
+```{r}
+#Eliminamos NA's
+row.names(creci)= NULL
+creci= creci[complete.cases(creci$Growth),]
+```
+
+```{r}
+str(creci)
+```
+
+#VARIABLE INDEPENDIENTE 3c -- PORCENTAJE DE NO AFILIADOS A RELIGIÓN ALGUNA
+
+```{r}
+#Seleccionar columnas
+library(dplyr)
+afi = select(afi, contains ("country"), contains ("Unaffiliated"))
+```
+
+```{r}
+#Renombrar columnas
+colnames(afi) [1] = "country"
+```
+
+```{r}
+#Eliminamos porcentajes
+library(stringr)
+afi$Unaffiliated=str_extract_all(afi$Unaffiliated,
+"(\\-*\\d+\\.*\\d*)(?=\\%)",
+simplify = T)
+```
+
+```{r}
+#Convertir a numérico
+afi$Unaffiliated=as.numeric(afi$Unaffiliated)
+```
+
+```{r}
+#Dividimos entre 100
+afi$Unaffiliated=afi$Unaffiliated/100
+```
+
+```{r}
+str(afi)
+```
+
+MERGE
+
+```{r}
+#Cambiamos el nombre de los países
+demo[demo$country=='USA','country']='United States'
+demo[demo$country=='Congo(Brazzaville)','country']='Congo'
+demo[demo$country=='SriLanka','country']='Sri Lanka'
+demo[demo$country=='SierraLeone','country']='Sierra Leone'
+demo[demo$country=='SierraLeone','country']='Sierra Leone'
+demo[demo$country=='SierraLeone','country']='Sierra Leone'
+demo[demo$country=='Democratic Republic of Congo','country']='Congo Dem'
+demo[demo$country=='Bosnia and Hercegovina','country']='Bosnia and Herzegovina'
+demo[demo$country=='BurkinaFaso','country']='Burkina Faso'
+
+creci[creci$country=='Bahamas, The','country']='Bahamas'
+creci[creci$country=='Congo, Republic of','country']='Congo'
+creci[creci$country=='Taiwan Province of China','country']='Taiwan'
+creci[creci$country=="China, People's Republic of",'country']='China'
+creci[creci$country=='Russian Federation','country']='Russia'
+creci[creci$country=='Hong Kong SAR','country']='Hong Kong'
+creci[creci$country=='Macao SAR','country']='Macao'
+creci[creci$country=='Brunei Darussalam','country']='Brunei'
+creci[creci$country=='Gambia, The','country']='Gambia'
+creci[creci$country=='Lao P.D.R.','country']='Laos'
+creci[creci$country=='São Tomé and Príncipe','country']='Sao Tome and Principe'
+creci[creci$country=='North Macedonia','country']='Macedonia'
+creci[creci$country=='Congo, Dem. Rep. of the','country']='Congo Dem'
+
+
+afi[afi$country=='Republic of Macedonia','country']='Macedonia'
+afi[afi$country=='Palestinian territories','country']='Palestine'
+afi[afi$country=='Republic of the Congo','country']='Congo'
+afi[afi$country=='Burma (Myanmar)','country']='Myanmar'
+afi[afi$country=='Bosnia-Herzegovina','country']='Bosnia and Hercegovina'
+afi[afi$country=='Democratic Republic of the Congo','country']='Congo Dem'
+
+```
+
+### 2. Integracion de datos:**
+
+```{r}
+#Juntamos las variables dependiente e independientes
+base1=merge(depe,urb, by= "code")
+str(base1)
+```
+
+```{r}
+base2 = merge(base1, militar, by= "code")
+mayeli = merge (base1, base2, by= "code")
+str(mayeli)
+```
+
+Melany Rodriguez
+
+```{r}
+#Juntamos 3 variables independientes
+merge1=merge(creci,demo)
+str(merge1)
+```
+
+```{r}
+melany=merge(merge1,afi)
+str(melany)
+```
+
+Alessandra Marocho
+
+```{r}
+#Juntamos tres variables dependientes
+a = merge(gini, hum)
+ale = merge (a, civil)
+```
+
+```{r}
+#Juntamos todas las variables
+fin = merge(mayeli, melany)
+final = merge (fin, ale)
+```
+
+
