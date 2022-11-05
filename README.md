@@ -30,17 +30,17 @@ Escogimos esta base de datos, puesto que se trata de índice denominado como Gen
 - La variable será extraída de Our World in Data (archivo civil-rights-bti.csv)
 - Se seleccionó esta base de datos porque el principal aspecto que la compone es el nivel en el que los derechos civiles se encuentran reflejados en la ley de cada país. Frente a ello, esta variable puede ser relacionada con la desigualdad de género, puesto que la escasa prevención ante un caso de discriminación puede ser explicada por cuestiones de sexo. De igual manera, la se puede argumentar lo mismo ante la ausencia de respuesta por una violación a los derechos civiles. La importancia del género en la codificación de las leyes de cada país representa la comprensión y el compromiso de cada sociedad por construir un ambiente de igualdad ante la ley. 
 
+### **Variable independiente 2: (modificada)**
+### Índice de desarrollo humano (IDH)
 
-### **Variable independiente 2:**
-### Porcentaje de jóvenes en edad de asistir a la escuela secundaria que no lo hacen.
+- La variable será extraída de Our World in Data (archivo human_development_index.csv)
+- Finalmente, croe que la participación de mujeres en el campo de la política es un tema clave para analizar la situación de la desigualdad de género. A pesar de que, a lo largo de la historia, hayan existido reconocidas mujeres que se han desenvuelto en este campo, la representatividad política de las mujeres en general aún no ha alcanzado la paridad. Esta variable aporta de gran manera a la dependiente, puesto que nos demuestra que este sigue siendo un espacio dominado por hombres en una gran cantidad de países. Asimismo, los sesgos en contra de la participación política de las mujeres no dejan de ser una cuestión ajena. 
+
+### **Variable independiente 3:(modificada)**
+### Desigualdad de Ingresos - Coeficiente GINI
 
 - La variable será extraída de UNESCO World Inequality Database on Education (archivo education.csv)
 - La educación es otro ámbito en el que se manifiesta una fuerte desigualdad de género. Ciertamente, en muchas sociedades el acceso a esta sin una diferencia hecha por una cuestión de género se ha incrementado. No obstante, la reducción de esta disparidad no es una realidad evidente en todas las regiones del mundo. Los motivos por las que una persona en edad para estudiar no asiste a una escuela secundaria son diversos, pero, en cuestiones de género, pueden ser a consecuencia de embarazos adolescentes, el privilegio hacia los hijos varones en este aspecto, entre otros. Por ello, creo que esta puede ser una variable clave cuando se habla sobre desigualdad de género. 
-
-### **Variable independiente 3:**
-### Índice de desarrollo humano (modificada)
-- La variable será extraída de Our World in Data (archivo human_development_index.csv)
-- Finalmente, croe que la participación de mujeres en el campo de la política es un tema clave para analizar la situación de la desigualdad de género. A pesar de que, a lo largo de la historia, hayan existido reconocidas mujeres que se han desenvuelto en este campo, la representatividad política de las mujeres en general aún no ha alcanzado la paridad. Esta variable aporta de gran manera a la dependiente, puesto que nos demuestra que este sigue siendo un espacio dominado por hombres en una gran cantidad de países. Asimismo, los sesgos en contra de la participación política de las mujeres no dejan de ser una cuestión ajena. 
 
 # **Melany Rodriguez**
 
