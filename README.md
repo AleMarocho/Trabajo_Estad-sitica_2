@@ -34,13 +34,13 @@ Además, el desarrollo de la perspectiva feminista en las Relaciones Internacion
 ### Índice de desarrollo humano (IDH)
 
 - La variable será extraída de Our World in Data (archivo human_development_index.csv)
-- Finalmente, croe que la participación de mujeres en el campo de la política es un tema clave para analizar la situación de la desigualdad de género. A pesar de que, a lo largo de la historia, hayan existido reconocidas mujeres que se han desenvuelto en este campo, la representatividad política de las mujeres en general aún no ha alcanzado la paridad. Esta variable aporta de gran manera a la dependiente, puesto que nos demuestra que este sigue siendo un espacio dominado por hombres en una gran cantidad de países. Asimismo, los sesgos en contra de la participación política de las mujeres no dejan de ser una cuestión ajena. 
+- La participación de mujeres en el campo de la política es un tema clave para analizar la situación de la desigualdad de género. A pesar de que, a lo largo de la historia, hayan existido reconocidas mujeres que se han desenvuelto en este campo, la representatividad política de las mujeres en general aún no ha alcanzado la paridad. Esta variable aporta de gran manera a la dependiente, puesto que nos demuestra que este sigue siendo un espacio dominado por hombres en una gran cantidad de países. Asimismo, los sesgos en contra de la participación política de las mujeres no dejan de ser una cuestión ajena. 
 
 ### **Variable independiente 3:(modificada)**
 ### Desigualdad de Ingresos - Coeficiente GINI
 
-- La variable será extraída de Our World in Data (archivo education.csv)
-- La educación es otro ámbito en el que se manifiesta una fuerte desigualdad de género. Ciertamente, en muchas sociedades el acceso a esta sin una diferencia hecha por una cuestión de género se ha incrementado. No obstante, la reducción de esta disparidad no es una realidad evidente en todas las regiones del mundo. Los motivos por las que una persona en edad para estudiar no asiste a una escuela secundaria son diversos, pero, en cuestiones de género, pueden ser a consecuencia de embarazos adolescentes, el privilegio hacia los hijos varones en este aspecto, entre otros. Por ello, creo que esta puede ser una variable clave cuando se habla sobre desigualdad de género. 
+- La variable será extraída de Our World in Data (archivo economic-inequality-gini-index.csv)
+- La desigualdad de ingresos es otro ámbito en el que se manifiesta una fuerte desigualdad de género. Ciertamente, en muchas sociedades existe una sola persona dentro del hogar que reune todos los ingresos familiares, factor que es representado con los valores más altos del índice. Debido a ello, la desigualdad de los género podría ser explicada por medio de la desigualdad de ingresos. Los motivos para la recurrencia de una disparidad son diversos, pero, en cuestiones de género, pueden ser a consecuencia de que solo las mujeres se concentren plenamente en actividades domésticas. Se espera que ante un incremento en el coeficiente de GINI, también se vea el posterior incremento en el índice de desigualdad. 
 
 # **Melany Rodriguez**
 
