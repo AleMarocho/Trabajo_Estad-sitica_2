@@ -63,15 +63,18 @@ JUSTIFICACIÓN
 # **Mayeli Charra**
 
 ### **Variable independiente 1b:**
-### Índice de paridad de género. Matriculación de primaria y secundaria.
-- La presente data de esta variable se extraerá de The World Bank. (API_SE.ENR.PRSC.FM.ZS_DS2_en_csv_v2_4354155.csv).
+### Población Urbana  (modificada)
+
+- La presente data de esta variable se extraerá de The World Bank. (API_SP.URB.TOTL.IN.ZS_DS2_en_excel_v2_4697354.xls)
+
 JUSTIFICACION: 
-- Considero que es importante conocer qué tan significativo puede ser la dimensión educativa para explicar la desigualdad de género. Además la desigualdad de género puede ser abordada desde diferentes dimensiones siendo la oportunidad de acceder a educación uno de estos. De manera que el índice de paridad de género en la matriculación de primaria y secundaria puede contribuir a comprender como su disminución (de la disparidad de genero) puede lograr  una mejora en el status y capacidades de las mujeres. Por ello que tomar en cuenta especialmente los primeros años de educativos parece crucial para comprender la desigualdad de género que luego se prolonga en toda la vida de las mujeres, siendo estas últimas las menos favorecidas al acceso a la educación especialmente las que pertenecen a los estratos económicos más bajos, quienes presentan mayor vulnerabilidad. A diferencia de ver cómo se mantiene en el tiempo, conocer la matrícula nos puede decir cuánta es la intención por cerrar la brecha de género, omitiendo que por otros motivos es posible que no se mantenga en el tiempo.  
+- La teoría sugiere que a mayor urbanización se reduce la desigualdad de género, puesto que se presentan mayores oportunidades y mejor en la calidad de vida de las mujeres. De manera que, el porcentaje de urbanización explica parte de la desigualdad de género. En zonas rurales la desigualdad de género crece aún más por la falta de acceso a oportunidades, además que se relaciona con otros factores del tipo económico y social como menor acceso a buenos salarios así como a una mejor educación por lo que la urbanización explica una mejora en la situación de vida de las personas que impacta a su vez en la desigualdad de género. 
 
 
 ### **Variable independiente 2b:**
 ### Índice de militarización global. 
 - Para esta variable se extraen los datos del Bonn International Centre for Conflict Studies (GMI-2021-all-years.xlsx).
+
 JUSTIFICACION: 
 - La presente variable es un índice preparado con tres elementos relacionados a la militarización: entre estos se encuentran el gasto militar con respecto a todo el PBI y el gasto en salud. Además considera el personal militar y las armas potentes en relación a la población total. Trás la revisión de literatura que sugiere una relación positiva entre la militarización y la desigualdad de género. El índice militar puede influir en la variable independiente porque la militarización, que suele ser una institución dominada por lo hombres bajo premisas patriarcales, entendiéndose como una manifestación material e ideológica que promueve los valores militares como la creencia en la obediencia y el uso de la fuerza lo que implica una mayor restricción de los derechos de las mujeres, en la forma en la que reproduce estereotipos relacionados a la mujer de subordinación, sumisión y en búsqueda de protección. En consecuencia, restringe la participación política de las mujeres acrecentando la desigualdad de género. 
  
@@ -80,7 +83,8 @@ JUSTIFICACION:
 ### **Variable independiente 3b:**
 
 ### Percepción de Corrupción (nueva variable)
-- Para esta variable se extraen los datos de transparency international (CPI2013_GLOBAL_WithDataSourceScores.xls)
+- Para esta variable se extraen los datos de transparency international (CPI2021_GlobalResults&Trends.xlsx)
+
 
 JUSTIFICACION: 
 - La teoría sugiere que con una mayor percepción de corrupción hay una mayor consecuencia en las mujeres puesto que están expuestas a llevarse la peor parte de la impunidad que ocasiona la corrupción en las distintas instancias institucionales. En otras palabras, a un mayor nivel de percepción de la corrupción está correlacionado directamente con mayor desigualdad de género, la variable dependiente. También, debido a que la corrupción insertada en la administración de justicia no protege a las mujeres y muchas veces deja desatendidas sus denuncias incrementando la desigualdad de género como la violencia. Asimismo, ello se debe a que cuando hay menor percepción de corrupción hay una mejora en la percepción de políticas públicas en favor de las mujeres, por tanto de oportunidades para ellas ya que hay más acción que no se retrasa o se vuelve inoperativa por la corrupción tanto como en su involucración en la política a menor percepción de corrupción hay mayor disposición a participar de diversos espacios políticos. De modo que, los impactos de la corrupción son diferenciados, hay sectores de la ciudadanía como las mujeres que se ven más afectadas ante mayor percepción de corrupción.
