@@ -14,11 +14,11 @@ Como grupo, escogimos este tema, puesto que, a pesar de encontrarnos en el siglo
 
 Además, el desarrollo de la perspectiva feminista en las Relaciones Internacionales provee un aporte para entender el género como categoría de análisis de un constructo social en su análisis de diferentes temáticas como en política exterior, política económica internacional, y seguridad internacional. De forma que este acercamiento de la teoría a la problemática despierta nuestro interés por conocer las distintas variables que probablemente puedan explicar la desigualdad de género a nivel global. Resaltamos por ello la importancia de las contribuciones de la perspectiva feminista en las Relaciones Internacionales, a la disciplina y en la práctica de la política internacional.
 
+
 # **La variable dependiente:**
 ### LA DESIGUALDAD DE GÉNERO
+- La variable será extraída de la página Human Development Report (Statistical_Annex_GII_Table.xlsx). La siguiente investigación analiza los factores que pueden influir en la desigualdad de género a nivel mundial. Para evaluar ello, empleamos un índice de desigualdad de género - Gender Inequality Index (GII), elaborado por Human Development Reports. Encontramos este índice interesante puesto que se encuentra basado en tres dimensiones: salud, empoderamiento y mercado laboral. Algunos de los indicadores que lo componen son datos a nivel mundial sobre ratio de mortalidad materna, tasa de embarazo adolescente, población femenina y masculina con al menos educación secundaria, etc. Además cuenta con una poderosa base de datos de los últimos años de modo que tenemos una investigación más actualizada. Los datos representan que un valor bajo de GII indica una baja desigualdad entre mujeres y hombres, y viceversa.
 
-La variable será extraída del Internacional Monetary Fund (archivo var_dependiente.xls)
-Escogimos esta base de datos, puesto que se trata de índice denominado como Gender Inequality Index (GII) Time Consistent. Es un índice con gran representatividad, ya que considera la salud reproductiva en la que influyen valores como la mortalidad materna y fertilidad adolescente. Se considera también el empoderamiento femenino y el mercado laboral. Abarca principalmente las oportunidades y resultados. Se considera la data más completa, por lo que el análisis posterior contará con más información y representatividad para explicar modelos eventuales. Este índice varía de 0 a 1 y mientras más cercano a 1 sea, significa mayor desigualdad de género.
 
 # **Variables independientes:**
 
