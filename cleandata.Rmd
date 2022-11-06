@@ -255,6 +255,9 @@ names(corrupcion)= c("country","code", "corru")
 ```{r}
 #Vemos que hay varias filas innecesarias
 corrupcion= corrupcion[-c(1,2),]
+
+#Convertimos a numérico
+corrupcion$corru = as.numeric(corrupcion$corru)
 #Reiniciamos el índice
 row.names(corrupcion)= NULL
 ```
