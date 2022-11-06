@@ -39,7 +39,7 @@ Además, el desarrollo de la perspectiva feminista en las Relaciones Internacion
 ### **Variable independiente 3:(modificada)**
 ### Desigualdad de Ingresos - Coeficiente GINI
 
-- La variable será extraída de UNESCO World Inequality Database on Education (archivo education.csv)
+- La variable será extraída de Our World in Data (archivo education.csv)
 - La educación es otro ámbito en el que se manifiesta una fuerte desigualdad de género. Ciertamente, en muchas sociedades el acceso a esta sin una diferencia hecha por una cuestión de género se ha incrementado. No obstante, la reducción de esta disparidad no es una realidad evidente en todas las regiones del mundo. Los motivos por las que una persona en edad para estudiar no asiste a una escuela secundaria son diversos, pero, en cuestiones de género, pueden ser a consecuencia de embarazos adolescentes, el privilegio hacia los hijos varones en este aspecto, entre otros. Por ello, creo que esta puede ser una variable clave cuando se habla sobre desigualdad de género. 
 
 # **Melany Rodriguez**
