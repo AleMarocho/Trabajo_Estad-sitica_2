@@ -465,233 +465,152 @@ Por otro lado, el segundo mejor modelo que explica mejor la variable dependiente
 
 Y finalmente, el tercer modelo es el que menor porcentaje de explicación tiene para la variable dependiente con un 29.5% de significancia. Las varibles Growth e Unaffiliated son las más significativas para este modelo al presentar 3 asteriscos. Por otro lado, la variable demo es menos significativa que las anteriores al presentar solo 2.  
 
-## 3. Análisis factorial
+
+##"ANÁLISIS DE' CONGLOMERADOS"
 
 ```{r}
-str(data)
+data
+```
+```{r}
+dataClus=data[,c(4:12)]
+row.names(dataClus)=data$country
 ```
 
 ```{r}
-#substear la data para no seleccionar la variables de carácter
-dontselect=c("code","country")
-select=setdiff(names(data),dontselect) 
-theData=data[,select]
-```
-
-
-```{r}
-#calculamos la matriz de correlación 
-library(polycor)
-corMatrix=polycor::hetcor(theData)$correlations
+library(cluster)
+g.dist = daisy(dataClus, metric="gower")
 ```
 
 
 ```{r}
-#Observamos la correlación entre las variables
-library(ggcorrplot)
-ggcorrplot(corMatrix)
-```
-
-
-```{r}
-#Verficar si los datos serán buenos para factorizar
-library(psych)
-psych::KMO(corMatrix) 
-```
-Al observer el Overall MSA observamos que es favorable, puesto que es mayor a 0.6. De igual manera, el resto de las variables también son mayores a 0.6, por lo que si podríamos hacer un buen análisis factorial. 
-
-```{r}
-#Matriz de identidad
-cortest.bartlett(corMatrix,n=nrow(theData))$p.value>0.05
-```
-- H0: La matriz de correlacion es una matriz identidad
-
-Rechazamos que sea una matriz de identidad
-
-```{r}
-#Matriz singular
-library(matrixcalc)
-is.singular.matrix(corMatrix)
-```
-- H0: La matriz de correlacion es una matriz singular
-
-Rechazamos que sea una matriz de singular
-
-```{r}
-#Determinar en cuántas variables latentes podemos redimensionar la data
-fa.parallel(theData, fa = 'fa',correct = T,plot = F)
-```
-Podemos redimensionar en dos variables
-
-```{r}
-#Redimensionamos a dos factores latentes
-library(GPArotation)
-resfa <- fa(theData,
-            nfactors = 2,
-            cor = 'mixed',
-            rotate = "varimax",
-            fm="minres")
-print(resfa$loadings)
+dataClus
 ```
 
 ```{r}
-#Resultado mejorado
-print(resfa$loadings,cutoff = 0.5)
-```
-En primer lugar, la primera nueva variables se compondrían principalmente por corru, demo, IDH, civil. Igualmente, con un resultado reducido, se encontrarían urban, Growth y Unaffiliated.
-
-Por otro lado, la segunda variable latente se compondría por score militar. 
-
-Al pasar a dos dimensiones, mantiene el 51.1 de datos de toda la información, por lo tanto, perdió el 48.9. 
-
-```{r}
-#Representación gráfica
-fa.diagram(resfa,main = "Resultados del EFA")
+library(factoextra)
+fviz_nbclust(dataClus, pam,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F)
 ```
 
 ```{r}
-#Variables que aportaron más a los factores
-sort(resfa$communality)
-```
-Los factores que aportaron más a las variables latentes fueron demo, genero, IDH, corru y civil. 
-
-```{r}
-#variables que contribuyen a más de un factor
-sort(resfa$complexity)
-```
-Entre las variables que pueden contribuir a más de un factor se encuentran género, IDH, urban e Unaffiliated.
-
-```{r}
-#Observamos los valores proyectados
+library(kableExtra)
 library(magrittr)
-as.data.frame(resfa$scores)%>%head()
+set.seed(123)
+res.pam=pam(g.dist,2,cluster.only = F)
+
+#nueva columna
+dataClus$pam=res.pam$cluster
+
+# ver
+head(dataClus,15)%>%kbl()%>%kable_styling()
 ```
 
 ```{r}
-#Renombramos las varaibles 
-data$democracia=resfa$scores[,1]
-data$militar=resfa$scores[,2]
-#graficamos
-ggplot(data=data,aes(x=genero,y=democracia)) + geom_point() + theme_minimal() + labs(x="Indice (original)", y="Indice EFA")
+fviz_silhouette(res.pam,print.summary = F)
 ```
 
 ```{r}
-
-library(BBmisc)
-efa_scores_ok=normalize(resfa$scores, 
-                       method = "range", 
-                       margin=2, # by column
-                       range = c(0, 10))
-data$democracia_ok=efa_scores_ok[,1]
-data$militar_ok=efa_scores_ok[,2]
-
-ggplot(data=data,aes(x=genero,y=democracia_ok)) + geom_point() + theme_minimal() + labs(x="Indice (original)", y="Indice EFA (cambiado)")
-```
-
-
-2. Análisis factorial confirmatorio
-
-```{r}
-#Elaboramos dos variables
-modelCFA <- ' GII  =~ corru + urban + Growth + demo + Unaffiliated + IDH + civil
-
-militar =~ scoremilitar '
-```
-
-```{r}
-# normalizar las variables:
-theDataNorm=scale(theData)
-library(lavaan)
-```
-
-```{r}
-#Prueba de lavaan 
-cfa_fit <- cfa(modelCFA, data=theDataNorm, 
-           std.lv=TRUE,  
-           missing="fiml")
-summary(cfa_fit)
-```
-## PRUEBAS
-
-```{r}
-allParamCFA=parameterEstimates(cfa_fit,standardized = T)
-allFitCFA=as.list(fitMeasures(cfa_fit))
-```
-
-- ChiSquare
-
-```{r}
-allFitCFA[c("chisq", "df", "pvalue")] # pvalue>0.05
-```
-El ChiSquare es significativo, puesto que es mayor a 0.05.
-
-- El Índice Tucker Lewis 
-
-```{r}
-allFitCFA$tli 
-```
-El Índice Tucker Lewis es  0.5822884. Al ser menor a 0.9 podemos afirmar que se cumple la prueba. 
-
-- La Raíz del error cuadrático 
-
-```{r}
-allFitCFA[c('rmsea.ci.lower','rmsea' ,'rmsea.ci.upper')] 
-```
-La Raíz del error cuadrático medio de aproximación debería ser menor a 0.05. El resultado muestra ser mayor a 0.05, por lo que la prueba no se cumple.
-
-```{r}
-scorescfa=normalize(lavPredict(cfa_fit),
-                    method = "range", 
-                    margin=2, # by column
-                    range = c(0, 10))
-
-data$democracia_ok=scorescfa[,1]
-data$militar_ok=scorescfa[,2]
+silPAM=data.frame(res.pam$silinfo$widths)
+silPAM$country=row.names(silPAM)
+poorPAM=silPAM[silPAM$sil_width<0,'country']%>%sort()
+poorPAM
 ```
 
 
 ```{r}
-#Graficamos
-library(lavaanPlot)
-lavaanPlot(model = cfa_fit, node_options = list(shape = "box", fontname = "Helvetica"), edge_options = list(color = "grey"), coefs = T)
+aggregate(.~ pam, data=dataClus,mean)
 ```
 
-Regresión utilizando variables latentes en una Ecuación Estructural.
 
 ```{r}
-hipotesis=formula(democracia_ok~militar_ok)
-reg1=lm(hipotesis, data=data)
-summary(reg1)
+data$pamIDHpoor=data$country%in%poorPAM
+data$pamIDH=as.ordered(dataClus$pam)
+dataClus$pam=NULL
 ```
 
-```{r}
-modelSEM <- ' GII  =~ corru + urban + Growth + demo + Unaffiliated + IDH + civil
+Jerárquico
 
-militar =~ scoremilitar '
+```{r}
+fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F,hc_func = "agnes")
 ```
 
 ```{r}
-sem_fit <- sem(modelSEM, 
-              data=theDataNorm)
-summary(sem_fit)
+set.seed(123)
+library(factoextra)
+
+res.agnes<- hcut(g.dist, k = 4,hc_func='agnes',hc_method = "ward.D")
+
+dataClus$agnes=res.agnes$cluster
+
+# ver
+
+head(dataClus,15)%>%kbl()%>%kable_styling()
+```
+
+
+```{r}
+fviz_dend(res.agnes, cex = 0.7, horiz = T,main = "")
 ```
 
 ```{r}
-lavaanPlot(model = sem_fit,
-           node_options = list(shape = "box",
-                               fontname = "Helvetica"),
-           edge_options = list(color = "grey"), coefs = T,stand = T)
+fviz_silhouette(res.agnes,print.summary = F)
 ```
 
 ```{r}
-library(semPlot)
-semPaths(sem_fit, residuals=F,
-         sizeMan=7,sizeLat=12,
-         what = "std",
-         nCharNodes=10,
-         posCol=c("skyblue4", "red"),
-         edge.color="orange",
-         edge.label.cex=1.2,layout="circle2")
+silAGNES=data.frame(res.agnes$silinfo$widths)
+silAGNES$country=row.names(silAGNES)
+poorAGNES=silAGNES[silAGNES$sil_width<0,'country']%>%sort()
+poorAGNES
 ```
+
+```{r}
+aggregate(.~ agnes, data=dataClus,mean)
+```
+
+```{r}
+data$agnesIDHpoor=data$country%in%poorAGNES
+data$agnesIDH=as.ordered(dataClus$agnes)
+dataClus$agnes=NULL
+```
+
+###Diana
+```{r}
+fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F,hc_func = "diana")
+```
+
+
+```{r}
+set.seed(123)
+res.diana <- hcut(g.dist, k = 2,hc_func='diana')
+dataClus$diana=res.diana$cluster
+# veamos
+head(dataClus,15)%>%kbl%>%kable_styling()
+```
+
+```{r}
+# Visualize
+fviz_dend(res.diana, cex = 0.7, horiz = T, main = "")
+```
+
+```{r}
+fviz_silhouette(res.diana,print.summary = F)
+```
+
+```{r}
+silDIANA=data.frame(res.diana$silinfo$widths)
+silDIANA$country=row.names(silDIANA)
+poorDIANA=silDIANA[silDIANA$sil_width<0,'country']%>%sort()
+poorDIANA
+```
+```{r}
+aggregate(.~ diana, data=dataClus,mean)
+```
+Ver si las etiquetas están bien ordenadas
+
+```{r}
+data$dianaIDHpoor=data$country%in%poorDIANA
+data$dianaIDH=as.ordered(dataClus$diana)
+dataClus$diana=NULL
+```
+
 
 
