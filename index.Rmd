@@ -468,9 +468,12 @@ Por otro lado, el segundo mejor modelo que explica mejor la variable dependiente
 Y finalmente, el tercer modelo es el que menor porcentaje de explicación tiene para la variable dependiente con un 29.5% de significancia. Las varibles Growth e Unaffiliated son las más significativas para este modelo al presentar 3 asteriscos. Por otro lado, la variable demo es menos significativa que las anteriores al presentar solo 2.  
 
 #3. ANÁLSIS FACTORIAL 
+No se realizará un análisis factorial en este trabajo, puesto que nuestras variables se tratan de índices compuestos por más variables. 
 
 
 #4. ANÁLISIS DE CONGLOMERADOS
+
+En esta sección, 
 
 ```{r}
 data
@@ -496,11 +499,13 @@ library(factoextra)
 fviz_nbclust(dataClus, pam,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F)
 ```
 
+En este caso, emplearemos 3 clusters. 
+
 ```{r}
 library(kableExtra)
 library(magrittr)
 set.seed(123)
-res.pam=pam(g.dist,2,cluster.only = F)
+res.pam=pam(g.dist,3,cluster.only = F)
 
 #nueva columna
 dataClus$pam=res.pam$cluster
@@ -519,7 +524,6 @@ silPAM$country=row.names(silPAM)
 poorPAM=silPAM[silPAM$sil_width<0,'country']%>%sort()
 poorPAM
 ```
-
 
 ```{r}
 aggregate(.~ pam, data=dataClus,mean)
@@ -585,7 +589,7 @@ fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose =
 
 ```{r}
 set.seed(123)
-res.diana <- hcut(g.dist, k = 2,hc_func='diana')
+res.diana <- hcut(g.dist, k = 3,hc_func='diana')
 dataClus$diana=res.diana$cluster
 # veamos
 head(dataClus,15)%>%kbl%>%kable_styling()
