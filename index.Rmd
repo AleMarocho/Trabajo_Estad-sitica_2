@@ -4,9 +4,8 @@ output: html_document
 date: "2022-11-06"
 ---
 
-#ENTREGA 3
 
-## Introducción
+# Introducción
 
 La siguiente investigación analiza los factores que pueden influir en la desigualdad de género a nivel mundial. Para evaluar ello, empleamos un índice de desigualdad de género - Gender Inequality Index (GII), elaborado por Human Development Reports. El presente índice se encuentra basado en tres dimensiones: salud, empoderamiento y mercado laboral. Algunas de los indicadores que locomponen son datos a nivel mundial sobre ratio de mortalidad maternal, tasa de embarazo adolescente, población de femenina y masculina con al menos educación secundaria, etc. 
 
@@ -25,9 +24,9 @@ str(data)
 ```
 
 ## 2. Modelación
-En este caso, se harán regresiones lineales siemples y múltiples
+En este caso, se harán regresiones lineales simples y múltiples.
 
-##REGRESIÓN ALESSANDRA
+### REGRESIÓN ALESSANDRA
 
 - Regresión lineal (género y IDH)
 
@@ -40,6 +39,7 @@ summary (modelo1)
 library(stargazer)
 stargazer(modelo1, type="text")
 ```
+
 
 ```{r}
 library(knitr)
@@ -60,6 +60,7 @@ modelo2 = lm(genero ~ gini, data)
 summary (modelo2)
 stargazer(modelo2, type="text")
 ```
+
 
 ```{r}
 library(knitr)
@@ -93,7 +94,7 @@ Finalmente, con respecto al modelo 3 podemos afirmar que es válido, puesto que 
 Por medio del presente modelo podemos indicar que, ante un incremento en el índice de derechos civiles, el efecto sobre el índice de la desigualdad de género será inverso. 
 
 
-## - Regresión lineal múltiple
+### Regresión lineal múltiple
 
 ```{r}
 modelo4 = lm(genero ~ IDH + gini + civil, data)
@@ -114,7 +115,7 @@ Con respecto a las variables, el p-value de las variables relacionadas con el ID
 
 Es decir, el incremento en la desigualdad de ingresos puede elevar la desigualdad de género a nivel mundial, puesto que mantienen una relación directa. De igual manera, el incremento en el índice de desarrollo humano en cada país tiene un efecto inverso; es decir, disminuye la desigualdad de género. 
 
-##SUPUESTOS:
+### SUPUESTOS:
 
 **Linealidad**
 
@@ -174,9 +175,9 @@ VIF(modelo4)
 Por medio de la prueba VIF, podemos observar que no hay correlación entre las variables independientes, puesto que todos los valores son menores a 5.
 
 
-##REGRESIONES MELANY
+### REGRESIÓN MELANY
 
-###REGRESIÓN DEMOCRACIA
+### REGRESIÓN DEMOCRACIA
 
 Hipótesis
 - A mayor índice de democracia, menor sera el índice de desigualdad de género
@@ -199,13 +200,13 @@ modelsummary(model1, title = "Regresion Lineal 1",
              output = "kableExtra")
 ```
 
-#INTERPRETACION 1-REGRESION INDEX DEMOCRACY
+**INTERPRETACION 1-REGRESION INDEX DEMOCRACY**
 La variable [índice de democracia] tiene efecto, es significativa, evidenciada por los asteriscos. El efecto es indirecto ya que el coeficiente es negativo, por lo que a mayor indice de democracia, menor sera el indice de desigualdad de género. La magnitud del efecto es 0.037, es decir la desigualdad de genero aumenta en 0.037 en promedio cuando el indice de democracia aumenta en una unidad. 
 En cuanto al modelo el porcentaje de explicacion es de 14.6%, medido a traves del R2. El p-valor de la variable index democracy es 8.87e-05, lo cual es menor a 0.05 y evidencia que el modelo es valido. La hipotesis se ve corroborada.
 
 - En otras palabras, mientras mayor sea el índice de democracia, menor seran las probabilidades de que se evidencie desigualdad de genero en el pais respectivo. 
 
-##REGRESION CRECIMIENTO ECONÓMICO
+### REGRESIÓN CRECIMIENTO ECONÓMICO
 Hipótesis
 - A mayor índice de crecimiento economico, mayor será el índice de desigualdad de género
 
@@ -225,16 +226,17 @@ modelsummary(model2, title = "Regresion Lineal 2",
              output = "kableExtra")
 ```
 
-#INTERPRETACION 2-REGRESION ECONOMIC GROWTH
+**INTERPRETACION 2-REGRESION ECONOMIC GROWTH**
 La variable crecimiento economico tiene efecto, es decir, es significatico, ello evidenciado por los asteriscos (***). El efecto es indirecto debido a que el coeficiente es negativo. Con ello, la hipotesis se ve debatida, y corregida: a mayor indice de crecimiento economico, menor sera el indice de desigualdad de genero. 
 La magnitud del efecto es 0.014, es decir la desigualdad de género aumenta en 0.014 en promedio cuando el indice de crecimiento economico aumenta en una unidad. 
 En cuanto al modelo el porcentaje de explicacion es de 12.5%, medido a traves del R2 El p-valor de la independiente es 0.0003151, lo cual es menor a 0.05 y evidencia que el modelo es valido. 
 - En otras palabras, mientras mayor sea el índice de crecimiento económico, mayores será la indice de desigualdad social en el pais respectivo. Por lo que decirmos que esta variable impacta significativamente, sin embargo con un 12.5% de significancia.
 
-##REGRESION PORCENTAJE DE NO AFILIADOS
+### REGRESION PORCENTAJE DE NO AFILIADOS
 
 Hipótesis
 - A mayor porcentaje de inafiliados, menor sera el índice de desigualdad de género
+
 ```{r}
 regresion3 <- lm(genero ~ Unaffiliated, data = data)
 summary(regresion3)
@@ -250,7 +252,7 @@ modelsummary(model3, title = "Regresion Lineal 3",
              output = "kableExtra")
 ```
 
-#INTERPRETACION 3-REGRESION UNAFFILIATED
+**INTERPRETACION 3-REGRESION UNAFFILIATED**
 La variable no afiliados tiene efecto, es decir, es significatico, ello evidenciado por los asteriscos (***). El efecto es inverso debido a que el coeficiente es negativo. Con ello, la hipotesis se ve corroborada, a mayor porcentaje de no afiliados, menor sera el indice de desigualdad de genero. La magnitud del efecto es 0.629, es decir la desigualdad de genero aumenta en 0.629 en promedio cuando el indice de crecimiento economico aumenta en una unidad. 
 En cuanto al modelo el porcentaje de explicacion es de 16.6%, medido a traves del R2 ajustado. El p-valor de la variable independiente es 1.53e-05, lo cual es menor a 0.05 y evidencia que el modelo es valido. 
 
@@ -465,12 +467,15 @@ Por otro lado, el segundo mejor modelo que explica mejor la variable dependiente
 
 Y finalmente, el tercer modelo es el que menor porcentaje de explicación tiene para la variable dependiente con un 29.5% de significancia. Las varibles Growth e Unaffiliated son las más significativas para este modelo al presentar 3 asteriscos. Por otro lado, la variable demo es menos significativa que las anteriores al presentar solo 2.  
 
+#3. ANÁLSIS FACTORIAL 
 
-##"ANÁLISIS DE' CONGLOMERADOS"
+
+#4. ANÁLISIS DE CONGLOMERADOS
 
 ```{r}
 data
 ```
+
 ```{r}
 dataClus=data[,c(4:12)]
 row.names(dataClus)=data$country
