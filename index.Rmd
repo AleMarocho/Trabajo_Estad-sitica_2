@@ -1,7 +1,13 @@
 ---
-title: "index"
-output: html_document
-date: "2022-11-06"
+title: "Análisis de los factores que influyen en la desigualdad de género a nivel mundial"
+author: "Alessandra Marocho, Mayeli Charra, Melany Rodríguez"
+date: "Noviembre, 2022"
+subtitle: 'Curso: POL304 - Estadística para el análisis político 2'
+output:
+  prettydoc::html_pretty:
+    theme: hpstr
+    highlight: github
+    toc: true
 ---
 
 
