@@ -19,13 +19,13 @@ Se sostiene que existen tres factores principales; sociales, políticos, ecoómi
 
 ## 1. Análisis rápido de la data
 
-```{r}
+```{r, echo=FALSE}
 library(rio)
 data = "https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/datafinal.csv"
 data = import(data)
 ```
 
-```{r}
+```{r, echo=FALSE}
 str(data)
 ```
 
@@ -36,18 +36,18 @@ En este caso, se harán regresiones lineales simples y múltiples.
 
 - Regresión lineal (género y IDH)
 
-```{r}
+```{r, echo=FALSE}
 modelo1 = lm(genero ~ IDH, data)
 summary (modelo1)
 ```
 
-```{r}
+```{r, echo=FALSE}
 library(stargazer)
 stargazer(modelo1, type="text")
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 library(knitr)
 library(modelsummary)
 model1=list('mnodelo1'= modelo1)
@@ -61,14 +61,14 @@ Al ser inversa significa que, ante un incremento en el IDH, se observa una dismi
 
 - regresión simple (género y gini)
 
-```{r}
+```{r, echo=FALSE}
 modelo2 = lm(genero ~ gini, data)
 summary (modelo2)
 stargazer(modelo2, type="text")
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 library(knitr)
 library(modelsummary)
 model2=list('modelo2'= modelo2)
@@ -83,13 +83,13 @@ Por consiguiente, se puede afirmar medianamente que un incremento en la desigual
 
 - Regresión simple (genero y civil)
 
-```{r}
+```{r, echo=FALSE}
 modelo3 = lm(genero ~ civil, data)
 summary (modelo3)
 stargazer(modelo3, type="text")
 ```
 
-```{r}
+```{r, echo=FALSE}
 model3=list('modelo3'= modelo3)
 modelsummary(model3, title = "Regresion Lineal 3",
              stars = TRUE,
@@ -102,13 +102,13 @@ Por medio del presente modelo podemos indicar que, ante un incremento en el índ
 
 ### Regresión lineal múltiple
 
-```{r}
+```{r, echo=FALSE}
 modelo4 = lm(genero ~ IDH + gini + civil, data)
 summary(modelo4)
 stargazer(modelo4, type="text")
 ```
 
-```{r}
+```{r, echo=FALSE}
 model4=list('modelo 4'= modelo4)
 modelsummary(model1, title = "Regresion Lineal 4",
              stars = TRUE,
@@ -125,11 +125,11 @@ Es decir, el incremento en la desigualdad de ingresos puede elevar la desigualda
 
 **Linealidad**
 
-```{r}
+```{r, echo=FALSE}
 plot(modelo4, 1,caption = '');title(main="Linealidad")
 ```
 
-```{r}
+```{r, echo=FALSE}
 mean(modelo4$residuals)
 ```
 Con respecto a la linealidad del modelo, se observa que la línea roja se encuentra relativamente cerca del cero, aunque no completamente horizontal. Sin embargo, la diferencia no resulta ser grande. 
@@ -137,11 +137,11 @@ Por su parte, el promedio de residuos es igual a 3.186741e-18, siendo no muy cer
 
 **Normalidad:**
 
-```{r}
+```{r, echo=FALSE}
 plot(modelo4, 2, caption = '');title(main="Normalidad")
 ```
 
-```{r}
+```{r, echo=FALSE}
 shapiro.test(modelo1$residuals)
 ```
 Con respecto a la normalidad, la mayoría de los datos se concentran por encima de la recta del gráfico de cuantiles teóricos de residuos, siendo este un resultado satisfactorio. Por medio del gráfico podemos afirmar que aparentemente los residuos tienen una distribución normal. 
@@ -150,12 +150,12 @@ No obstante, el p-value de la prueba Shapro-Wilk es igual a 0.1062, siendo no ma
 
 **Homeocedasticidad:**
 
-```{r}
+```{r, echo=FALSE}
 plot(modelo1, 3, caption = '');title(main="Homocedasticidad")
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 library(lmtest)
 bptest(modelo1)
 ```
@@ -166,7 +166,7 @@ No obstante, al emplear la prueba de Breusch-Pagan el resultado obtenido si es m
 
 **Valores influyentes:**
 
-```{r}
+```{r, echo=FALSE}
 plot(modelo4, 5, caption = '');title(main="Influyentes")
 ```
 
@@ -174,7 +174,7 @@ Por medio del gráfico, podemos notar que son reducidos el número de casos que 
 
 **Multicolinealidad:**
 
-```{r}
+```{r, echo=FALSE}
 library(DescTools)
 VIF(modelo4)
 ```
@@ -188,16 +188,16 @@ Por medio de la prueba VIF, podemos observar que no hay correlación entre las v
 Hipótesis
 - A mayor índice de democracia, menor sera el índice de desigualdad de género
 
-```{r}
+```{r, echo=FALSE}
 regresion1 <- lm(genero ~ demo, data = data)
 summary(regresion1)
 ```
-```{r}
+```{r, echo=FALSE}
 library(stargazer)
 stargazer(regresion1, type="text")
 ```
 
-```{r}
+```{r, echo=FALSE}
 library(knitr)
 library(modelsummary)
 model1=list('OLS asegurados (I)'=regresion1)
@@ -216,16 +216,16 @@ En cuanto al modelo el porcentaje de explicacion es de 14.6%, medido a traves de
 Hipótesis
 - A mayor índice de crecimiento economico, mayor será el índice de desigualdad de género
 
-```{r}
+```{r, echo=FALSE}
 regresion2 <- lm(genero ~ Growth, data = data)
 summary(regresion2)
 ```
 
-```{r}
+```{r, echo=FALSE}
 stargazer(regresion2, type="text")
 ```
 
-```{r}
+```{r, echo=FALSE}
 model2=list('OLS asegurados (I)'=regresion2)
 modelsummary(model2, title = "Regresion Lineal 2",
              stars = TRUE,
@@ -243,15 +243,15 @@ En cuanto al modelo el porcentaje de explicacion es de 12.5%, medido a traves de
 Hipótesis
 - A mayor porcentaje de inafiliados, menor sera el índice de desigualdad de género
 
-```{r}
+```{r, echo=FALSE}
 regresion3 <- lm(genero ~ Unaffiliated, data = data)
 summary(regresion3)
 ```
-```{r}
+```{r, echo=FALSE}
 library(stargazer)
 stargazer(regresion3, type="text")
 ```
-```{r}
+```{r, echo=FALSE}
 model3=list('OLS asegurados (I)'=regresion3)
 modelsummary(model3, title = "Regresion Lineal 3",
              stars = TRUE,
@@ -267,13 +267,13 @@ En cuanto al modelo el porcentaje de explicacion es de 16.6%, medido a traves de
 ##MODELO 1 REGRESIÓN DE LAS TRES VARIABLES INDEPENDIENTES
 DEMOCRACIA, CRECIMIENTO Y NO AFILIADOS
 
-```{r}
+```{r, echo=FALSE}
 regresion4 <- lm(genero ~ demo + Growth + Unaffiliated, data = data)
 summary(regresion4)
 stargazer(regresion4, type="text")
 ```
 
-```{r}
+```{r, echo=FALSE}
 model4=list('OLS asegurados (I)'=regresion4)
 modelsummary(model4, title = "Regresion Lineal 4",
              stars = TRUE,
@@ -283,7 +283,7 @@ modelsummary(model4, title = "Regresion Lineal 4",
 #INTERPRETACION 4-REGRESION DEMOCRACY + GROWTH + UNAFFILIATED
 El modelo 4 tiene un porcentaje de explicacion es de 31.7%, medido a traves del R2 ajustado. Los p-valores de las variables son menores a 0.05 y se evidencia que el modelo es válido. En comparacion con los modelos anteriores, este modelo tiene un porcentaje de significancia mayor. Por lo que la adición de las variables tiene impacto.
 
-```{r}
+```{r, echo=FALSE}
 par(mfrow = c(2, 2))  
 plot(regresion4, 1,caption = '');title(main="Linealidad")
 plot(regresion4, 2, caption = '');title(main="Normalidad")
@@ -299,20 +299,20 @@ plot(regresion4, 5, caption = '');title(main="Influyentes")
 #HOMOCEDASTICIDAD
 - La linea es horizontal y el p-valor es mayor a 0.05 y se requiere mayor. Se cumple el supuesto.
 
-```{r}
+```{r, echo=FALSE}
 library(lmtest)
 bptest(regresion4)
 ```
 
 #NORMALIDAD DE RESIDUOS
 - Los puntos se acercan mas a la línea del gráfico pero el p-valor de la prueba ShapiroWilk es menor a 0.05 por lo que no hay normalidad de residuos.
-```{r}
+```{r, echo=FALSE}
 shapiro.test(regresion4$residuals)
 ```
 
 #NO MULTICOLINEALIDAD
 - Los valores son menores a 5 por lo que cumple es supuesto.
-```{r}
+```{r, echo=FALSE}
 library(DescTools)
 VIF(regresion4)
 ```
@@ -326,13 +326,13 @@ VIF(regresion4)
 Hipótesis
 - Hay mayor desigualdad de género a menor Urbanizacion. 
 
-```{r}
+```{r, echo=FALSE}
 regre1 <- lm(genero ~ urban, data = data)
 summary(regre1)
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 library(knitr)
 library(modelsummary)
 modele1=list('GII x Urbanizacion'=regre1)
@@ -350,12 +350,12 @@ modelsummary(modele1, title = "Regresion Lineal 1",
 Hipótesis
 - A mayor Indice de Militarización Global (gmi) , menor será el índice de desigualdad de género (gii). 
 
-```{r}
+```{r, echo=FALSE}
 regres2 <- lm(genero ~ scoremilitar, data= data)
 summary(regres2)
 ```
 
-```{r}
+```{r, echo=FALSE}
 modele2=list('GII x GMI'=regres2)
 modelsummary(modele2, title = "Regresion Lineal 2",
              stars = TRUE,
@@ -370,12 +370,12 @@ modelsummary(modele2, title = "Regresion Lineal 2",
 Hipótesis
 - Una menor percepción de la corrupción explica la desigualdad de género. 
 
-```{r}
+```{r, echo=FALSE}
 regres3 <- lm(genero ~ corru, data= data)
 summary(regres3)
 ```
 
-```{r}
+```{r, echo=FALSE}
 modele3 =list('GII x Corrupción'=regres3)
 modelsummary(modele3, title = "Regresion Lineal 3",
              stars = TRUE,
@@ -387,12 +387,12 @@ modelsummary(modele3, title = "Regresion Lineal 3",
 
 ### Regresión (todas las variables): 
 
-```{r}
+```{r, echo=FALSE}
 regresion_may = lm(genero ~ urban + scoremilitar + corru, data=data)
 summary(regresion_may)
 ```
 
-```{r}
+```{r, echo=FALSE}
 modele4 =list('GII x Urbanización+ GMI+ Corrupcion'=regresion_may)
 modelsummary(modele4, title = "Regresion Lineal 4",
              stars = TRUE,
@@ -407,7 +407,7 @@ VD = 0.848 + (−0.002* urban) +(0* gmi)+(-0.007*corrupcion)
 
 #### - Supuestos: 
 
-```{r}
+```{r, echo=FALSE}
 par(mfrow = c(2, 2))  
 plot(regresion_may, 1,caption = '');title(main="Linealidad")
 plot(regresion_may, 2, caption = '');title(main="Normalidad")
@@ -423,20 +423,20 @@ plot(regresion_may, 5, caption = '');title(main="Influyentes")
     - Homocedasticidad: Se presenta una linea no del todo horizontal, lo que parece ligeramente que las varianzas de los errores de estimación no son constantes en el modelo de regresión. Sin embargo, al realizar la prueba nos da un p-value mayor a 0.05 lo que indica que hay homocedasticidad contradiciendo lo anterior. De manera que si presenta homocedasticidad. 
     
     
-```{r}
+```{r, echo=FALSE}
 library(lmtest)
 bptest(regresion_may)
 ```
 
     - Normalidad de residuos: Los puntos de se acercan lo mas posible a la línea del gráfico, además el p-value obtenido de la prueba es mayor a 0.05. Lo que nos indica que la distancia entre el valor esperado y el observado se distribuye de manera normal. 
     
-```{r}
+```{r, echo=FALSE}
 shapiro.test(regresion_may$residuals)
 ```
 
     - No Multicolinealidad: Se esperan no tener una fuerte correlación entre las variables independientes. Lo cual cumple el modelo, ya que la prueba VIF no arrojó valores menores a 5.  
 
-```{r}
+```{r, echo=FALSE}
 library (DescTools)
 VIF(regresion_may)
 ```
@@ -444,13 +444,13 @@ VIF(regresion_may)
 
 ### Regresion Multiple (9 variables)
 
-```{r}
+```{r, echo=FALSE}
 ##EL MODELO DE TODAS LAS VI AL FINAL 
 modelo5 = lm(genero~ gini + IDH + civil + urban + scoremilitar + corru +Growth + Unaffiliated + demo, data)
 summary(modelo5)
 ```
 
-```{r}
+```{r, echo=FALSE}
 model5=list('modelo 5'= modelo5)
 modelsummary(model5, title = "Regresion Lineal 5",
              stars = TRUE,
@@ -463,7 +463,7 @@ El modelo es válido de acuerdo al p - value del F - estadístico, puesto que su
 Debido a ello, podemos afirmar que el índice de desarrollo humano, el porcentaje de población urbana, el índice de corrupción, el índice de crecimiento económico y el índice de democracia son las variables que tienen un efecto significativo sobre el índice de desigualdad de género. Significa que a mayor desarrollo urbano, menor desigualdad de género. 
 
 
-```{r}
+```{r, echo=FALSE}
 stargazer(modelo4, regresion_may, regresion4, type = "text",intercept.bottom = FALSE,style="all2")
 ```
 
@@ -481,33 +481,33 @@ No se realizará un análisis factorial en este trabajo, puesto que nuestras var
 
 En esta sección, 
 
-```{r}
+```{r, echo=FALSE}
 data
 ```
 
-```{r}
+```{r, echo=FALSE}
 dataClus=data[,c(4:12)]
 row.names(dataClus)=data$country
 ```
 
-```{r}
+```{r, echo=FALSE}
 library(cluster)
 g.dist = daisy(dataClus, metric="gower")
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 dataClus
 ```
 
-```{r}
+```{r, echo=FALSE}
 library(factoextra)
 fviz_nbclust(dataClus, pam,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F)
 ```
 
 En este caso, emplearemos 3 clusters. 
 
-```{r}
+```{r, echo=FALSE}
 library(kableExtra)
 library(magrittr)
 set.seed(123)
@@ -520,23 +520,23 @@ dataClus$pam=res.pam$cluster
 head(dataClus,15)%>%kbl()%>%kable_styling()
 ```
 
-```{r}
+```{r, echo=FALSE}
 fviz_silhouette(res.pam,print.summary = F)
 ```
 
-```{r}
+```{r, echo=FALSE}
 silPAM=data.frame(res.pam$silinfo$widths)
 silPAM$country=row.names(silPAM)
 poorPAM=silPAM[silPAM$sil_width<0,'country']%>%sort()
 poorPAM
 ```
 
-```{r}
+```{r, echo=FALSE}
 aggregate(.~ pam, data=dataClus,mean)
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 data$pamIDHpoor=data$country%in%poorPAM
 data$pamIDH=as.ordered(dataClus$pam)
 dataClus$pam=NULL
@@ -544,11 +544,11 @@ dataClus$pam=NULL
 
 Jerárquico
 
-```{r}
+```{r, echo=FALSE}
 fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F,hc_func = "agnes")
 ```
 
-```{r}
+```{r, echo=FALSE}
 set.seed(123)
 library(factoextra)
 
@@ -562,38 +562,38 @@ head(dataClus,15)%>%kbl()%>%kable_styling()
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 fviz_dend(res.agnes, cex = 0.7, horiz = T,main = "")
 ```
 
-```{r}
+```{r, echo=FALSE}
 fviz_silhouette(res.agnes,print.summary = F)
 ```
 
-```{r}
+```{r, echo=FALSE}
 silAGNES=data.frame(res.agnes$silinfo$widths)
 silAGNES$country=row.names(silAGNES)
 poorAGNES=silAGNES[silAGNES$sil_width<0,'country']%>%sort()
 poorAGNES
 ```
 
-```{r}
+```{r, echo=FALSE}
 aggregate(.~ agnes, data=dataClus,mean)
 ```
 
-```{r}
+```{r, echo=FALSE}
 data$agnesIDHpoor=data$country%in%poorAGNES
 data$agnesIDH=as.ordered(dataClus$agnes)
 dataClus$agnes=NULL
 ```
 
 ###Diana
-```{r}
+```{r, echo=FALSE}
 fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F,hc_func = "diana")
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 set.seed(123)
 res.diana <- hcut(g.dist, k = 3,hc_func='diana')
 dataClus$diana=res.diana$cluster
@@ -601,27 +601,27 @@ dataClus$diana=res.diana$cluster
 head(dataClus,15)%>%kbl%>%kable_styling()
 ```
 
-```{r}
+```{r, echo=FALSE}
 # Visualize
 fviz_dend(res.diana, cex = 0.7, horiz = T, main = "")
 ```
 
-```{r}
+```{r, echo=FALSE}
 fviz_silhouette(res.diana,print.summary = F)
 ```
 
-```{r}
+```{r, echo=FALSE}
 silDIANA=data.frame(res.diana$silinfo$widths)
 silDIANA$country=row.names(silDIANA)
 poorDIANA=silDIANA[silDIANA$sil_width<0,'country']%>%sort()
 poorDIANA
 ```
-```{r}
+```{r, echo=FALSE}
 aggregate(.~ diana, data=dataClus,mean)
 ```
 Ver si las etiquetas están bien ordenadas
 
-```{r}
+```{r, echo=FALSE}
 data$dianaIDHpoor=data$country%in%poorDIANA
 data$dianaIDH=as.ordered(dataClus$diana)
 dataClus$diana=NULL
