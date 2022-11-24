@@ -32,9 +32,9 @@ str(data)
 # 2. Modelación
 En este caso, se harán regresiones lineales simples y múltiples.
 
-## REGRESIÓN ALESSANDRA
+## Regresión Alessandra
 
-### Regresiones simples
+### Regresiones lineales simples
 
 **Regresión lineal (género y IDH)**
 
@@ -118,7 +118,7 @@ Con respecto a las variables, el p-value de las variables relacionadas con el ID
 
 Es decir, el incremento en la desigualdad de ingresos puede elevar la desigualdad de género a nivel mundial, puesto que mantienen una relación directa. De igual manera, el incremento en el índice de desarrollo humano en cada país tiene un efecto inverso; es decir, disminuye la desigualdad de género. 
 
-**SUPUESTOS:**
+### Supuestos
 
 **Linealidad**
 
@@ -174,6 +174,7 @@ plot(modelo4, 5, caption = '');title(main="Influyentes")
 
 Por medio del gráfico, podemos notar que son reducidos el número de casos que se encuentran por encima de 1.LA mayoría de los casos si siguen el patrón general.
 
+
 **Multicolinealidad:**
 
 ```{r, echo=FALSE}
@@ -183,11 +184,11 @@ VIF(modelo4)
 Por medio de la prueba VIF, podemos observar que no hay correlación entre las variables independientes, puesto que todos los valores son menores a 5.
 
 
-## REGRESIÓN MELANY
+## Regresión Melany
 
-### Regresiones simples
+### Regresiones lineales simples
 
-- Regresión democracia
+**Regresión democracia**
 
 Hipótesis
 - A mayor índice de democracia, menor sera el índice de desigualdad de género
@@ -237,8 +238,8 @@ La magnitud del efecto es 0.014, es decir la desigualdad de género aumenta en 0
 En cuanto al modelo el porcentaje de explicacion es de 12.5%, medido a traves del R2 El p-valor de la independiente es 0.0003151, lo cual es menor a 0.05 y evidencia que el modelo es valido. 
 - En otras palabras, mientras mayor sea el índice de crecimiento económico, mayores será la indice de desigualdad social en el pais respectivo. Por lo que decirmos que esta variable impacta significativamente, sin embargo con un 12.5% de significancia.
 
-### REGRESION PORCENTAJE DE NO AFILIADOS
 
+**REGRESION PORCENTAJE DE NO AFILIADOS**
 Hipótesis
 - A mayor porcentaje de inafiliados, menor sera el índice de desigualdad de género
 
@@ -246,6 +247,7 @@ Hipótesis
 regresion3 <- lm(genero ~ Unaffiliated, data = data)
 stargazer(regresion3, type="text")
 ```
+
 ```{r, echo=FALSE}
 model3=list('OLS asegurados (I)'=regresion3)
 modelsummary(model3, title = "Regresion Lineal 3",
@@ -259,7 +261,8 @@ En cuanto al modelo el porcentaje de explicacion es de 16.6%, medido a traves de
 
 - En otras palabras, mientras mayor sea el porcentaje de personas no afiliadas a religion alguna, menor seran las probabilidades de que el se evidencie desigualdad de genero en el pais respectivo. Por lo que decirmos que esta variable impacta significativamente con un 16.6%.
 
-### MODELO 1 REGRESIÓN DE LAS TRES VARIABLES INDEPENDIENTES
+### Regresión lineal múltiple
+
 DEMOCRACIA, CRECIMIENTO Y NO AFILIADOS
 
 ```{r, echo=FALSE}
@@ -277,7 +280,7 @@ modelsummary(model4, title = "Regresion Lineal 4",
 **INTERPRETACION 4-REGRESION DEMOCRACY + GROWTH + UNAFFILIATED**
 El modelo 4 tiene un porcentaje de explicacion es de 31.7%, medido a traves del R2 ajustado. Los p-valores de las variables son menores a 0.05 y se evidencia que el modelo es válido. En comparacion con los modelos anteriores, este modelo tiene un porcentaje de significancia mayor. Por lo que la adición de las variables tiene impacto.
 
-**SUPUESTOS:**
+### Supuestos 
 
 ```{r, echo=FALSE}
 par(mfrow = c(2, 2))  
@@ -286,8 +289,6 @@ plot(regresion4, 2, caption = '');title(main="Normalidad")
 plot(regresion4, 3, caption = '');title(main="Homocedasticidad")
 plot(regresion4, 5, caption = '');title(main="Influyentes")
 ```
-
-###INTERPRETACION DE SUPUESTOS
 
 **LINEALIDAD**
 - Hay linelidad, se espera que esten cercanos a 0 y con una linea horizontal.La linea cuenta con una tendencia horizontal, los datos estan concentrados entre valores de 0.3 y 0.5.
@@ -315,11 +316,11 @@ library(DescTools)
 VIF(regresion4)
 ```
 
-## REGRESIÓN MAYELI
+## Regresión Mayeli
 
-### Regresiones Lineales Simples
+### Regresiones lineales simples
 
-#### Regresión 1: Población Urbana 
+**Regresión 1: Población Urbana**
 
 Hipótesis
 - Hay mayor desigualdad de género a menor Urbanizacion. 
@@ -343,7 +344,7 @@ modelsummary(modele1, title = "Regresion Lineal 1",
   Esta regresión comprueba la hipotesis de que a cada unidad que aumente la desigualdad de género, disminuye la urbanización en -0.004, ademas el modelo presenta un p.value menor a 0.05 por lo que el modelo es significativo. Tambien, lo confirman los asterisco (menos de 0.001% )que no tenga efecto. En este modelo la variable urbanización explica un 18.82% la desigualdad de género. 
 
 
-#### Regresion 2: Indice de Militarización Global (GMI)
+**Indice de Militarización Global (GMI)**
 
 Hipótesis
 - A mayor Indice de Militarización Global (gmi) , menor será el índice de desigualdad de género (gii). 
@@ -363,7 +364,7 @@ modelsummary(modele2, title = "Regresion Lineal 2",
 - Interpretación:
   Esta regresión comprueba la hipotesis de que a cada unidad que aumente la desigualdad de género, disminuye la militarizción (la pendiente: -0.001, ademas el modelo presenta un p.value menor a 0.05 por lo que el modelo es significativo. Tambien, lo confirman los asterisco (menos de 0.01% )que no tenga efecto. En este modelo la variable urbanización explica un 0,9% la desigualdad de género que es muy reducido. 
 
-### Regresion 3: Percepción de la corrupción 
+**Percepción de la corrupción**
 
 Hipótesis
 - Una menor percepción de la corrupción explica la desigualdad de género. 
@@ -380,10 +381,11 @@ modelsummary(modele3, title = "Regresion Lineal 3",
              output = "kableExtra")
 ```
 
--  Interpretación:
-  Esta regresión comprueba la hipotesis de que a cada unidad que aumente la desigualdad de género, disminuye la percpeción de la corrupción (la pendiente: -0.008, ademas el modelo presenta un p.value menor a 0.05 por lo que el modelo es significativo. Tambien, lo confirman los asterisco donde es probable menos de 0.001% que no tenga efecto. En este modelo la variable urbanización explica un 35.3% la desigualdad de género que es muy reducido.
+**Interpretación:**
 
-### Regresión (todas las variables): 
+Esta regresión comprueba la hipotesis de que a cada unidad que aumente la desigualdad de género, disminuye la percpeción de la corrupción (la pendiente: -0.008, ademas el modelo presenta un p.value menor a 0.05 por lo que el modelo es significativo. Tambien, lo confirman los asterisco donde es probable menos de 0.001% que no tenga efecto. En este modelo la variable urbanización explica un 35.3% la desigualdad de género que es muy reducido.
+
+### Regresión lineal múltiple
 
 ```{r, echo=FALSE}
 regresion_may = lm(genero ~ urban + scoremilitar + corru, data=data)
@@ -403,7 +405,7 @@ A partir del R^ajustado se sabe que este modelo explica un 45.9% de la desiguald
 
 VD = 0.848 + (−0.002* urban) +(0* gmi)+(-0.007*corrupcion)
 
-### Supuestos: 
+### Supuestos 
 
 ```{r, echo=FALSE}
 par(mfrow = c(2, 2))  
@@ -440,7 +442,7 @@ VIF(regresion_may)
 ```
 
 
-### Regresion Multiple (9 variables)
+## Regresion lineal múltiple (9 variables)
 
 ```{r, echo=FALSE}
 modelo5 = lm(genero~ gini + IDH + civil + urban + scoremilitar + corru +Growth + Unaffiliated + demo, data)
@@ -466,12 +468,12 @@ Por otro lado, el segundo mejor modelo que explica mejor la variable dependiente
 
 Y finalmente, el tercer modelo es el que menor porcentaje de explicación tiene para la variable dependiente con un 29.5% de significancia. Las varibles Growth e Unaffiliated son las más significativas para este modelo al presentar 3 asteriscos. Por otro lado, la variable demo es menos significativa que las anteriores al presentar solo 2.  
 
-# 3. ANÁLSIS FACTORIAL 
+# 3. Análisis factorial
 
 No se realizará un análisis factorial en este trabajo, puesto que nuestras variables se tratan de índices compuestos anteriormente por otras variables. Es decir, las dimensiones latentes restantes ya no aplican para este análisis. 
 
 
-# 4. ANÁLISIS DE CONGLOMERADOS
+# 4. Análisis de conglomerados
 
 En esta sección, se busca elaborar subconjuntos por medio de las variables dependientes utilizadas:
 
@@ -483,6 +485,7 @@ row.names(dataClus)=data$country
 ```
 
 Estandarizamos la base de datos: 
+
 ```{r, echo=FALSE}
 library(BBmisc)
 dataClus=normalize(dataClus,method='standardize')
@@ -499,7 +502,7 @@ library(cluster)
 g.dist = daisy(dataClus, metric="gower")
 ```
 
-## ESTRATEGIA DE PARTICIÓN 
+## Estrategia de partición 
 
 Determinamos el número óptimo de clusters usando el estadístico gap: 
 
@@ -564,7 +567,7 @@ data$pam=as.ordered(dataClus$pam)
 dataClus$pam=NULL
 ```
 
-## PARTICIÓN JERÁRQUICA
+## Estrategia jerárquica
 
 ### Estrategia Aglomerativa
 
