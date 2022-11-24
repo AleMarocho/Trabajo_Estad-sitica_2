@@ -403,7 +403,7 @@ A partir del R^ajustado se sabe que este modelo explica un 45.9% de la desiguald
 
 VD = 0.848 + (−0.002* urban) +(0* gmi)+(-0.007*corrupcion)
 
-#### - Supuestos: 
+### Supuestos: 
 
 ```{r, echo=FALSE}
 par(mfrow = c(2, 2))  
@@ -483,14 +483,18 @@ row.names(dataClus)=data$country
 ```
 
 Estandarizamos la base de datos: 
-```{r}
+```{r, echo=FALSE}
 library(BBmisc)
 dataClus=normalize(dataClus,method='standardize')
 ```
 
+```{r}
+boxplot(normalize(dataClus,method='standardize'))
+```
+
 Y realizamos el cálculo de matrices de distancia.
 
-```{r}
+```{r, echo=FALSE}
 library(cluster)
 g.dist = daisy(dataClus, metric="gower")
 ```
@@ -504,7 +508,7 @@ library(factoextra)
 fviz_nbclust(dataClus, pam,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F)
 ```
 
-En este caso, a pesar de que el número óptimo es 1, emplearemos 4 clusters para realizar el análisis:
+En este caso, a pesar de que el número óptimo es 1, emplearemos 3 clusters para realizar el análisis:
 
 ```{r, echo=FALSE}
 library(kableExtra)
@@ -534,28 +538,49 @@ poorPAM=silPAM[silPAM$sil_width<0,'country']%>%sort()
 poorPAM
 ```
 
+Observamos el orden de las etiquetas: 
+
 ```{r, echo=FALSE}
 aggregate(.~ pam, data=dataClus,mean)
 ```
 
+Como no estaban en orden, las reorganizamos: 
+
+```{r}
+original=aggregate(.~pam, data=dataClus,mean)
+original[order(original$corru),]
+```
+
+Recodificamos las etiquetas: 
+
+```{r}
+dataClus$pam=dplyr::recode(dataClus$pam, `1` = 1, `3`=2,`2`=3)
+```
+
 
 ```{r, echo=FALSE}
-data$pamIDHpoor=data$country%in%poorPAM
-data$pamIDH=as.ordered(dataClus$pam)
+data$pampoor=data$country%in%poorPAM
+data$pam=as.ordered(dataClus$pam)
 dataClus$pam=NULL
 ```
 
 ## PARTICIÓN JERÁRQUICA
 
+### Estrategia Aglomerativa
+
+Asimismo, por medio de la estrategia aglomerativa evaluamos el esfuerzo por juntar los elementos clusters tras clusters. Para comenzar, definimos el número óptimo de clusters vía agnes: 
+
 ```{r, echo=FALSE}
 fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F,hc_func = "agnes")
 ```
+
+El número óptimo de clusters es 3:
 
 ```{r, echo=FALSE}
 set.seed(123)
 library(factoextra)
 
-res.agnes<- hcut(g.dist, k = 4,hc_func='agnes',hc_method = "ward.D")
+res.agnes<- hcut(g.dist, k = 3,hc_func='agnes',hc_method = "ward.D")
 
 dataClus$agnes=res.agnes$cluster
 
@@ -564,14 +589,18 @@ dataClus$agnes=res.agnes$cluster
 head(dataClus,15)%>%kbl()%>%kable_styling()
 ```
 
+El dendograma muestra el proceso de comglomeración AGNES:
 
 ```{r, echo=FALSE}
 fviz_dend(res.agnes, cex = 0.7, horiz = T,main = "")
 ```
 
+Observamos las siluetas para AGNES: 
+
 ```{r, echo=FALSE}
 fviz_silhouette(res.agnes,print.summary = F)
 ```
+Observamos cuáles fueron los países mal clusterizados: 
 
 ```{r, echo=FALSE}
 silAGNES=data.frame(res.agnes$silinfo$widths)
@@ -580,21 +609,45 @@ poorAGNES=silAGNES[silAGNES$sil_width<0,'country']%>%sort()
 poorAGNES
 ```
 
+Observamos el promedio de cada clusters: 
+
 ```{r, echo=FALSE}
 aggregate(.~ agnes, data=dataClus,mean)
 ```
+Reordenamos el promedio de las etiquetas:
+```{r}
+original=aggregate(.~agnes, data=dataClus,mean)
+original[order(original$corru),]
+```
+
+Recodificamos las etiquetas: 
+
+```{r}
+dataClus$agnes=dplyr::recode(dataClus$agnes, `1` = 1, `3`=2,`2`=3)
+```
+
+Guardamos la columna de AGNES en la data integrada, y la eliminamos de dataClus.
 
 ```{r, echo=FALSE}
-data$agnesIDHpoor=data$country%in%poorAGNES
-data$agnesIDH=as.ordered(dataClus$agnes)
+data$agnespoor=data$country%in%poorAGNES
+data$agnes=as.ordered(dataClus$agnes)
 dataClus$agnes=NULL
 ```
 
-###Diana
+Finalmente,comparamos la estrategia jerárquica con la de partición: 
+
+```{r, echo=FALSE}
+table(data$pam,data$agnes,dnn = c('Particion','Aglomeracion'))
+```
+
+### Estrategia Divisiva
+Por último, decidimos el número óptimo de clusters por medio de diana: 
+
 ```{r, echo=FALSE}
 fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F,hc_func = "diana")
 ```
 
+A pesar de que el número óptimo es, usaremos 3 clusters: 
 
 ```{r, echo=FALSE}
 set.seed(123)
@@ -604,14 +657,18 @@ dataClus$diana=res.diana$cluster
 head(dataClus,15)%>%kbl%>%kable_styling()
 ```
 
+Miramos el proceso de conglomeración por medio del dendograma: 
+
 ```{r, echo=FALSE}
 # Visualize
 fviz_dend(res.diana, cex = 0.7, horiz = T, main = "")
 ```
+Miramos el número de siluetas: 
 
 ```{r, echo=FALSE}
 fviz_silhouette(res.diana,print.summary = F)
 ```
+Observamos el número de países mal clusterizados: 
 
 ```{r, echo=FALSE}
 silDIANA=data.frame(res.diana$silinfo$widths)
@@ -619,16 +676,101 @@ silDIANA$country=row.names(silDIANA)
 poorDIANA=silDIANA[silDIANA$sil_width<0,'country']%>%sort()
 poorDIANA
 ```
+Exploramos el promedio de cada clusters: 
+
 ```{r, echo=FALSE}
 aggregate(.~ diana, data=dataClus,mean)
 ```
-Ver si las etiquetas están bien ordenadas
+
+Reordenamos las etiquetas: 
+
+```{r}
+original=aggregate(.~ diana, data=dataClus,mean)
+original[order(original$corru),]
+```
+Recodificamos: 
+
+```{r}
+dataClus$diana=dplyr::recode(dataClus$diana, `3` = 1, `1`=2,`2`=3)
+```
+
+Guardamos la columna de DIANA en la data integrada, y la eliminamos de dataClus.
 
 ```{r, echo=FALSE}
-data$dianaIDHpoor=data$country%in%poorDIANA
-data$dianaIDH=as.ordered(dataClus$diana)
+data$dianapoor=data$country%in%poorDIANA
+data$diana=as.ordered(dataClus$diana)
 dataClus$diana=NULL
 ```
 
+## Visualización comparativa
+
+```{r}
+proyeccion = cmdscale(g.dist, k=2,add = T) 
+head(proyeccion$points,20)
+```
+
+```{r}
+data$dim1 <- proyeccion$points[,1]
+data$dim2 <- proyeccion$points[,2]
+```
+
+```{r}
+library(ggrepel)
+base= ggplot(data,aes(x=dim1, y=dim2,label=row.names(dataClus))) 
+base + geom_text_repel(size=3, max.overlaps = 50,min.segment.length = unit(0, 'lines'))
+```
+
+**Gráfica vía PAM**
+
+```{r}
+# solo paises mal clusterizados
+PAMlabels=ifelse(data$pampoor,data$country,'')
+
+#base
+base= ggplot(data,aes(x=dim1, y=dim2))  +
+    scale_color_brewer(type = 'qual',palette ='Dark2'  ) + labs(subtitle = "Se destacan los países mal clusterizados")
+
+pamPlot=base + geom_point(size=3, 
+                          aes(color=pam))  + 
+        labs(title = "PAM") 
+# hacer notorios los paises mal clusterizados
+pamPlot + geom_text_repel(size=4,
+                          aes(label=PAMlabels),
+                          max.overlaps = 50,
+                          min.segment.length = unit(0, 'lines'))
+```
+
+**Gráfica via AGNES**
+
+```{r}
+# solo paises mal clusterizados
+AGNESlabels=ifelse(data$agnespoor,data$country,'')
+
+agnesPlot=base + geom_point(size=3, 
+                            aes(color= as.factor(agnes))) +
+          labs(title = "AGNES") 
+# hacer notorios los paises mal clusterizados
+agnesPlot + geom_text_repel(size=4,
+                            aes(label=AGNESlabels),
+                            max.overlaps = 50,
+                            min.segment.length = unit(0, 'lines'))
+```
+
+**Gráfica vía DIANA**
+
+```{r}
+# solo paises mal clusterizados
+DIANAlabels=ifelse(data$dianapoor,data$country,'')
+
+dianaPlot=base + geom_point(size=3,
+                            aes(color=diana)) + 
+          labs(title = "DIANA")
+
+# hacer notorios los paises mal clusterizados
+dianaPlot + geom_text_repel(size=4,
+                            aes(label=DIANAlabels), 
+                            max.overlaps = 50,
+                            min.segment.length = unit(0, 'lines'))
+```
 
 
