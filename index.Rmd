@@ -10,7 +10,6 @@ output:
     toc: true
 ---
 
-hols
 
 # Introducción
 
@@ -328,7 +327,7 @@ Hipótesis
 
 ```{r, echo=FALSE}
 regre1 <- lm(genero ~ urban, data = data)
-summary(regre1)
+#summary(regre1)
 ```
 
 
@@ -352,7 +351,7 @@ Hipótesis
 
 ```{r, echo=FALSE}
 regres2 <- lm(genero ~ scoremilitar, data= data)
-summary(regres2)
+#summary(regres2)
 ```
 
 ```{r, echo=FALSE}
@@ -372,7 +371,7 @@ Hipótesis
 
 ```{r, echo=FALSE}
 regres3 <- lm(genero ~ corru, data= data)
-summary(regres3)
+#summary(regres3)
 ```
 
 ```{r, echo=FALSE}
@@ -593,7 +592,7 @@ dataClus$agnes=res.agnes$cluster
 head(dataClus,15)%>%kbl()%>%kable_styling()
 ```
 
-El dendograma muestra el proceso de comglomeración AGNES:
+El dendograma muestra el proceso de conglomeración AGNES:
 
 ```{r, echo=FALSE}
 fviz_dend(res.agnes, cex = 0.7, horiz = T,main = "")
@@ -776,5 +775,54 @@ dianaPlot + geom_text_repel(size=4,
                             max.overlaps = 50,
                             min.segment.length = unit(0, 'lines'))
 ```
+
+
+```{r}
+dataClus$diana_lv = factor(dataClus$diana, levels = c(1:3))
+```
+
+
+```{r}
+library(sf) 
+mapDEP=sf::read_sf("world-administrative-boundaries.shp")
+head(mapDEP) #Veamos la geometría:
+```
+
+```{r}
+newNames= c('iso3', 'status', 'code', 'country', 'continent', 'region', 'iso_3166_1_', 'french_shor', 'geometry')
+names(mapDEP)= newNames
+```
+
+```{r}
+mapDEP2=merge(mapDEP,data)
+head(mapDEP2)
+```
+
+```{r}
+library(ggplot2)
+mapaleyendaL= ggplot(mapDEP2)+ geom_sf() + theme_light()
+
+mapaleyL= mapaleyendaL + geom_sf(data=mapDEP2,
+              aes(fill=diana_lv),color = "gray")
+      
+mapa4= mapaleyL +
+coord_sf() + 
+scale_fill_manual(values=c("darkorange","firebrick1")) + theme_void() +
+  
+  
+theme(axis.title = element_blank(), axis.text = element_blank(), legend.position = c(1.1,0.55)) + labs(fill=" ") + theme(legend.text = element_text(size = 13)) +
+  
+labs(title = "Mapa GII",caption = "Estudiantes de estadística 2") +
+  
+theme(
+plot.title = element_text(color="black", size=15, face="bold"),
+plot.caption = element_text(color = "black", size=10))
+
+mapa4
+```
+
+
+
+
 
 
