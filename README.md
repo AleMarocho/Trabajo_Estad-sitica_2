@@ -90,5 +90,4 @@ JUSTIFICACION:
 - La teoría sugiere que con una mayor percepción de corrupción hay una mayor consecuencia en las mujeres puesto que están expuestas a llevarse la peor parte de la impunidad que ocasiona la corrupción en las distintas instancias institucionales. En otras palabras, a un mayor nivel de percepción de la corrupción está correlacionado directamente con mayor desigualdad de género, la variable dependiente. También, debido a que la corrupción insertada en la administración de justicia no protege a las mujeres y muchas veces deja desatendidas sus denuncias incrementando la desigualdad de género como la violencia. Asimismo, ello se debe a que cuando hay menor percepción de corrupción hay una mejora en la percepción de políticas públicas en favor de las mujeres, por tanto de oportunidades para ellas ya que hay más acción que no se retrasa o se vuelve inoperativa por la corrupción tanto como en su involucración en la política a menor percepción de corrupción hay mayor disposición a participar de diversos espacios políticos. De modo que, los impactos de la corrupción son diferenciados, hay sectores de la ciudadanía como las mujeres que se ven más afectadas ante mayor percepción de corrupción.
 
 
-
-hola
+Página: https://alemarocho.github.io/Trabajo_Estadistica_2/
