@@ -784,46 +784,19 @@ str(data$diana)
 
 
 ```{r}
-library(sf) 
-mapDEP=sf::read_sf("world-administrative-boundaries.shp")
-head(mapDEP) #Veamos la geometría:
+#library(sf) 
+#mapDEP=sf::read_sf("world-administrative-boundaries.shp")
+#head(mapDEP) #Veamos la geometría:
 ```
 
 ```{r}
-newNames= c('iso3', 'status', 'code', 'country', 'continent', 'region', 'iso_3166_1_', 'french_shor', 'geometry')
-names(mapDEP)= newNames
+#newNames= c('iso3', 'status', 'code', 'country', 'continent', 'region', 'iso_3166_1_', 'french_shor', 'geometry')
+#names(mapDEP)= newNames
 ```
 
 ```{r}
-mapDEP2=merge(mapDEP,data)
-head(mapDEP2)
+#mapDEP2=merge(mapDEP,data)
+#head(mapDEP2)
 ```
-
-```{r}
-library(ggplot2)
-mapaleyendaL= ggplot(mapDEP2)+ geom_sf() + theme_light()
-
-mapaleyL= mapaleyendaL + geom_sf(data=mapDEP2,
-              aes(fill=diana_lv),color = "gray")
-      
-mapa4= mapaleyL +
-coord_sf() + 
-scale_fill_manual(values=c("darkorange","firebrick1")) + theme_void() +
-  
-  
-theme(axis.title = element_blank(), axis.text = element_blank(), legend.position = c(1.1,0.55)) + labs(fill=" ") + theme(legend.text = element_text(size = 13)) +
-  
-labs(title = "Mapa GII",caption = "Estudiantes de estadística 2") +
-  
-theme(
-plot.title = element_text(color="black", size=15, face="bold"),
-plot.caption = element_text(color = "black", size=10))
-
-mapa4
-```
-
-
-
-
 
 
