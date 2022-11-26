@@ -36,7 +36,7 @@ colnames(tabla)[2] = "Desigualdad de género"
 
 ```{r}
 library(equatiomatic)
-datatable(tabla, filter = "top")
+#datatable(tabla, filter = "top")
 ```
 a
 
