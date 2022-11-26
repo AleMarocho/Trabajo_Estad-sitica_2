@@ -5,16 +5,17 @@ date: "Noviembre, 2022"
 subtitle: 'Curso: POL304 - Estadística para el análisis político 2'
 output:
   prettydoc::html_pretty:
-    theme: cayman
+    theme: hpstr
     highlight: github
 ---
 
 
 # Introducción
 
-La siguiente investigación analiza los factores que pueden influir en la desigualdad de género a nivel mundial. Para evaluar ello, empleamos un índice de desigualdad de género - Gender Inequality Index (GII), elaborado por Human Development Reports. El presente índice se encuentra basado en tres dimensiones: salud, empoderamiento y mercado laboral. Algunas de los indicadores que locomponen son datos a nivel mundial sobre ratio de mortalidad maternal, tasa de embarazo adolescente, población de femenina y masculina con al menos educación secundaria, etc. 
+La siguiente investigación tiene como propósito analizar los factores que pueden influir en la desigualdad de género a nivel mundial. Para evaluar ello, empleamos el índice de desigualdad de género - Gender Inequality Index (GII), elaborado por Human Development Reports. La presente base de datos se encuentra distribuida en tres dimensiones: salud, empoderamiento y mercado laboral. Además, algunos de los indicadores que lo componen son datos a nivel mundial sobre ratio de mortalidad maternal, tasa de embarazo adolescente, población de femenina y masculina con al menos educación secundaria, entre otros. 
 
-Se sostiene que existen tres factores principales; sociales, políticos, ecoómicos y militares; que influyen sobre esta última. El factor político será medido a través del índice de democracia, percepción de la corrupción y un índice de derechos civiles. Con respecto a las económicas, se articulan por medio de la desigualdad de ingresos o el coeficiente gini y un índice de crecimiento económico. Entre las sociales se ubican un índice de desarrollo humano, porcentaje de población urbanizada y porcentaje de no afiliados a una religión. Finalmente, lo militar se compone por el índice de militarización global.
+Se sostiene que, en función de este trabajo, existen factores sociales, políticos, económicos y militares que influyen en nuestra variable dependiente. En primer lugar, el factor político se representará a través de un índice de democracia, un índice de percepción de la corrupción y un índice de derechos civiles. Con respecto a los factores económicos, se articularán por medio del coeficiente GINI y un índice de crecimiento económico. También se usarán el índice de desarrollo humano, el porcentaje de población urbana y el porcentaje de no religiosos para los factores sociales. Finalmente, el factor militar estará compuesto de un índice de militarización global.
+
 
 # 1. Análisis rápido de la data
 
@@ -24,9 +25,26 @@ data = "https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/datafinal.c
 data = import(data)
 ```
 
-```{r, echo=FALSE}
-str(data)
+
+A nivel mundial, la desigualdad de género en promedio es igual a 40.7%. El porcentaje de desigualdad de género por país se puede observar en la siguiente tabla:
+
+```{r include=FALSE}
+tabla = data[,c(2:3)]
+tabla$genero= tabla$genero*100
+colnames(tabla)[2] = "Desigualdad de género"
 ```
+
+```{r echo=FALSE}
+library(equatiomatic)
+datatable(tabla, filter = "top")
+```
+
+```{r, echo=FALSE}
+library(sf) 
+mapDEP=sf::read_sf("world-administrative-boundaries.shp")
+```
+
+
 
 # 2. Modelación
 En este caso, se harán regresiones lineales simples y múltiples.
@@ -787,11 +805,6 @@ dianaPlot + geom_text_repel(size=4,
 data$diana = factor(data$diana, levels = c(1:3))
 ```
 
-
-```{r, echo=FALSE}
-library(sf) 
-mapDEP=sf::read_sf("world-administrative-boundaries.shp")
-```
 
 ```{r, echo=FALSE}
 newNames= c('iso3', 'status', 'code', 'country', 'continent', 'region', 'iso_3166_1_', 'french_shor', 'geometry')
