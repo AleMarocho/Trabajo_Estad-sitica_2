@@ -25,7 +25,6 @@ data = "https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/datafinal.c
 data = import(data)
 ```
 
-
 A nivel mundial, la desigualdad de género en promedio es igual a 40.7%. El porcentaje de desigualdad de género por país se puede observar en la siguiente tabla:
 
 ```{r include=FALSE}
@@ -34,10 +33,12 @@ tabla$genero= tabla$genero*100
 colnames(tabla)[2] = "Desigualdad de género"
 ```
 
-```{r echo=FALSE}
+
+```{r}
 library(equatiomatic)
 datatable(tabla, filter = "top")
 ```
+a
 
 ```{r, echo=FALSE}
 library(sf) 
