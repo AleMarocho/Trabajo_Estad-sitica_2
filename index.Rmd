@@ -7,8 +7,8 @@ output:
   prettydoc::html_pretty:
     theme: hpstr
     highlight: github
+    toc: true
 ---
-
 
 # Introducción
 
@@ -34,10 +34,13 @@ colnames(tabla)[2] = "Desigualdad de género"
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 library(equatiomatic)
-#datatable(tabla, filter = "top")
+datatable(tabla, filter = "top")
 ```
+
+
+De igual manera, el siguiente gráfico ilustra los resultados del índice de desigualdad de género empleado a nivel mundial, visibilizando las zonas geográficas más desiguales en cuestiones de género: 
 
 ```{r, echo=FALSE}
 library(sf) 
@@ -90,10 +93,6 @@ En este caso, se harán regresiones lineales simples y múltiples.
 modelo1 = lm(genero ~ IDH, data)
 ```
 
-```{r, echo=FALSE}
-library(stargazer)
-stargazer(modelo1, type="text")
-```
 
 ```{r, echo=FALSE}
 library(knitr)
@@ -111,7 +110,6 @@ Al ser inversa significa que, ante un incremento en el IDH, se observa una dismi
 
 ```{r, echo=FALSE}
 modelo2 = lm(genero ~ gini, data)
-stargazer(modelo2, type="text")
 ```
 
 
@@ -132,7 +130,6 @@ Por consiguiente, se puede afirmar medianamente que un incremento en la desigual
 
 ```{r, echo=FALSE}
 modelo3 = lm(genero ~ civil, data)
-stargazer(modelo3, type="text")
 ```
 
 ```{r, echo=FALSE}
@@ -150,12 +147,11 @@ Por medio del presente modelo podemos indicar que, ante un incremento en el índ
 
 ```{r, echo=FALSE}
 modelo4 = lm(genero ~ IDH + gini + civil, data)
-stargazer(modelo4, type="text")
 ```
 
 ```{r, echo=FALSE}
 model4=list('modelo 4'= modelo4)
-modelsummary(model1, title = "Regresion Lineal 4",
+modelsummary(model1, title = "Regresión Lineal 4",
              stars = TRUE,
              output = "kableExtra")
 ```
@@ -177,7 +173,11 @@ plot(modelo4, 1,caption = '');title(main="Linealidad")
 Promedio de residuos: 
 
 ```{r, echo=FALSE}
-mean(modelo4$residuals)
+library(kableExtra)
+ mean(modelo4$residuals)
+#res =
+#data.frame(list("p-value"=res$p.value))%>%
+ #   kable(caption = res$method)%>%kable_styling(full_width = F)
 ```
 Con respecto a la linealidad del modelo, se observa que la línea roja se encuentra relativamente cerca del cero, aunque no completamente horizontal. Sin embargo, la diferencia no resulta ser grande. 
 Por su parte, el promedio de residuos es igual a 3.186741e-18, siendo no muy cercano a 0. 
@@ -191,7 +191,14 @@ plot(modelo4, 2, caption = '');title(main="Normalidad")
 Prueba de Shapiro-Wilk:
 
 ```{r, echo=FALSE}
-shapiro.test(modelo1$residuals)
+
+library(kableExtra)
+
+resSW = shapiro.test(modelo4$residuals)
+
+data.frame(list('SW'=resSW$statistic,
+             "p-value"=resSW$p.value))%>%
+    kable(caption = resSW$method)%>%kable_styling(full_width = F)
 ```
 Con respecto a la normalidad, la mayoría de los datos se concentran por encima de la recta del gráfico de cuantiles teóricos de residuos, siendo este un resultado satisfactorio. Por medio del gráfico podemos afirmar que aparentemente los residuos tienen una distribución normal. 
 
@@ -207,8 +214,15 @@ Prueba de Breusch-Pagan:
 
 ```{r, echo=FALSE}
 library(lmtest)
-bptest(modelo1)
+library(lmtest)
+library(kableExtra)
+
+resBP = bptest(modelo4)
+data.frame(list('SW'=resBP$statistic,
+             "p-value"=resBP$p.value))%>%
+    kable(caption = resBP$method)%>%kable_styling(full_width = F)
 ```
+
 
 Con respecto a la homocedasticidad, la línea de nuestro modelo no es horizontal y obsevamos que los residuos se encuentran dispersos, por lo que no podemos afirmar completamente que se cumpla el supuesto de homocedasticidad. 
 
