@@ -403,8 +403,9 @@ modelsummary(modele1, title = "Regresion Lineal 1",
              output = "kableExtra")
 ```
 
- - Interpretación:
-  Esta regresión comprueba la hipótesis de que a cada unidad que aumente la desigualdad de género, disminuye la urbanización en -0.004, además el modelo presenta un p-value menor a 0.05, por lo que el modelo es significativo. También, lo confirman los asteriscos (menos de 0.001%) que tenga efecto. En este modelo la variable urbanización explica un 18.82% la desigualdad de género. 
+Interpretación:
+ 
+Esta regresión comprueba la hipótesis de que a cada unidad que aumente la desigualdad de género, disminuye la urbanización en -0.004, además el modelo presenta un p-value menor a 0.05, por lo que el modelo es significativo. También, lo confirman los asteriscos (menos de 0.001%) que tenga efecto. En este modelo la variable urbanización explica un 18.82% la desigualdad de género. 
   
 
 **Indice de Militarización Global (GMI)**
@@ -424,8 +425,9 @@ modelsummary(modele2, title = "Regresion Lineal 2",
              output = "kableExtra")
 ```
 
-- Interpretación:
-  Esta regresión comprueba la hipótesis de que a cada unidad que aumente la desigualdad de género, disminuye la militarización (la pendiente: -0.001). Además, el modelo presenta un p-value menor a 0.05, por lo que el modelo es significativo. También, lo confirman los asteriscos (menos de 0.01) que  tenga efecto. 
+Interpretación:
+
+Esta regresión comprueba la hipótesis de que a cada unidad que aumente la desigualdad de género, disminuye la militarización (la pendiente: -0.001). Además, el modelo presenta un p-value menor a 0.05, por lo que el modelo es significativo. También, lo confirman los asteriscos (menos de 0.01) que  tenga efecto. 
 Sin embargo, en este modelo, la variable urbanización explica la desigualdad de género un 0,9%, lo cual es muy reducido. 
 
 
@@ -446,7 +448,7 @@ modelsummary(modele3, title = "Regresion Lineal 3",
              output = "kableExtra")
 ```
 
--Interpretación
+Interpretación:
 
 Esta regresión comprueba la hipótesis de que a cada unidad que aumente la desigualdad de género, disminuye la percepción de la corrupción (la pendiente: -0.008). Además, el modelo presenta un p-value menor a 0.05, por lo que el modelo es significativo. También, lo confirman los asteriscos donde es probable menos de 0.001% que  tenga efecto. 
 En este modelo la variable urbanización explica un 35.3% la desigualdad de género, siendo significativamente mayor que el modelo anterior. 
@@ -465,11 +467,13 @@ modelsummary(modele4, title = "Regresion Lineal 4",
              output = "kableExtra")
 ```
 
-- Interpretación: 
+Interpretación: 
 
-A partir del R ajustado se sabe que este modelo explica un 45.9% de la desigualdad de género. Además, el p-value es menor a 0.05, por lo que se acepta que el modelo es válido. Ahora, en cuánto a los p-value de cada variable, se sabe que el índice de percepción de la corrupción es la que más aporta, además ello se refleja con los asteriscos que quiere decir  es muy poco probable (menos de 0.001% que no tenga efecto). En cuanto a la variable urbanización, también tiene un p-value menor a 0.05, es decir que no aporta significativamente a la explicación de la variable dependiente donde es muy poco probable (menos de 0.01%) que no tenga efecto. Por otro lado, la militarización (GMI) tienen un p-value mayor a 0.05, por lo que no aporta significativamente al modelo.  Por último tenemos la siguiente ecuación: 
+A partir del R ajustado se sabe que este modelo explica un 45.9% de la desigualdad de género. Además, el p-value es menor a 0.05, por lo que se acepta que el modelo es válido. Ahora, en cuánto a los p-value de cada variable, se sabe que el índice de percepción de la corrupción es la que más aporta, además ello se refleja con los asteriscos que quiere decir  es muy poco probable (menos de 0.001% que no tenga efecto). En cuanto a la variable urbanización, también tiene un p-value menor a 0.05, es decir que no aporta significativamente a la explicación de la variable dependiente donde es muy poco probable (menos de 0.01%) que no tenga efecto. 
 
-$VD = 0.848 + (−0.002* urban) +(0* gmi)+(-0.007*corrupcion)$
+Por otro lado, la militarización (GMI) tienen un p-value mayor a 0.05, por lo que no aporta significativamente al modelo.  Por último tenemos la siguiente ecuación: 
+
+$$VD = 0.848 + (−0.002* urban) +(0* gmi)+(-0.007*corrupcion)$$
 
 ### Supuestos 
 
@@ -482,11 +486,11 @@ plot(regresion_may, 4, caption = '');title(main="Influyentes")
 ```
 
 
-- Interpretación: 
+Interpretación: 
 
-    - Linealidad: Del último modelo con las tres variables,  se asumen una relación lineal, en el caso del modelo la línea roja tiende a ser horizontal y se encuentra cercano a 0. Solo en dos ocasiones la línea se aleja de 0, pero en general se puede asumir linealidad. 
+**Linealidad:** Del último modelo con las tres variables,  se asumen una relación lineal, en el caso del modelo la línea roja tiende a ser horizontal y se encuentra cercano a 0. Solo en dos ocasiones la línea se aleja de 0, pero en general se puede asumir linealidad. 
     
-    - Homocedasticidad: Se presenta una línea no del todo horizontal, lo que parece ligeramente que las varianzas de los errores de estimación no son constantes en el modelo de regresión. Sin embargo, al realizar la prueba nos da un p-value mayor a 0.05, lo que indica que hay homocedasticidad contradiciendo lo anterior. De manera que sí presenta homocedasticidad.  
+**Homocedasticidad:** Se presenta una línea no del todo horizontal, lo que parece ligeramente que las varianzas de los errores de estimación no son constantes en el modelo de regresión. Sin embargo, al realizar la prueba nos da un p-value mayor a 0.05, lo que indica que hay homocedasticidad contradiciendo lo anterior. De manera que sí presenta homocedasticidad.  
     
     
 ```{r, echo=FALSE}
@@ -494,14 +498,14 @@ library(lmtest)
 bptest(regresion_may)
 ```
 
-    - Normalidad de residuos: Los puntos de se acercan lo más posible a la línea del gráfico, además el p-value obtenido de la prueba es mayor a 0.05. Lo que nos indica que la distancia entre el valor esperado y el observado se distribuye de manera normal.
+**Normalidad de residuos:** Los puntos de se acercan lo más posible a la línea del gráfico, además el p-value obtenido de la prueba es mayor a 0.05. Lo que nos indica que la distancia entre el valor esperado y el observado se distribuye de manera normal.
    
     
 ```{r, echo=FALSE}
 shapiro.test(regresion_may$residuals)
 ```
 
-    - No Multicolinealidad: Se esperan no tener una fuerte correlación entre las variables independientes. Lo cual cumple el modelo, ya que la prueba VIF no arrojó valores menores a 5.  
+**No Multicolinealidad:** Se esperan no tener una fuerte correlación entre las variables independientes. Lo cual cumple el modelo, ya que la prueba VIF no arrojó valores menores a 5.  
 
 ```{r, echo=FALSE}
 library (DescTools)
@@ -526,6 +530,7 @@ Y finalmente, el tercer modelo es el que menor porcentaje de explicación tiene 
 
 ```{r, echo=FALSE}
 modelo5 = lm(genero~ gini + IDH + civil + urban + scoremilitar + corru +Growth + Unaffiliated + demo, data)
+
 model5=list('modelo 5'= modelo5)
 modelsummary(model5, title = "Regresion Lineal 5",
              stars = TRUE,
@@ -537,7 +542,17 @@ El modelo es válido de acuerdo al p - value del F - estadístico, puesto que su
 
 Debido a ello, podemos afirmar que el índice de desarrollo humano, el porcentaje de población urbana, el índice de corrupción, el índice de crecimiento económico y el índice de democracia son las variables que tienen un efecto significativo sobre el índice de desigualdad de género.
 
+```{r}
+library(lm.beta)
+lm.beta::lm.beta(modelo5)
 
+modelo100=list('Efecto'=lm.beta(modelo5))
+modelsummary(modelo100, title = "Regresion: modelo 5 con \ncoeficientes estandarizados usando lm.beta()",
+             stars = TRUE,
+             output = "kableExtra")
+```
+
+Asimismo, podemos notar que las variables que tienen mayor efecto sobre la variable dependiente. Es decir, la variable gini, población urbana y democracia son las que tienen más efecto.  
 
 # 3. Análisis factorial
 
@@ -793,7 +808,6 @@ base= ggplot(data,aes(x=dim1, y=dim2,label=row.names(dataClus)))
 base + geom_text_repel(size=3, max.overlaps = 50,min.segment.length = unit(0,'lines'))
 ```
 
-
 **Gráfica vía PAM**
 
 ```{r, echo=FALSE}
@@ -847,7 +861,11 @@ dianaPlot + geom_text_repel(size=4,
                             min.segment.length = unit(0, 'lines'))
 ```
 
-## Mapa mundial de conglomerados
+## Mapa mundial del conglomerado
+
+En vista de las estrategias de partición realizadas y en función de este trabajo, se considera que por medio de diana se realiza una mejor división de los casos. Esto es debido a que las siluetas de los clusters y la representación gráfica nos demuestran una mejor organización de los casos. 
+
+Frente a ello, se elabora una representación de la reducción de dimensiones de las variables independientes por medio los clusters a nivel mundial:
 
 ```{r, echo=FALSE}
 data$diana = factor(data$diana, levels = c(1:3))
@@ -876,7 +894,7 @@ scale_fill_manual(values=c("#233d4d","#fe7f2d", "#d62828")) + theme_void() +
 theme(axis.title = element_blank(), axis.text = element_blank(), legend.position=c(0.95,1), 
 legend.justification= "top") + labs(fill=" ") + theme(legend.text = element_text(size = 10)) +
   
-labs(title = "  Mapa Gender Inequality Index",caption = "Estudiantes de estadística 2  ") +
+labs(title = "  Países según conglomerado de las variables independientes",caption = "Estudiantes de estadística 2  ") +
   
 theme(
 plot.title = element_text(color="black", size=13, face="bold"),
@@ -884,5 +902,26 @@ plot.caption = element_text(color = "black", size=6))
 
 mapa4
 ```
+
+Por medio del siguiente gráfico es posible diferenciar como hay un cierto agrupamiento de casos en función de las regiones geográficas. Es decir, la mayoría de países de América Latina se encuentran conglomerados dentro del cluster 2, al igual que gran parte de África dentro del cluster 3. Frente a ello, podemos afirmar que, en base a variables tales como el desarrollo humano, la percepción de la corrupción o la desigualdad económica de una nación puede ser similar de acuerdo a cada continente. 
+
+# 5. Conclusiones
+
+En la investigación sobre la desigualdad de género encontramos que las variables que explican mejor nuestra variable son: el índice de desarrollo humano, el porcentaje de población urbana y el coeficiente de gini Es decir, son las variables que tienen un efecto significativo sobre el índice de desigualdad de género. Debido a ello, deberían ser considerados como factores potenciales que pueden influir sobre la desigualdad de género a nivel mundial.
+A partir de modelos de regresión lineal, al utilizar las variables índice de desarrollo humano, índice GINI y derechos civiles como variables independientes en un modelo, este tiene mayor significancia en la variable dependiente. Esto se debe a que cuenta con un 75.1% de capacidad explicativa. De igual manera, la regresión lineal múltiple que considera todas las variables independientes tiene un 80.5% de significancia, convirtiéndose en el mejor modelo de todos los elaborados. No obstante, variables tales como el índice de militarización global o de derechos civiles terminan por no aportar al modelo, teniendo a su vez un efecto bajo. 
+
+
+En cuanto a un análisis factorial, nuestras variables se tratan principalmente de índices. Es decir, son variables latentes que ya se encuentran compuestas por indicadores. Debido a ello, no pueden ser agrupadas para formar nuevas variables latentes.
+
+
+Finalmente, a través de un análisis de conglomerados se hizo uso de varias técnicas para elaborar subconjuntos por medio de las variables independientes. Realizamos un gráfico con los tres clusters divididos según las variables independientes a través del algoritmo DIANA. Este gráfico nos ayudó a visualizar a nivel mundial los resultados del análisis de conglomerados.
+
+
+
+
+
+
+
+
 
 
