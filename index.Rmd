@@ -25,7 +25,7 @@ data = "https://github.com/AleMarocho/Trabajo_Estadistica_2/raw/main/datafinal.c
 data = import(data)
 ```
 
-A nivel mundial, la desigualdad de género en promedio es igual a 40.7%. El porcentaje de desigualdad de género por país se puede observar en la siguiente tabla:
+A nivel mundial, la desigualdad de género en promedio es igual a 40.7%. El porcentaje de desigualdad de género por país durante el año 2021 se puede observar en la siguiente tabla:
 
 ```{r include=FALSE}
 tabla = data[,c(2:3)]
@@ -38,14 +38,44 @@ colnames(tabla)[2] = "Desigualdad de género"
 library(equatiomatic)
 #datatable(tabla, filter = "top")
 ```
-a
 
 ```{r, echo=FALSE}
 library(sf) 
 mapDEP=sf::read_sf("world-administrative-boundaries.shp")
 ```
 
+```{r, echo=FALSE}
+newNames= c('iso3', 'status', 'code', 'country', 'continent', 'region', 'iso_3166_1_', 'french_shor', 'geometry')
+names(mapDEP)= newNames
+```
 
+```{r, echo=FALSE}
+mapmun=merge(mapDEP,data, all=TRUE)
+```
+
+
+```{r echo=FALSE,message=FALSE,warning=FALSE,eval=TRUE,fig.show='hold'}
+library(ggplot2)
+mapaleyendaL= ggplot(mapmun)+ geom_sf() + theme_light()
+
+mapaleyL= mapaleyendaL + geom_sf(data=mapmun,
+              aes(fill=genero),color = NA)
+      
+mapa3= mapaleyL +
+coord_sf() + 
+scale_fill_gradient(low = "#caf0f8",  high = "#1d3557", breaks=seq(from=0, to=1, by=.2)) + theme_void() + 
+  
+theme(axis.title = element_blank(), axis.text = element_blank(),legend.position=c(0.95,1), 
+legend.justification= "top") + labs(fill=" ") + theme(legend.text = element_text(size = 10)) +
+  
+labs(title = "  Índice de desigualdad de género",caption = "Fuente: Gender Inequality Index (GII)  \nElaborado por: mi :)  ") +
+  
+theme(
+plot.title = element_text(color="black", size=15, face="bold"),
+plot.caption = element_text(color = "black", size=10))
+
+mapa3
+```
 
 # 2. Modelación
 En este caso, se harán regresiones lineales simples y múltiples.
@@ -806,6 +836,7 @@ dianaPlot + geom_text_repel(size=4,
 data$diana = factor(data$diana, levels = c(1:3))
 ```
 
+### Mapa mundial de conglomerados
 
 ```{r, echo=FALSE}
 newNames= c('iso3', 'status', 'code', 'country', 'continent', 'region', 'iso_3166_1_', 'french_shor', 'geometry')
@@ -827,9 +858,10 @@ coord_sf() +
 scale_fill_manual(values=c("#28E2E5","#22976E", "#DF536B")) + theme_void() +
   
   
-theme(axis.title = element_blank(), axis.text = element_blank(), legend.position = c(1.1,0.55)) + labs(fill=" ") + theme(legend.text = element_text(size = 10)) +
+theme(axis.title = element_blank(), axis.text = element_blank(), legend.position=c(0.95,1), 
+legend.justification= "top") + labs(fill=" ") + theme(legend.text = element_text(size = 10)) +
   
-labs(title = "Mapa Gender Inequality Index",caption = "Estudiantes de estadística 2") +
+labs(title = "  Mapa Gender Inequality Index",caption = "Estudiantes de estadística 2  ") +
   
 theme(
 plot.title = element_text(color="black", size=13, face="bold"),
@@ -837,3 +869,5 @@ plot.caption = element_text(color = "black", size=6))
 
 mapa4
 ```
+
+
