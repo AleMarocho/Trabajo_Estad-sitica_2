@@ -761,11 +761,11 @@ Reordenamos las etiquetas:
 
 ```{r, echo=FALSE}
 original=aggregate(.~ diana, data=dataClus,mean)
-original[order(original$genero),]
+original[order(original$corru),]
 ```
 
 ```{r, echo=FALSE}
-dataClus$diana=dplyr::recode(dataClus$diana, `3` = 1, `2`=2,`1`=3)
+dataClus$diana=dplyr::recode(dataClus$diana, `3` = 1, `1`=2,`2`=3)
 ```
 
 ```{r, echo=FALSE}
@@ -786,6 +786,13 @@ head(proyeccion$points,20)
 data$dim1 <- proyeccion$points[,1]
 data$dim2 <- proyeccion$points[,2]
 ```
+
+```{r, echo=FALSE}
+library(ggrepel)
+base= ggplot(data,aes(x=dim1, y=dim2,label=row.names(dataClus))) 
+base + geom_text_repel(size=3, max.overlaps = 50,min.segment.length = unit(0,'lines'))
+```
+
 
 **Gráfica vía PAM**
 
