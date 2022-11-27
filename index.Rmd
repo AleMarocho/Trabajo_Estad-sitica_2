@@ -907,15 +907,16 @@ Por medio del siguiente gráfico es posible diferenciar como hay un cierto agrup
 
 # 5. Conclusiones
 
-En la investigación sobre la desigualdad de género encontramos que las variables que explican mejor nuestra variable son: el índice de desarrollo humano, el porcentaje de población urbana y el coeficiente de gini Es decir, son las variables que tienen un efecto significativo sobre el índice de desigualdad de género. Debido a ello, deberían ser considerados como factores potenciales que pueden influir sobre la desigualdad de género a nivel mundial.
-A partir de modelos de regresión lineal, al utilizar las variables índice de desarrollo humano, índice GINI y derechos civiles como variables independientes en un modelo, este tiene mayor significancia en la variable dependiente. Esto se debe a que cuenta con un 75.1% de capacidad explicativa. De igual manera, la regresión lineal múltiple que considera todas las variables independientes tiene un 80.5% de significancia, convirtiéndose en el mejor modelo de todos los elaborados. No obstante, variables tales como el índice de militarización global o de derechos civiles terminan por no aportar al modelo, teniendo a su vez un efecto bajo. 
+En la investigación sobre la desigualdad de género encontramos que las variables que explican mejor nuestra variable son: el índice de desarrollo humano, el porcentaje de población urbana y el coeficiente de Gini. Es decir, son las variables que tienen un efecto significativo sobre el índice de desigualdad de género. Debido a ello, deberían ser considerados como factores potenciales que pueden influir sobre la desigualdad de género a nivel mundial.
+
+
+A partir de modelos de regresión lineal, al utilizar las variables índice de desarrollo humano, índice GINI y derechos civiles como variables independientes en un modelo, este tiene mayor significancia en la variable dependiente. Esto se debe a que cuenta con 75.1 puntos porcentuales de capacidad explicativa. De igual manera, la regresión lineal múltiple que considera todas las variables independientes presenta 80.5 puntos porcentuales de significancia, convirtiéndose en el mejor modelo de todos los elaborados. No obstante, variables tales como el índice de militarización global o de derechos civiles terminan por no aportar al modelo, teniendo a su vez un efecto bajo. 
 
 
 En cuanto a un análisis factorial, nuestras variables se tratan principalmente de índices. Es decir, son variables latentes que ya se encuentran compuestas por indicadores. Debido a ello, no pueden ser agrupadas para formar nuevas variables latentes.
 
 
-Finalmente, a través de un análisis de conglomerados se hizo uso de varias técnicas para elaborar subconjuntos por medio de las variables independientes. Realizamos un gráfico con los tres clusters divididos según las variables independientes a través del algoritmo DIANA. Este gráfico nos ayudó a visualizar a nivel mundial los resultados del análisis de conglomerados.
-
+Finalmente, a través de un análisis de conglomerados, se hizo uso de varias técnicas para elaborar subconjuntos utilizando las variables independientes. Posteriormente, se escogió la agrupación realizada por medio del algoritmo DIANA, puesto que presento mejores resultados en función del presente trabajo. Finalmente, se hizo un gráfico con los tres clústeres que contenían nuestras variables independientes. Este gráfico nos ayudó a visualizar que, a nivel mundial, los conglomerados se encuentran concentrados en su mayoría de acuerdo a zonas geográficas. Es decir, entre ellas mantienen promedios más similares en materia de corrupción, derechos civiles o militarización. 
 
 
 
