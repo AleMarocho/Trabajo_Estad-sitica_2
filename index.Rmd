@@ -5,7 +5,7 @@ date: "Noviembre, 2022"
 subtitle: 'Curso: POL304 - Estadística para el análisis político 2'
 output:
   prettydoc::html_pretty:
-    theme: hpstr
+    theme: cayman
     highlight: github
     toc: true
 ---
@@ -35,12 +35,12 @@ colnames(tabla)[2] = "Desigualdad de género"
 
 
 ```{r, echo=FALSE}
-library(equatiomatic)
+library(DT)
 datatable(tabla, filter = "top")
 ```
 
 
-De igual manera, el siguiente gráfico ilustra los resultados del índice de desigualdad de género empleado a nivel mundial, visibilizando las zonas geográficas más desiguales en cuestiones de género: 
+De igual manera, el siguiente gráfico ilustra los resultados del índice de desigualdad de género a nivel mundial, visibilizando desde las zonas geográficas menos a más desiguales en cuestiones de género: 
 
 ```{r, echo=FALSE}
 library(sf) 
@@ -71,7 +71,7 @@ scale_fill_gradient(low = "#caf0f8",  high = "#1d3557", breaks=seq(from=0, to=1,
 theme(axis.title = element_blank(), axis.text = element_blank(),legend.position=c(0.95,1), 
 legend.justification= "top") + labs(fill=" ") + theme(legend.text = element_text(size = 10)) +
   
-labs(title = "  Índice de desigualdad de género",caption = "Fuente: Gender Inequality Index (GII)  \nElaborado por: mi :)  ") +
+labs(title = "  Índice de desigualdad de género",caption = "Fuente: Gender Inequality Index (GII)  \nElaborado por: estudiantes de Estadística 2  ") +
   
 theme(
 plot.title = element_text(color="black", size=15, face="bold"),
@@ -80,8 +80,9 @@ plot.caption = element_text(color = "black", size=10))
 mapa3
 ```
 
+
 # 2. Modelación
-En este caso, se harán regresiones lineales simples y múltiples.
+En esta sección, se realizarán regresiones lineales simples y múltiples con las variables independientes seleccionadas.
 
 ## Regresión Alessandra
 
@@ -93,7 +94,6 @@ En este caso, se harán regresiones lineales simples y múltiples.
 modelo1 = lm(genero ~ IDH, data)
 ```
 
-
 ```{r, echo=FALSE}
 library(knitr)
 library(modelsummary)
@@ -103,19 +103,19 @@ modelsummary(model1, title = "Regresion Lineal 1",
              output = "kableExtra")
 ```
 
-En primer lugar, al observar el p - value, podemos determinar que el modelo el válido, puesto que este es menor a 0.05. Asimismo, el modelo tiene uan predictibilidad de 72.8%, determinada por el R2. Además,el índice de desarrollo humano es una variable que aporta al modelo. 
-Al ser inversa significa que, ante un incremento en el IDH, se observa una disminución en la desigualdad de género.
+En primer lugar, al observar el p - value, podemos determinar que el modelo el válido. Asimismo, el modelo tiene una predictibilidad de 72.8%, determinada por el R2. Además, el índice de desarrollo humano (IDH) es una variable que aporta al modelo. 
+Al ser inversa, significa que, ante un incremento en el IDH, se observa una disminución en la desigualdad de género.
 
-**regresión simple (género y gini)**
+**Regresión simple (género y GINI)**
 
 ```{r, echo=FALSE}
 modelo2 = lm(genero ~ gini, data)
 ```
 
-
 ```{r, echo=FALSE}
 library(knitr)
 library(modelsummary)
+
 model2=list('modelo2'= modelo2)
 modelsummary(model2, title = "Regresion Lineal 2",
              stars = TRUE,
@@ -126,7 +126,7 @@ Podemos afirmar que el modelo es válido, puesto que el p - value es menor 0.05.
 Por consiguiente, se puede afirmar medianamente que un incremento en la desigualdad de ingresos tiene el mismo efecto sobre la desigualdad de género. 
 
 
-**Regresión simple (genero y civil)**
+**Regresión simple (género y derechos civiles)**
 
 ```{r, echo=FALSE}
 modelo3 = lm(genero ~ civil, data)
@@ -139,8 +139,8 @@ modelsummary(model3, title = "Regresion Lineal 3",
              output = "kableExtra")
 ```
 
-Finalmente, con respecto al modelo 3 podemos afirmar que es válido, puesto que tiene un p - value menor a 0.05- Con respecto a su predictibilidad, de acuerdo con el R2, es de 19.3 %. Igualmente, podemos afirmar que nuestra variable aporta al modelo al tener un p - value emnor a 0.05. 
-Por medio del presente modelo podemos indicar que, ante un incremento en el índice de derechos civiles, el efecto sobre el índice de la desigualdad de género será inverso. 
+Finalmente, con respecto al modelo 3 podemos afirmar que es válido, puesto que tiene un p - value menor a 0.05. Con respecto a su predictibilidad, de acuerdo con el R2, es de 19.4%. Igualmente, podemos afirmar que nuestra variable independiente aporta al modelo al tener un p - value menor a 0.05. 
+Por medio del presente modelo podemos indicar que, ante un incremento en el índice de derechos civiles, el efecto sobre el índice de la desigualdad de género será inverso.
 
 
 ### Regresión lineal múltiple
@@ -151,7 +151,7 @@ modelo4 = lm(genero ~ IDH + gini + civil, data)
 
 ```{r, echo=FALSE}
 model4=list('modelo 4'= modelo4)
-modelsummary(model1, title = "Regresión Lineal 4",
+modelsummary(model4, title = "Regresión Lineal 4",
              stars = TRUE,
              output = "kableExtra")
 ```
@@ -160,7 +160,7 @@ En primer lugar, el p-value del modelo elaborado es menor a 0.05, por lo tanto, 
 
 Con respecto a las variables, el p-value de las variables relacionadas con el IDH y el coeficiente de gini es menor a 0.05. En consecuencia, podemos afirmar que ambas aportan a nuestro modelo. No obstante, la variable relacionada con los derechos civiles es mayor, por lo que esta sería no tendría capacidad predictiva. 
 
-Es decir, el incremento en la desigualdad de ingresos puede elevar la desigualdad de género a nivel mundial, puesto que mantienen una relación directa. De igual manera, el incremento en el índice de desarrollo humano en cada país tiene un efecto inverso; es decir, disminuye la desigualdad de género. 
+Es decir, en función de este modelo, el incremento en la desigualdad de ingresos puede elevar la desigualdad de género a nivel mundial, puesto que mantienen una relación directa. De igual manera, el incremento en el índice de desarrollo humano en cada país tiene un efecto inverso; es decir, disminuye la desigualdad de género.
 
 ### Supuestos
 
@@ -174,13 +174,10 @@ Promedio de residuos:
 
 ```{r, echo=FALSE}
 library(kableExtra)
- mean(modelo4$residuals)
-#res =
-#data.frame(list("p-value"=res$p.value))%>%
- #   kable(caption = res$method)%>%kable_styling(full_width = F)
+mean(modelo4$residuals)
 ```
 Con respecto a la linealidad del modelo, se observa que la línea roja se encuentra relativamente cerca del cero, aunque no completamente horizontal. Sin embargo, la diferencia no resulta ser grande. 
-Por su parte, el promedio de residuos es igual a 3.186741e-18, siendo no muy cercano a 0. 
+Por su parte, el promedio de residuos es igual a 3.186741e-18, siendo no muy cercano a 0. Debido a ello, no podemos afirmar que tenga linealidad.  
 
 **Normalidad:**
 
@@ -191,7 +188,6 @@ plot(modelo4, 2, caption = '');title(main="Normalidad")
 Prueba de Shapiro-Wilk:
 
 ```{r, echo=FALSE}
-
 library(kableExtra)
 
 resSW = shapiro.test(modelo4$residuals)
@@ -200,9 +196,11 @@ data.frame(list('SW'=resSW$statistic,
              "p-value"=resSW$p.value))%>%
     kable(caption = resSW$method)%>%kable_styling(full_width = F)
 ```
+
 Con respecto a la normalidad, la mayoría de los datos se concentran por encima de la recta del gráfico de cuantiles teóricos de residuos, siendo este un resultado satisfactorio. Por medio del gráfico podemos afirmar que aparentemente los residuos tienen una distribución normal. 
 
-No obstante, el p-value de la prueba Shapiro-Wilk es igual a 0.1062, siendo no mayor a 0.05, que era el resultado esperado.
+No obstante, el p-value de la prueba Shapiro-Wilk es igual a 0.324, siendo mayor a 0.05. En consecuencia, podemos afirmar que hay normalidad.  
+
 
 **Homeocedasticidad:**
 
@@ -213,7 +211,6 @@ plot(modelo1, 3, caption = '');title(main="Homocedasticidad")
 Prueba de Breusch-Pagan:
 
 ```{r, echo=FALSE}
-library(lmtest)
 library(lmtest)
 library(kableExtra)
 
@@ -226,7 +223,7 @@ data.frame(list('SW'=resBP$statistic,
 
 Con respecto a la homocedasticidad, la línea de nuestro modelo no es horizontal y obsevamos que los residuos se encuentran dispersos, por lo que no podemos afirmar completamente que se cumpla el supuesto de homocedasticidad. 
 
-No obstante, al emplear la prueba de Breusch-Pagan el resultado obtenido si es mayor a 0.05. Por ello, podemos afirmar que se cumple con este supuesto. 
+No obstante, al emplear la prueba de Breusch-Pagan el resultado obtenido no es mayor a 0.05. Por ello, podemos afirmar que no se cumple con este supuesto. 
 
 **Valores influyentes:**
 
@@ -250,15 +247,14 @@ Por medio de la prueba VIF, podemos observar que no hay correlación entre las v
 
 ### Regresiones lineales simples
 
-**Regresión democracia**
+**Regresión índice de democracia**
 
 Hipótesis
-- A mayor índice de democracia, menor sera el índice de desigualdad de género
+- A mayor valor en el índice de democracia, menor será la desigualdad de género
 
 ```{r, echo=FALSE}
 regresion1 <- lm(genero ~ demo, data = data)
 library(stargazer)
-stargazer(regresion1, type="text")
 ```
 
 ```{r, echo=FALSE}
@@ -271,20 +267,21 @@ modelsummary(model1, title = "Regresion Lineal 1",
 ```
 
 **INTERPRETACION 1-REGRESION INDEX DEMOCRACY**
-La variable [índice de democracia] tiene efecto, es significativa, evidenciada por los asteriscos. El efecto es indirecto ya que el coeficiente es negativo, por lo que a mayor indice de democracia, menor sera el indice de desigualdad de género. La magnitud del efecto es 0.037, es decir la desigualdad de genero aumenta en 0.037 en promedio cuando el indice de democracia aumenta en una unidad. 
-En cuanto al modelo el porcentaje de explicacion es de 14.6%, medido a traves del R2. El p-valor de la variable index democracy es 8.87e-05, lo cual es menor a 0.05 y evidencia que el modelo es valido. La hipotesis se ve corroborada.
 
-- En otras palabras, mientras mayor sea el índice de democracia, menor seran las probabilidades de que se evidencie desigualdad de genero en el pais respectivo. 
+La variable índice de democracia tiene un efecto significativo, que queda evidenciado por los asteriscos. El efecto es indirecto, ya que el coeficiente es negativo; por lo que a mayor índice de democracia, menor será el índice de desigualdad de género. La magnitud del efecto es 0.037, es decir, la desigualdad de género aumenta en 0.037 en promedio cuando el índice de democracia aumenta en una unidad.
+
+En cuanto al modelo, el porcentaje de explicación es de 14.6%, medido a través del R2. El p-valor de la variable index democracy es 8.87e-05, lo cual es menor a 0.05 y evidencia que el modelo es válido. La hipótesis se ve corroborada.
+
+- En otras palabras, mientras mayor sea el índice de democracia, menor serán las probabilidades de que se evidencie desigualdad de género en el país respectivo.  
 
 
-**REGRESIÓN CRECIMIENTO ECONÓMICO**
+**Regresión crecimiento económico**
 
 Hipótesis
 - A mayor índice de crecimiento economico, mayor será el índice de desigualdad de género
 
 ```{r, echo=FALSE}
 regresion2 <- lm(genero ~ Growth, data = data)
-stargazer(regresion2, type="text")
 ```
 
 ```{r, echo=FALSE}
@@ -295,19 +292,23 @@ modelsummary(model2, title = "Regresion Lineal 2",
 ```
 
 **INTERPRETACION 2-REGRESION ECONOMIC GROWTH**
-La variable crecimiento economico tiene efecto, es decir, es significatico, ello evidenciado por los asteriscos (***). El efecto es indirecto debido a que el coeficiente es negativo. Con ello, la hipotesis se ve debatida, y corregida: a mayor indice de crecimiento economico, menor sera el indice de desigualdad de genero. 
-La magnitud del efecto es 0.014, es decir la desigualdad de género aumenta en 0.014 en promedio cuando el indice de crecimiento economico aumenta en una unidad. 
-En cuanto al modelo el porcentaje de explicacion es de 12.5%, medido a traves del R2 El p-valor de la independiente es 0.0003151, lo cual es menor a 0.05 y evidencia que el modelo es valido. 
-- En otras palabras, mientras mayor sea el índice de crecimiento económico, mayores será la indice de desigualdad social en el pais respectivo. Por lo que decirmos que esta variable impacta significativamente, sin embargo con un 12.5% de significancia.
+
+La variable crecimiento económico tiene un efecto significativo evidenciado por los asteriscos (***). El efecto es indirecto debido a que el coeficiente es negativo. Con ello, la hipótesis se ve debatida: a mayor índice de crecimiento económico, menor será el índice de desigualdad de género. 
+
+La magnitud del efecto es 0.014; es decir, la desigualdad de género aumenta en 0.014 en promedio cuando el índice de crecimiento económico aumenta en una unidad. 
+En cuanto al modelo, el porcentaje de explicación es de 12.5%, medido a través del R2. El p-valor de la independiente es 0.0003151, lo cual es menor a 0.05 y evidencia que el modelo es válido. 
+
+- En otras palabras, mientras mayor sea el índice de crecimiento económico, mayores será el índice de desigualdad social en el país respectivo. Por lo que decimos que esta variable impacta significativamente; sin embargo, con un 12.5% de significancia.
 
 
-**REGRESION PORCENTAJE DE NO AFILIADOS**
+
+**Regresión porcentaje de no afiliados a religión alguna**
+
 Hipótesis
-- A mayor porcentaje de inafiliados, menor sera el índice de desigualdad de género
+- A mayor porcentaje de inafiliados, menor será el índice de desigualdad de género
 
 ```{r, echo=FALSE}
 regresion3 <- lm(genero ~ Unaffiliated, data = data)
-stargazer(regresion3, type="text")
 ```
 
 ```{r, echo=FALSE}
@@ -318,10 +319,12 @@ modelsummary(model3, title = "Regresion Lineal 3",
 ```
 
 **INTERPRETACION 3-REGRESION UNAFFILIATED**
-La variable no afiliados tiene efecto, es decir, es significatico, ello evidenciado por los asteriscos (***). El efecto es inverso debido a que el coeficiente es negativo. Con ello, la hipotesis se ve corroborada, a mayor porcentaje de no afiliados, menor sera el indice de desigualdad de genero. La magnitud del efecto es 0.629, es decir la desigualdad de genero aumenta en 0.629 en promedio cuando el indice de crecimiento economico aumenta en una unidad. 
-En cuanto al modelo el porcentaje de explicacion es de 16.6%, medido a traves del R2 ajustado. El p-valor de la variable independiente es 1.53e-05, lo cual es menor a 0.05 y evidencia que el modelo es valido. 
 
-- En otras palabras, mientras mayor sea el porcentaje de personas no afiliadas a religion alguna, menor seran las probabilidades de que el se evidencie desigualdad de genero en el pais respectivo. Por lo que decirmos que esta variable impacta significativamente con un 16.6%.
+La variable no afiliados tiene efecto. Es decir, es significativa, ello evidenciado por los asteriscos (***). El efecto es inverso debido a que el coeficiente es negativo. Con ello, la hipótesis se ve corroborada: a mayor porcentaje de no afiliados, menor será el índice de desigualdad de género. La magnitud del efecto es 0.629, es decir, la desigualdad de género aumenta en 0.629 en promedio cuando el índice de crecimiento económico aumenta en una unidad. 
+
+En cuanto al modelo, el porcentaje de explicaciones es de 16.6%, medido a través del R2 ajustado. El p-valor de la variable independiente es 1.53e-05, lo cual es menor a 0.05 y evidencia que el modelo es válido. 
+
+- En otras palabras, mientras mayor sea el porcentaje de personas no afiliadas a religión alguna, menor serán las probabilidades de que se evidencie desigualdad de género el país respectivo. Por lo que decimos que esta variable impacta significativamente con un 16.6%.
 
 ### Regresión lineal múltiple
 
@@ -329,7 +332,6 @@ DEMOCRACIA, CRECIMIENTO Y NO AFILIADOS
 
 ```{r, echo=FALSE}
 regresion4 <- lm(genero ~ demo + Growth + Unaffiliated, data = data)
-stargazer(regresion4, type="text")
 ```
 
 ```{r, echo=FALSE}
@@ -340,7 +342,8 @@ modelsummary(model4, title = "Regresion Lineal 4",
 ```
 
 **INTERPRETACION 4-REGRESION DEMOCRACY + GROWTH + UNAFFILIATED**
-El modelo 4 tiene un porcentaje de explicacion es de 31.7%, medido a traves del R2 ajustado. Los p-valores de las variables son menores a 0.05 y se evidencia que el modelo es válido. En comparacion con los modelos anteriores, este modelo tiene un porcentaje de significancia mayor. Por lo que la adición de las variables tiene impacto.
+
+El modelo 4 tiene un porcentaje de explicación es de 31.7%, medido a través del R2 ajustado. Los p-valores de las variables son menores a 0.05 y se evidencia que el modelo es válido. En comparación con los modelos anteriores, este modelo tiene un porcentaje de significancia mayor. Por lo que la adición de las variables un tiene impacto positivo.
 
 ### Supuestos 
 
@@ -349,14 +352,14 @@ par(mfrow = c(2, 2))
 plot(regresion4, 1,caption = '');title(main="Linealidad")
 plot(regresion4, 2, caption = '');title(main="Normalidad")
 plot(regresion4, 3, caption = '');title(main="Homocedasticidad")
-plot(regresion4, 5, caption = '');title(main="Influyentes")
+plot(regresion4, 4, caption = '');title(main="Influyentes")
 ```
 
 **LINEALIDAD**
-- Hay linelidad, se espera que esten cercanos a 0 y con una linea horizontal.La linea cuenta con una tendencia horizontal, los datos estan concentrados entre valores de 0.3 y 0.5.
+- Hay linealidad, se espera que estén cercanos a 0 y con una línea horizontal. La línea cuenta con una tendencia horizontal, los datos están concentrados entre valores de 0.3 y 0.5.
 
 **HOMOCEDASTICIDAD**
-- La linea es horizontal y el p-valor es mayor a 0.05 y se requiere mayor. Se cumple el supuesto.
+- La línea es horizontal y el p-valor es mayor a 0.05 y se requiere mayor. Se cumple el supuesto.
 
 ```{r, echo=FALSE}
 library(lmtest)
@@ -364,7 +367,7 @@ bptest(regresion4)
 ```
 
 **NORMALIDAD DE RESIDUOS**
-- Los puntos se acercan mas a la línea del gráfico pero el p-valor de la prueba ShapiroWilk es menor a 0.05 por lo que no hay normalidad de residuos.
+- Los puntos se acercan más a la línea del gráfico, pero el p-valor de la prueba Shapiro-Wilk es menor a 0.05, por lo que no hay normalidad de residuos.
 
 ```{r, echo=FALSE}
 shapiro.test(regresion4$residuals)
@@ -385,13 +388,11 @@ VIF(regresion4)
 **Regresión 1: Población Urbana**
 
 Hipótesis
-- Hay mayor desigualdad de género a menor Urbanizacion. 
+- Hay mayor desigualdad de género a menor urbanizacion. 
 
 ```{r, echo=FALSE}
 regre1 <- lm(genero ~ urban, data = data)
-#summary(regre1)
 ```
-
 
 ```{r, echo=FALSE}
 library(knitr)
@@ -403,8 +404,8 @@ modelsummary(modele1, title = "Regresion Lineal 1",
 ```
 
  - Interpretación:
-  Esta regresión comprueba la hipotesis de que a cada unidad que aumente la desigualdad de género, disminuye la urbanización en -0.004, ademas el modelo presenta un p.value menor a 0.05 por lo que el modelo es significativo. Tambien, lo confirman los asterisco (menos de 0.001% )que no tenga efecto. En este modelo la variable urbanización explica un 18.82% la desigualdad de género. 
-
+  Esta regresión comprueba la hipótesis de que a cada unidad que aumente la desigualdad de género, disminuye la urbanización en -0.004, además el modelo presenta un p-value menor a 0.05, por lo que el modelo es significativo. También, lo confirman los asteriscos (menos de 0.001%) que tenga efecto. En este modelo la variable urbanización explica un 18.82% la desigualdad de género. 
+  
 
 **Indice de Militarización Global (GMI)**
 
@@ -424,7 +425,9 @@ modelsummary(modele2, title = "Regresion Lineal 2",
 ```
 
 - Interpretación:
-  Esta regresión comprueba la hipotesis de que a cada unidad que aumente la desigualdad de género, disminuye la militarizción (la pendiente: -0.001, ademas el modelo presenta un p.value menor a 0.05 por lo que el modelo es significativo. Tambien, lo confirman los asterisco (menos de 0.01% )que no tenga efecto. En este modelo la variable urbanización explica un 0,9% la desigualdad de género que es muy reducido. 
+  Esta regresión comprueba la hipótesis de que a cada unidad que aumente la desigualdad de género, disminuye la militarización (la pendiente: -0.001). Además, el modelo presenta un p-value menor a 0.05, por lo que el modelo es significativo. También, lo confirman los asteriscos (menos de 0.01) que  tenga efecto. 
+Sin embargo, en este modelo, la variable urbanización explica la desigualdad de género un 0,9%, lo cual es muy reducido. 
+
 
 **Percepción de la corrupción**
 
@@ -443,15 +446,16 @@ modelsummary(modele3, title = "Regresion Lineal 3",
              output = "kableExtra")
 ```
 
-**Interpretación:**
+-Interpretación
 
-Esta regresión comprueba la hipotesis de que a cada unidad que aumente la desigualdad de género, disminuye la percpeción de la corrupción (la pendiente: -0.008, ademas el modelo presenta un p.value menor a 0.05 por lo que el modelo es significativo. Tambien, lo confirman los asterisco donde es probable menos de 0.001% que no tenga efecto. En este modelo la variable urbanización explica un 35.3% la desigualdad de género que es muy reducido.
+Esta regresión comprueba la hipótesis de que a cada unidad que aumente la desigualdad de género, disminuye la percepción de la corrupción (la pendiente: -0.008). Además, el modelo presenta un p-value menor a 0.05, por lo que el modelo es significativo. También, lo confirman los asteriscos donde es probable menos de 0.001% que  tenga efecto. 
+En este modelo la variable urbanización explica un 35.3% la desigualdad de género, siendo significativamente mayor que el modelo anterior. 
+
 
 ### Regresión lineal múltiple
 
 ```{r, echo=FALSE}
 regresion_may = lm(genero ~ urban + scoremilitar + corru, data=data)
-summary(regresion_may)
 ```
 
 ```{r, echo=FALSE}
@@ -463,9 +467,9 @@ modelsummary(modele4, title = "Regresion Lineal 4",
 
 - Interpretación: 
 
-A partir del R^ajustado se sabe que este modelo explica un 45.9% de la desigualdad de género, además el p-value es menor a 0.05 por lo que se acepta que el modelo es válido. Ahora, en cuánto a los p-value de cada variable, se sabe que el indice de percepcion de la corrupción es la que mas aporta, además ello se refleja con los asteriscos que quiere decir  es muy poco probable (menos de 0.001% )que no tenga efecto). En cuanto a la varaible urbanizacion también tiene un p-value menor a 0.05 es decir que no aporta significaticamente a la explicacion de la variable dependiente donde  es muy poco probable (menos de 0.01% )que no tenga efecto . Por otro lado la militarizacion(gmi) tienen un p-value mayor a 0.05 por lo que no aporta significtivamente al modelo.  Por último tenemos la siguiente ecuación: 
+A partir del R ajustado se sabe que este modelo explica un 45.9% de la desigualdad de género. Además, el p-value es menor a 0.05, por lo que se acepta que el modelo es válido. Ahora, en cuánto a los p-value de cada variable, se sabe que el índice de percepción de la corrupción es la que más aporta, además ello se refleja con los asteriscos que quiere decir  es muy poco probable (menos de 0.001% que no tenga efecto). En cuanto a la variable urbanización, también tiene un p-value menor a 0.05, es decir que no aporta significativamente a la explicación de la variable dependiente donde es muy poco probable (menos de 0.01%) que no tenga efecto. Por otro lado, la militarización (GMI) tienen un p-value mayor a 0.05, por lo que no aporta significativamente al modelo.  Por último tenemos la siguiente ecuación: 
 
-VD = 0.848 + (−0.002* urban) +(0* gmi)+(-0.007*corrupcion)
+$VD = 0.848 + (−0.002* urban) +(0* gmi)+(-0.007*corrupcion)$
 
 ### Supuestos 
 
@@ -474,15 +478,15 @@ par(mfrow = c(2, 2))
 plot(regresion_may, 1,caption = '');title(main="Linealidad")
 plot(regresion_may, 2, caption = '');title(main="Normalidad")
 plot(regresion_may, 3, caption = '');title(main="Homocedasticidad")
-plot(regresion_may, 5, caption = '');title(main="Influyentes")
+plot(regresion_may, 4, caption = '');title(main="Influyentes")
 ```
 
 
 - Interpretación: 
 
-    - Linealidad: De el último modelo con las tres variables,  se asumen una relación lineal, en el caso del modelo la linea roja tiende a ser horizontal y se encuentr cercano a 0. Solo en dos ocasiones la linea se aleja de 0, pero en general se puede asumir linealidad. 
+    - Linealidad: Del último modelo con las tres variables,  se asumen una relación lineal, en el caso del modelo la línea roja tiende a ser horizontal y se encuentra cercano a 0. Solo en dos ocasiones la línea se aleja de 0, pero en general se puede asumir linealidad. 
     
-    - Homocedasticidad: Se presenta una linea no del todo horizontal, lo que parece ligeramente que las varianzas de los errores de estimación no son constantes en el modelo de regresión. Sin embargo, al realizar la prueba nos da un p-value mayor a 0.05 lo que indica que hay homocedasticidad contradiciendo lo anterior. De manera que si presenta homocedasticidad. 
+    - Homocedasticidad: Se presenta una línea no del todo horizontal, lo que parece ligeramente que las varianzas de los errores de estimación no son constantes en el modelo de regresión. Sin embargo, al realizar la prueba nos da un p-value mayor a 0.05, lo que indica que hay homocedasticidad contradiciendo lo anterior. De manera que sí presenta homocedasticidad.  
     
     
 ```{r, echo=FALSE}
@@ -490,7 +494,8 @@ library(lmtest)
 bptest(regresion_may)
 ```
 
-    - Normalidad de residuos: Los puntos de se acercan lo mas posible a la línea del gráfico, además el p-value obtenido de la prueba es mayor a 0.05. Lo que nos indica que la distancia entre el valor esperado y el observado se distribuye de manera normal. 
+    - Normalidad de residuos: Los puntos de se acercan lo más posible a la línea del gráfico, además el p-value obtenido de la prueba es mayor a 0.05. Lo que nos indica que la distancia entre el valor esperado y el observado se distribuye de manera normal.
+   
     
 ```{r, echo=FALSE}
 shapiro.test(regresion_may$residuals)
@@ -504,6 +509,19 @@ VIF(regresion_may)
 ```
 
 
+## Comparación de modelos
+
+```{r, echo=FALSE}
+library(stargazer)
+stargazer(modelo4, regresion_may, regresion4, type = "text",intercept.bottom = FALSE,style="all2")
+```
+
+Entre los tres modelos trabajados, el modelo uno tiene mayor porcentaje de explicación. Explica un 75.1% al índice de desigualdad de género (variable dependiente). Las variables independientes consideradas son significativas, ya que al tener tres asteriscos quiere decir que es muy poco probable (menos del 0.01%) que las variables no tengan efecto en la variable dependiente. Y es el modelo más válido. 
+
+Por otro lado, el segundo mejor modelo que explica mejor la variable dependiente es el que incluye las variables independientes (urban, scoremilitar, corru) con un 44.2% de significancia. En cuanto a las variables, dos de ellas (urban, corru) son significativas.  
+
+Y finalmente, el tercer modelo es el que menor porcentaje de explicación tiene para la variable dependiente con un 29.5% de significancia. Las varibles Growth e Unaffiliated son las más significativas para este modelo al presentar 3 asteriscos. Por otro lado, la variable demo es menos significativa que las anteriores al presentar solo 2.  
+
 ## Regresion lineal múltiple (9 variables)
 
 ```{r, echo=FALSE}
@@ -515,54 +533,39 @@ modelsummary(model5, title = "Regresion Lineal 5",
 ```
 
 
-El modelo es válido de acuerdo al p - value del F - estadístico, puesto que su p - value es menor a 0.05. De la misma manera, tiene una predictibilidad del 80.7% determinada por el R2 ajustado. En base a ello, podemos afirmar que el modelo es bastante explicativo. Identificamos que, tanto variables como la de derechos civiles, democracia, militarización y el coeficiente gini no aportan significativamente al modelo, porque sus p - values son mayores a 0.05. 
+El modelo es válido de acuerdo al p - value del F - estadístico, puesto que su p - value es menor a 0.05. De la misma manera, tiene una predictibilidad del 80.7% determinada por el R2 ajustado. Con base en ello, podemos afirmar que el modelo es bastante explicativo. Identificamos que, tanto variables como la de derechos civiles, democracia, militarización y el coeficiente gini no aportan significativamente al modelo, porque sus p - value son mayores a 0.05. 
 
-Debido a ello, podemos afirmar que el índice de desarrollo humano, el porcentaje de población urbana, el índice de corrupción, el índice de crecimiento económico y el índice de democracia son las variables que tienen un efecto significativo sobre el índice de desigualdad de género. Significa que a mayor desarrollo urbano, menor desigualdad de género. 
+Debido a ello, podemos afirmar que el índice de desarrollo humano, el porcentaje de población urbana, el índice de corrupción, el índice de crecimiento económico y el índice de democracia son las variables que tienen un efecto significativo sobre el índice de desigualdad de género.
 
 
-```{r, echo=FALSE}
-stargazer(modelo4, regresion_may, regresion4, type = "text",intercept.bottom = FALSE,style="all2")
-```
-
-Entre los tres modelos trabajados, el modelo uno tiene mayor porcentaje de explicación. Explica un 75.1% al índice de desigualdad de género (variable dependiente). Las variables independientes consideradas son significativas, ya que al tener tres asteriscos quiere decir que es muy poco probable (menos del 0.01%) que las variables no tengan efecto en la variable dependiente. Y es el modelo más válido. 
-
-Por otro lado, el segundo mejor modelo que explica mejor la variable dependiente es el que incluye las variables independientes (urban, scoremilitar, corru) con un 44.2% de significancia. En cuanto a las variables, dos de ellas (urban, corru) son significativas.  
-
-Y finalmente, el tercer modelo es el que menor porcentaje de explicación tiene para la variable dependiente con un 29.5% de significancia. Las varibles Growth e Unaffiliated son las más significativas para este modelo al presentar 3 asteriscos. Por otro lado, la variable demo es menos significativa que las anteriores al presentar solo 2.  
 
 # 3. Análisis factorial
 
-No se realizará un análisis factorial en este trabajo, puesto que nuestras variables se tratan de índices compuestos anteriormente por otras variables. Es decir, las dimensiones latentes restantes ya no aplican para este análisis. 
+No se realizará un análisis factorial en este trabajo, puesto que nuestras variables se tratan de índices compuestos anteriormente por otros indicadores. Es decir, las variables latentes que están siendo empleadas ya no aplican para este análisis. 
 
 
 # 4. Análisis de conglomerados
 
 En esta sección, se busca elaborar subconjuntos por medio de las variables dependientes utilizadas:
 
-Creamos otra data únicamente con las variables dependientes y reemplazamos el número de las filas por el de los países correspondientes:
+Creamos otra data únicamente con las variables independientes y reemplazamos el número de las filas por el de los países correspondientes.
 
 ```{r, echo=FALSE}
 dataClus=data[,c(4:12)]
 row.names(dataClus)=data$country
 ```
 
-Estandarizamos la base de datos: 
-
 ```{r, echo=FALSE}
 library(BBmisc)
 dataClus=normalize(dataClus,method='standardize')
 ```
 
-```{r}
-boxplot(normalize(dataClus,method='standardize'))
-```
-
-Y realizamos el cálculo de matrices de distancia.
-
 ```{r, echo=FALSE}
 library(cluster)
 g.dist = daisy(dataClus, metric="gower")
 ```
+
+A continuación, realizaremos tres estrategias de partición. 
 
 ## Estrategia de partición 
 
@@ -573,11 +576,12 @@ library(factoextra)
 fviz_nbclust(dataClus, pam,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F)
 ```
 
-En este caso, a pesar de que el número óptimo es 1, emplearemos 3 clusters para realizar el análisis:
+En este caso, a pesar de que el número óptimo es 1, emplearemos 3 clusters para realizar el análisis.
 
 ```{r, echo=FALSE}
 library(kableExtra)
 library(magrittr)
+
 set.seed(123)
 res.pam=pam(g.dist,3,cluster.only = F)
 
@@ -591,13 +595,16 @@ tabla1 = select(dataClus,c(10))
 head(tabla1,15)%>%kbl()%>%kable_styling()
 ```
 
-Observamos la siluetas: 
+Observamos las silhouettes:
 
 ```{r, echo=FALSE}
 fviz_silhouette(res.pam,print.summary = F)
 ```
 
-Observamos el número de casos mal clusterizados: 
+Observamos que la pertenencia de cada caso a los clusters generados en su mayoría es positiva. Sin embargo, se evidencian casos mal clusterizados. 
+
+
+Determinamos los casos mal clusterizados: 
 
 ```{r, echo=FALSE}
 silPAM=data.frame(res.pam$silinfo$widths)
@@ -611,26 +618,23 @@ Observamos el orden de las etiquetas:
 ```{r, echo=FALSE}
 aggregate(.~ pam, data=dataClus,mean)
 ```
+Como no estaban en orden, las reorganizamos y recodificamos. 
 
-Como no estaban en orden, las reorganizamos: 
-
-```{r}
+```{r, echo=FALSE}
 original=aggregate(.~pam, data=dataClus,mean)
 original[order(original$corru),]
 ```
 
-Recodificamos las etiquetas: 
-
-```{r}
+```{r, echo=FALSE}
 dataClus$pam=dplyr::recode(dataClus$pam, `1` = 1, `3`=2,`2`=3)
 ```
-
 
 ```{r, echo=FALSE}
 data$pampoor=data$country%in%poorPAM
 data$pam=as.ordered(dataClus$pam)
 dataClus$pam=NULL
 ```
+
 
 ## Estrategia jerárquica
 
@@ -683,19 +687,17 @@ Observamos el promedio de cada clusters:
 ```{r, echo=FALSE}
 aggregate(.~ agnes, data=dataClus,mean)
 ```
-Reordenamos el promedio de las etiquetas:
-```{r}
+
+Reordenamos las etiquetas y las recodificamos.
+
+```{r, echo=FALSE}
 original=aggregate(.~agnes, data=dataClus,mean)
 original[order(original$corru),]
 ```
 
-Recodificamos las etiquetas: 
-
-```{r}
+```{r, echo=FALSE}
 dataClus$agnes=dplyr::recode(dataClus$agnes, `1` = 1, `3`=2,`2`=3)
 ```
-
-Guardamos la columna de AGNES en la data integrada, y la eliminamos de dataClus.
 
 ```{r, echo=FALSE}
 data$agnespoor=data$country%in%poorAGNES
@@ -703,20 +705,16 @@ data$agnes=as.ordered(dataClus$agnes)
 dataClus$agnes=NULL
 ```
 
-Finalmente,comparamos la estrategia jerárquica con la de partición: 
-
-```{r, echo=FALSE}
-table(data$pam,data$agnes,dnn = c('Particion','Aglomeracion'))
-```
 
 ### Estrategia Divisiva
+
 Por último, decidimos el número óptimo de clusters por medio de diana: 
 
 ```{r, echo=FALSE}
 fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F,hc_func = "diana")
 ```
 
-A pesar de que el número óptimo es, usaremos 3 clusters: 
+A pesar de que el número óptimo es 1, usaremos 3 clusters: 
 
 ```{r, echo=FALSE}
 set.seed(123)
@@ -735,11 +733,15 @@ Miramos el proceso de conglomeración por medio del dendograma:
 # Visualize
 fviz_dend(res.diana, cex = 0.7, horiz = T, main = "")
 ```
-Miramos el número de siluetas: 
+
+
+El número de siluetas: 
 
 ```{r, echo=FALSE}
 fviz_silhouette(res.diana,print.summary = F)
 ```
+
+
 Observamos el número de países mal clusterizados: 
 
 ```{r, echo=FALSE}
@@ -748,7 +750,8 @@ silDIANA$country=row.names(silDIANA)
 poorDIANA=silDIANA[silDIANA$sil_width<0,'country']%>%sort()
 poorDIANA
 ```
-Exploramos el promedio de cada clusters: 
+
+Exploramos el promedio de cada cluster: 
 
 ```{r, echo=FALSE}
 aggregate(.~ diana, data=dataClus,mean)
@@ -756,23 +759,21 @@ aggregate(.~ diana, data=dataClus,mean)
 
 Reordenamos las etiquetas: 
 
-```{r}
+```{r, echo=FALSE}
 original=aggregate(.~ diana, data=dataClus,mean)
-original[order(original$corru),]
-```
-Recodificamos: 
-
-```{r}
-dataClus$diana=dplyr::recode(dataClus$diana, `3` = 1, `1`=2,`2`=3)
+original[order(original$genero),]
 ```
 
-Guardamos la columna de DIANA en la data integrada, y la eliminamos de dataClus.
+```{r, echo=FALSE}
+dataClus$diana=dplyr::recode(dataClus$diana, `3` = 1, `2`=2,`1`=3)
+```
 
 ```{r, echo=FALSE}
 data$dianapoor=data$country%in%poorDIANA
 data$diana=as.ordered(dataClus$diana)
 dataClus$diana=NULL
 ```
+
 
 ## Visualización comparativa
 
@@ -786,15 +787,9 @@ data$dim1 <- proyeccion$points[,1]
 data$dim2 <- proyeccion$points[,2]
 ```
 
-```{r}
-library(ggrepel)
-base= ggplot(data,aes(x=dim1, y=dim2,label=row.names(dataClus))) 
-base + geom_text_repel(size=3, max.overlaps = 50,min.segment.length = unit(0, 'lines'))
-```
-
 **Gráfica vía PAM**
 
-```{r}
+```{r, echo=FALSE}
 # solo paises mal clusterizados
 PAMlabels=ifelse(data$pampoor,data$country,'')
 
@@ -814,7 +809,7 @@ pamPlot + geom_text_repel(size=4,
 
 **Gráfica via AGNES**
 
-```{r}
+```{r, echo=FALSE}
 # solo paises mal clusterizados
 AGNESlabels=ifelse(data$agnespoor,data$country,'')
 
@@ -845,12 +840,11 @@ dianaPlot + geom_text_repel(size=4,
                             min.segment.length = unit(0, 'lines'))
 ```
 
+## Mapa mundial de conglomerados
 
 ```{r, echo=FALSE}
 data$diana = factor(data$diana, levels = c(1:3))
 ```
-
-### Mapa mundial de conglomerados
 
 ```{r, echo=FALSE}
 newNames= c('iso3', 'status', 'code', 'country', 'continent', 'region', 'iso_3166_1_', 'french_shor', 'geometry')
@@ -869,7 +863,7 @@ mapaleyL= mapaleyendaL + geom_sf(data=mapDEP2,
       
 mapa4 = mapaleyL +
 coord_sf() + 
-scale_fill_manual(values=c("#28E2E5","#22976E", "#DF536B")) + theme_void() +
+scale_fill_manual(values=c("#233d4d","#fe7f2d", "#d62828")) + theme_void() +
   
   
 theme(axis.title = element_blank(), axis.text = element_blank(), legend.position=c(0.95,1), 
